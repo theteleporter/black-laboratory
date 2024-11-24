@@ -3,7 +3,19 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-const projectCategories = {
+type Project = {
+  name: string;
+  url: string;
+  type: 'internal' | 'external';
+};
+
+type ProjectCategories = {
+  v0: Project[];
+  engineering: Project[];
+  shipped: Project[];
+};
+
+const projectCategories: ProjectCategories = {
   v0: [
     { name: "MINIMALIST DESIGN", url: "/minimalist-design", type: "internal" },
     { name: "TYPOGRAPHY EXPLORATION", url: "/typography-exploration", type: "internal" },
@@ -47,7 +59,7 @@ export default function ProjectList() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const categories = Object.keys(projectCategories);
+      const categories = Object.keys(projectCategories) as (keyof ProjectCategories)[];
       const randomCategory = categories[Math.floor(Math.random() * categories.length)];
       const randomIndex = Math.floor(Math.random() * projectCategories[randomCategory].length);
 
@@ -79,7 +91,7 @@ export default function ProjectList() {
         <div key={category}>
           <h2 className="text-stone-500 font-thin text-lg">{category}</h2>
           <ul className="mt-2">
-            {displayNames[category].map((name, index) => (
+            {displayNames[category as keyof typeof displayNames].map((name, index) => (
               <li key={index} className="text-sm">
                 {projects[index].type === 'internal' ? (
                   <Link
