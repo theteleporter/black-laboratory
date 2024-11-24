@@ -86,10 +86,10 @@ export default function ProjectList() {
   }, []);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-2">
       {Object.entries(projectCategories).map(([category, projects]) => (
         <div key={category}>
-          <h2 className="text-stone-400 font-thin uppercase border-b border-[#161614]">{category}</h2>
+          <h2 className="text-stone-300 font-thin uppercase border-b border-[#090909]">{category}</h2>
           <ul>
             {displayNames[category as keyof typeof displayNames].map((name, index) => (
               <li key={index} className="text-sm">
