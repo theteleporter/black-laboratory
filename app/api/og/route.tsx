@@ -53,7 +53,7 @@ export async function GET() {
         {
           name: 'Geist',
           data: await loadGoogleFont('Geist', text),
-          style: 'mono',
+          style: 'normal',
         },
       ],
     },
