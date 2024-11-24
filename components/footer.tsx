@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 
 export default function Footer() {
   const [formattedDate, setFormattedDate] = useState('');
+  const [isSpinning, setIsSpinning] = useState(false);
 
   useEffect(() => {
     const updateDate = () => {
@@ -27,13 +28,34 @@ export default function Footer() {
     return () => clearInterval(interval);
   }, []);
 
+  // Handle the fast spinning and pausing
+  useEffect(() => {
+    const spinInterval = setInterval(() => {
+      setIsSpinning((prev) => !prev); // Toggle spin state every 3 seconds
+    }, 6000); // 6 seconds total (3 seconds spin + 3 seconds pause)
+
+    return () => clearInterval(spinInterval);
+  }, []);
+
   return (
     <footer className="mt-16 pb-8 text-xs font-extralight text-stone-300">
       <div className="pt-8">
         <p>{formattedDate} BLACK LABS</p>
-        <p>/ <a href="https://theteleporter.me" className="text-stone-400 hover:cursor-pointer">THE TELEPORTER</a></p>
+        <p className="flex items-center space-x-2">
+          <span
+            className={`${
+              isSpinning ? 'spin-animation' : ''
+            } inline-block`}
+            style={{
+              transition: 'transform 0.5s linear', // Fast rotation
+              transform: isSpinning ? 'rotate(360deg)' : 'none', // Toggle rotation
+            }}
+          >
+            /
+          </span>
+          <a href="https://theteleporter.me" className="text-stone-400 hover:cursor-pointer">THE TELEPORTER</a>
+        </p>
       </div>
     </footer>
   );
 }
-
