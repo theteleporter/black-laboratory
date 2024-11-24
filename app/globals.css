@@ -29,6 +29,6 @@ a:hover {
 }
 
 
- a, button {
+ a:hover, button:hover {
   -webkit-tap-highlight-color: initial !important;
 }
