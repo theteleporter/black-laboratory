@@ -17,7 +17,7 @@ type ProjectCategories = {
 
 const projectCategories: ProjectCategories = {
   v0: [
-    { name: "MINIMALIST DESIGN", url: "/minimalist-design", type: "internal" },
+    { name: "ROBOT HEAD", url: "/experiments/robot-head", type: "internal" },
     { name: "TYPOGRAPHY EXPLORATION", url: "/typography-exploration", type: "internal" },
     { name: "MONOCHROME STUDIES", url: "/monochrome-studies", type: "internal" },
   ],
