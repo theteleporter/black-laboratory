@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
-import gsap from "gsap";
 import { Leva, useControls } from "leva";
+import Link from 'next/link'
 
 const Teleball: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -104,7 +104,6 @@ const Teleball: React.FC = () => {
       lensLight.intensity = lensIntensity;
       camera.position.z = cameraZoom;
       headMaterial.color.set(headColor);
-      textMesh.material.color.set(textColor);
 
       controls.update();
       renderer.render(scene, camera);
@@ -118,10 +117,54 @@ const Teleball: React.FC = () => {
   }, [headColor, metalness, roughness, clearcoat, lensIntensity, textColor, cameraZoom]);
 
   return (
-    <>
+    <div className="relative">
       <Leva collapsed />
       <canvas ref={canvasRef} className="absolute top-0 left-0 z-10" />
-    </>
+      {/* Back to Black Labs */}
+      <Link
+        href="/"
+        className="absolute top-4 left-4 z-20 bg-gray-800 text-white p-2 rounded-lg flex items-center shadow-lg hover:bg-gray-700 transition"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-5 h-5 mr-2"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15.75 19.5L8.25 12l7.5-7.5"
+          />
+        </svg>
+        Back to Lab
+      </Link>
+      {/* Source Code */}
+      <a
+        href="https://github.com/theteleporter/lab"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute bottom-4 left-4 z-20 bg-gray-800 text-white p-2 rounded-lg flex items-center shadow-lg hover:bg-gray-700 transition"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-5 h-5 mr-2"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M10.5 6h7.5m-7.5 6h7.5m-7.5 6h7.5m-10.5-6H5.25m3.75-6H5.25m3.75 12H5.25"
+          />
+        </svg>
+        Source
+      </a>
+    </div>
   );
 };
 
