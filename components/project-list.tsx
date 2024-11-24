@@ -59,7 +59,7 @@ export default function ProjectList() {
   return (
     <ul className="">
       {displayNames.map((name, index) => (
-        <li key={index} className="text-lg">
+        <li key={index} className="text-sm">
           {projects[index].type === 'internal' ? (
             <Link
               href={projects[index].url}
