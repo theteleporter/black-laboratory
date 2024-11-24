@@ -20,7 +20,7 @@ const projects = [
   { name: "COLOR THEORY", url: "https://color-theory.org", type: "external" }
 ]
 
-function traceScramble(original) {
+function traceScramble(original: string): string {
   // Scramble some characters in the string
   const characters = original.split('');
   for (let i = 0; i < characters.length; i++) {
@@ -30,6 +30,7 @@ function traceScramble(original) {
   }
   return characters.join('');
 }
+
 
 export default function ProjectList() {
   const [displayNames, setDisplayNames] = useState(projects.map((p) => p.name));
