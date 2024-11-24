@@ -54,7 +54,7 @@ export async function GET() {
           name: 'Geist',
           data: await loadGoogleFont('Geist+Mono', text),
           style: 'normal',
-          font-weight: 900;
+          fontWeight: 900;
         },
       ],
     },
