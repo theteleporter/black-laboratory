@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Black Labs | The Teleporter",
+  title: "Black Labs by The Teleporter",
   description: "Welcome to my labs. Here you\'ll find experiments and work I\'ve done. I love designing and drawing things so I just explore ideas that will give me advanced knowledge in certain concepts.",
 };
 
