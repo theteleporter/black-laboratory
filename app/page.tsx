@@ -1,5 +1,5 @@
-import ProjectList from '../components/project-list'
-import Footer from '../components/footer'
+import ProjectList from '../../components/project-list'
+import Footer from '../../components/footer'
 
 export default function Home() {
   return (
