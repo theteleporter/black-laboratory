@@ -86,11 +86,11 @@ export default function ProjectList() {
   }, []);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {Object.entries(projectCategories).map(([category, projects]) => (
         <div key={category}>
-          <h2 className="text-stone-300 font-thin uppercase">{category}</h2>
-          <ul className="">
+          <h2 className="text-stone-400 font-thin uppercase border-b border-[#161614]">{category}</h2>
+          <ul>
             {displayNames[category as keyof typeof displayNames].map((name, index) => (
               <li key={index} className="text-sm">
                 {projects[index].type === 'internal' ? (
