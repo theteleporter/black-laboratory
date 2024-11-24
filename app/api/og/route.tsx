@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
  
 async function loadGoogleFont (font: string, text: string) {
-  const url = `https://fonts.googleapis.com/css2?family=${font}&text=${encodeURIComponent(text)}`
+  const url = `https://fonts.googleapis.com/css2?family=${font}:wght@900&text=${encodeURIComponent(text)}`
   const css = await (await fetch(url)).text()
   const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/)
  
@@ -54,7 +54,6 @@ export async function GET() {
           name: 'Geist',
           data: await loadGoogleFont('Geist+Mono', text),
           style: 'normal',
-          fontWeight: 900,
         },
       ],
     },
