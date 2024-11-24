@@ -10,24 +10,24 @@ type Project = {
 };
 
 type ProjectCategories = {
-  v0: Project[];
-  engineering: Project[];
+  experiments: Project[];
+  animations: Project[];
   shipped: Project[];
 };
 
 const projectCategories: ProjectCategories = {
-  v0: [
+  experiments: [
     { name: "ROBOT HEAD", url: "/experiments/robot-head", type: "internal" },
-    { name: "TYPOGRAPHY EXPLORATION", url: "/typography-exploration", type: "internal" },
+    { name: "TELEBALL", url: "https://ball.theteleporter.me", type: "internal" },
     { name: "MONOCHROME STUDIES", url: "/monochrome-studies", type: "internal" },
   ],
-  engineering: [
-    { name: "GRID SYSTEMS", url: "/grid-systems", type: "internal" },
+  animations: [
+    { name: "STRALUR", url: "https://ship.theteleporter.me/aff", type: "external" },
     { name: "NEGATIVE SPACE", url: "/negative-space", type: "internal" },
     { name: "FUNCTIONAL AESTHETICS", url: "/functional-aesthetics", type: "internal" },
   ],
   shipped: [
-    { name: "GEOMETRIC PATTERNS", url: "/geometric-patterns", type: "internal" },
+    { name: "CREPT STUDIO", url: "https://crept.studio", type: "external" },
     { name: "CLEAN INTERFACES", url: "/clean-interfaces", type: "internal" },
     { name: "VISUAL HIERARCHY", url: "/visual-hierarchy", type: "internal" },
     { name: "SIMPLICITY IN FORM", url: "/simplicity-in-form", type: "internal" },
