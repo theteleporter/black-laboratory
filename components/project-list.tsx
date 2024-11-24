@@ -11,29 +11,29 @@ type Project = {
 
 type ProjectCategories = {
   experiments: Project[];
-  animations: Project[];
-  shipped: Project[];
+  materials: Project[];
 };
 
 const projectCategories: ProjectCategories = {
   experiments: [
     { name: "ROBOT HEAD", url: "/experiments/robot-head", type: "internal" },
-    { name: "TELEBALL", url: "https://ball.theteleporter.me", type: "internal" },
-    { name: "MONOCHROME STUDIES", url: "/monochrome-studies", type: "internal" },
-  ],
-  animations: [
-    { name: "STRALUR", url: "https://ship.theteleporter.me/aff", type: "external" },
-    { name: "NEGATIVE SPACE", url: "/negative-space", type: "internal" },
-    { name: "FUNCTIONAL AESTHETICS", url: "/functional-aesthetics", type: "internal" },
-  ],
-  shipped: [
+    { name: "TELEBALL", url: "https://ball.theteleporter.me", type: "external" },
     { name: "CREPT STUDIO", url: "https://crept.studio", type: "external" },
-    { name: "CLEAN INTERFACES", url: "/clean-interfaces", type: "internal" },
-    { name: "VISUAL HIERARCHY", url: "/visual-hierarchy", type: "internal" },
-    { name: "SIMPLICITY IN FORM", url: "/simplicity-in-form", type: "internal" },
-    { name: "DESIGN SYSTEMS", url: "https://example.com", type: "external" },
-    { name: "MODERN UI", url: "https://ui.design", type: "external" },
-    { name: "COLOR THEORY", url: "https://color-theory.org", type: "external" },
+    { name: "STRALUR", url: "https://ship.theteleporter.me/aff", type: "external" },
+    { name: "BROWSER CODE BLOCK", url: "/experiments/browser-code-block", type: "internal" },
+{ name: "SNAKE GAME", url: "/experiments/snake-game", type: "internal" },
+    { name: "LETTER GRAVEYARD", url: "/experiments/letter-graveyard", type: "external" },
+    { name: "LOGO GENERATOR", url: "/experiments/logo-generator", type: "internal" },
+    { name: "COMMAND CARD", url: "/experiments/command-card", type: "internal" },
+    { name: "DYNAMIC AVATAR", url: "/experiments/dynamic-avatar", type: "internal" },
+    { name: "SLIDE TO SUBMIT", url: "/experiments/slide-to-submit", type: "external" },
+    { name: "MORPH TOOLTIP", url: "/experiments/morph-tooltio", type: "internal" },
+    { name: "SPOILER", url: "/experiments/spoiler", type: "internal" },
+  ],
+  materials: [
+    { name: "RAUNO", url: "https://rauno.me", type: "external" },
+    { name: "BASEMENT STUDIO", url: "https://basement.studio", type: "external" },
+    { name: "CMDK", url: "https://cmdk.paco.me", type: "external" },
   ],
 };
 
