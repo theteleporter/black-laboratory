@@ -16,17 +16,17 @@ type ProjectCategories = {
 };
 
 const projectCategories: ProjectCategories = {
-  V0: [
+  v0: [
     { name: "MINIMALIST DESIGN", url: "/minimalist-design", type: "internal" },
     { name: "TYPOGRAPHY EXPLORATION", url: "/typography-exploration", type: "internal" },
     { name: "MONOCHROME STUDIES", url: "/monochrome-studies", type: "internal" },
   ],
-  ENGINEERING: [
+  engineering: [
     { name: "GRID SYSTEMS", url: "/grid-systems", type: "internal" },
     { name: "NEGATIVE SPACE", url: "/negative-space", type: "internal" },
     { name: "FUNCTIONAL AESTHETICS", url: "/functional-aesthetics", type: "internal" },
   ],
-  SHIPPED: [
+  shipped: [
     { name: "GEOMETRIC PATTERNS", url: "/geometric-patterns", type: "internal" },
     { name: "CLEAN INTERFACES", url: "/clean-interfaces", type: "internal" },
     { name: "VISUAL HIERARCHY", url: "/visual-hierarchy", type: "internal" },
@@ -89,7 +89,7 @@ export default function ProjectList() {
     <div className="space-y-8">
       {Object.entries(projectCategories).map(([category, projects]) => (
         <div key={category}>
-          <h2 className="text-stone-200 font-thin">{category}</h2>
+          <h2 className="text-stone-300 font-thin uppercase">{category}</h2>
           <ul className="">
             {displayNames[category as keyof typeof displayNames].map((name, index) => (
               <li key={index} className="text-sm">
