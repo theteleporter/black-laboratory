@@ -40,7 +40,7 @@ export default function AvatarGenerator() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full bg-transparent border-b border-stone-400 py-2 px-0 text-center focus:outline-none focus:border-stone-600 transition-colors"
+            className="w-full bg-transparent border-b border-stone-600 py-2 px-0 text-center focus:outline-none focus:border-[#6f6f6f] transition-colors text-stone-200"
             placeholder="email"
             autoComplete="email"
           />
