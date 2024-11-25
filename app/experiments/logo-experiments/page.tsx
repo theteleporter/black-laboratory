@@ -1,14 +1,13 @@
 'use client'
 
 import React, { useRef, useEffect, useState } from 'react'
-import { Comfortaa, Geist, Press_Start_2P, Abril_Fatface, Courier_Prime } from 'next/font/google'
+import { Comfortaa, Geist, Press_Start_2P, Courier_Prime } from 'next/font/google'
 import { Download, Moon, Sun, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 
 const comfortaa = Comfortaa({ subsets: ['latin'], display: 'swap' })
 const geist = Geist({ weight: '700', subsets: ['latin'], display: 'swap' })
 const pressStart2P = Press_Start_2P({ weight: '400', subsets: ['latin'], display: 'swap' })
-const abrilFatface = Abril_Fatface({ weight: '400', subsets: ['latin'], display: 'swap' })
 const courierPrime = Courier_Prime({ weight: '400', subsets: ['latin'], display: 'swap' })
 
 const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ className, ...props }) => (
@@ -61,16 +60,15 @@ export default function LogoGenerators() {
   const [darkMode, setDarkMode] = useState(false)
   const [currentFontIndex, setCurrentFontIndex] = useState(0)
   const [texts, setTexts] = useState<string[]>([])
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const textRef = useRef<HTMLDivElement>(null)
-
-  const fonts = [
+  const [customFont, setCustomFont] = useState('')
+  const [fonts, setFonts] = useState([
     { name: 'Comfortaa', font: comfortaa, defaultText: 'black labs' },
     { name: 'Geist', font: geist, defaultText: 'Black Labs' },
     { name: 'Press Start 2P', font: pressStart2P, defaultText: 'BLACK LABS' },
-    { name: 'Abril Fatface', font: abrilFatface, defaultText: 'Black Labs' },
     { name: 'Courier Prime', font: courierPrime, defaultText: 'Black Labs' },
-  ]
+  ])
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const textRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     fonts.forEach(({ font }) => {
@@ -112,7 +110,7 @@ export default function LogoGenerators() {
 
     ctx.font = `${fontSize}px "${fontFamily}"`
     const measurements = content.split('').map(char => ctx.measureText(char))
-    
+
     const totalWidth = measurements.reduce((width, measure, i) => {
       return width + measure.width + (i < content.length - 1 ? letterSpacing : 0)
     }, 0)
@@ -200,10 +198,37 @@ export default function LogoGenerators() {
     URL.revokeObjectURL(url)
   }
 
-  const handleTextChange = (e: React.FormEvent<HTMLDivElement>) => {
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTexts = [...texts]
-    newTexts[currentFontIndex] = e.currentTarget.textContent || ''
+    newTexts[currentFontIndex] = e.target.value
     setTexts(newTexts)
+  }
+
+  const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (customFont) {
+      const fontNames = customFont.split(',').map(name => name.trim())
+      const newFonts = await Promise.all(fontNames.map(async (fontName) => {
+        // Load the custom font
+        const link = document.createElement('link')
+        link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(/\s+/g, '+')}`
+        link.rel = 'stylesheet'
+        document.head.appendChild(link)
+
+        await document.fonts.load(`16px "${fontName}"`)
+
+        return {
+          name: fontName,
+          font: { className: '' },
+          defaultText: fontName
+        }
+      }))
+
+      setFonts(prevFonts => [...prevFonts, ...newFonts])
+      setTexts(prevTexts => [...prevTexts, ...newFonts.map(font => font.defaultText)])
+      setCurrentFontIndex(fonts.length)
+      setCustomFont('')
+    }
   }
 
   return (
@@ -213,29 +238,21 @@ export default function LogoGenerators() {
         <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
         <Moon className="h-4 w-4" />
       </div>
-      
+
       <div className="w-full max-w-3xl mb-8">
         <h2 className="text-2xl font-bold mb-4 text-center">{fonts[currentFontIndex].name}</h2>
-        <div
+        <input
           ref={textRef}
-          contentEditable
-          suppressContentEditableWarning
-          spellCheck={false}
-          className={`${fonts[currentFontIndex].font.className} text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-center outline-none mb-8 ${
-            fonts[currentFontIndex].name === 'Press Start 2P' ? 'tracking-wider' : fonts[currentFontIndex].name === 'Comfortaa' ? 'tracking-[0.2em]' : 'tracking-normal'
-          }`}
+          type="text"
+          value={texts[currentFontIndex] || ''}
+          onChange={handleTextChange}
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-center mb-8 w-full bg-transparent focus:outline-none"
           style={{
             wordBreak: 'break-word',
-            WebkitUserSelect: 'text',
-            userSelect: 'text',
+            fontFamily: fonts[currentFontIndex].name,
+            letterSpacing: fonts[currentFontIndex].name === 'Press Start 2P' ? '0.1em' : fonts[currentFontIndex].name === 'Comfortaa' ? '0.2em' : 'normal',
           }}
-          data-gramm="false"
-          data-gramm_editor="false"
-          data-enable-grammarly="false"
-          onInput={handleTextChange}
-        >
-          {texts[currentFontIndex]}
-        </div>
+        />
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <Button
             onClick={() => generateImage('png')}
@@ -256,12 +273,23 @@ export default function LogoGenerators() {
           onPageChange={setCurrentFontIndex}
         />
       </div>
-      
+
+      <form onSubmit={handleAddCustomFont} className="flex gap-2 mb-4">
+        <input
+          type="text"
+          value={customFont}
+          onChange={(e) => setCustomFont(e.target.value)}
+          placeholder="Enter google font name(s)"
+          className="px-2 py-1 border-b border-current focus:border-b-2 focus:outline-none bg-transparent"
+        />
+        <Button type="submit">Add Font(s)</Button>
+      </form>
+
       <canvas ref={canvasRef} style={{ display: 'none' }} />
-      
+
       <div className="mt-8 text-xs text-gray-500">
-        Fonts: 
-        {fonts.map(({ name }, index) => (
+        Fonts:
+{fonts.map(({ name }, index) => (
           <span key={name}>
             <Link
               href={`https://fonts.google.com/specimen/${name.replace(/\s+/g, '+')}`}
