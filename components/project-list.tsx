@@ -20,16 +20,16 @@ const projectCategories: ProjectCategories = {
   experiments: [
     { name: "ROBOT HEAD", url: "/experiments/robot-head", type: "internal" },
     { name: "BROWSER CODE BLOCK", url: "/experiments/browser-code-block", type: "internal" },
-{ name: "STRALUR", url: "https://ship.theteleporter.me/aff", type: "external" },
     { name: "LETTER GRAVEYARD", url: "/experiments/letter-graveyard", type: "internal", forkedFrom: "rauchg" },
     { name: "LOGO GENERATOR", url: "/experiments/logo-experiments", type: "internal", forkedFrom: "rauchg" },
-{ name: "TELEBALL", url: "https://ball.theteleporter.me", type: "external" },
     { name: "COMMAND CARD", url: "/experiments/command-card", type: "internal", forkedFrom: "rauchg" },
     { name: "DYNAMIC AVATAR", url: "/experiments/dynamic-avatar", type: "internal" },
-{ name: "CREPT STUDIO", url: "https://crept.studio", type: "external" },
     { name: "AVATAR MICRO SERVICE", url: "/experiments/avatar-micro-service", type: "internal" },
     { name: "WORD ART", url: "/experiments/word-art", type: "internal", forkedFrom: "rauchg" },
     { name: "FILE TREE", url: "/experiments/file-tree", type: "internal" },
+    { name: "TELEBALL", url: "https://ball.theteleporter.me", type: "external" },
+    { name: "CREPT STUDIO", url: "https://crept.studio", type: "external" },
+    { name: "STRALUR", url: "https://ship.theteleporter.me/aff", type: "external" },
   ],
   materials: [
     { name: "RAUNO", url: "https://rauno.me", type: "external" },
@@ -60,13 +60,21 @@ export default function ProjectList() {
 
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
+  // Sort projects in descending order
+  const sortedProjects = Object.fromEntries(
+    Object.entries(projectCategories).map(([category, projects]) => [
+      category,
+      [...projects].reverse(), // Reverse to make the latest project appear first
+    ])
+  );
+
   useEffect(() => {
     const interval = setInterval(() => {
-      const categories = Object.keys(projectCategories) as (keyof ProjectCategories)[];
+      const categories = Object.keys(sortedProjects) as (keyof ProjectCategories)[];
       const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-      const randomIndex = Math.floor(Math.random() * projectCategories[randomCategory].length);
+      const randomIndex = Math.floor(Math.random() * sortedProjects[randomCategory].length);
 
-      const originalName = projectCategories[randomCategory][randomIndex].name;
+      const originalName = sortedProjects[randomCategory][randomIndex].name;
 
       setDisplayNames((prev) => ({
         ...prev,
@@ -90,11 +98,11 @@ export default function ProjectList() {
 
   return (
     <div className="space-y-5">
-      {Object.entries(projectCategories).map(([category, projects]) => (
+      {Object.entries(sortedProjects).map(([category, projects]) => (
         <div key={category}>
           <h2 className="text-stone-300 font-thin uppercase border-b border-[#212121] max-w-fit">{category}</h2>
           <ul>
-            {projects.reverse().map((project, index) => (
+            {projects.map((project, index) => (
               <li key={index} className="text-sm relative flex items-center justify-center">
                 {project.type === 'internal' ? (
                   <Link
@@ -103,7 +111,7 @@ export default function ProjectList() {
                     onMouseEnter={() => setHoveredProject(project.name)}
                     onMouseLeave={() => setHoveredProject(null)}
                   >
-                    {project.name}
+                    {displayNames[category as keyof typeof displayNames][index]}
                   </Link>
                 ) : (
                   <a
@@ -114,13 +122,15 @@ export default function ProjectList() {
                     onMouseEnter={() => setHoveredProject(project.name)}
                     onMouseLeave={() => setHoveredProject(null)}
                   >
-                    {project.name}
+                    {displayNames[category as keyof typeof displayNames][index]}
                   </a>
                 )}
 
-                {/* Show numbers on hover */}
+                {/* Show number at the end of the link when hovered */}
                 {hoveredProject === project.name && (
-                  <span className="absolute right-0 text-xs text-gray-400">{index + 1}</span>
+                  <div className="absolute right-0 text-xs text-gray-400">
+                    {index + 1} {/* Show number based on the index */}
+                  </div>
                 )}
 
                 {/* Conditional Fork Icon and Message */}
