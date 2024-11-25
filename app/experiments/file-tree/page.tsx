@@ -84,7 +84,7 @@ export default function FileTree() {
       <div className="flex items-center justify-between p-2 border-b border-[#333]">
         <span>Select File</span>
       </div>
-      <div className="file-tree-content p-2">
+      <div className="file-tree-content p-2 overflow-y-auto">
         <FileTreeList items={data} />
       </div>
       <style jsx>{`
@@ -94,18 +94,7 @@ export default function FileTree() {
           flex-direction: column;
         }
         .file-tree-content {
-          overflow-y: auto;
           flex-grow: 1;
-        }
-        .file-tree-content::-webkit-scrollbar {
-          width: 8px;
-        }
-        .file-tree-content::-webkit-scrollbar-track {
-          background: #1e1e1e;
-        }
-        .file-tree-content::-webkit-scrollbar-thumb {
-          background-color: #555;
-          border-radius: 4px;
         }
         .file-tree-item {
           position: relative;
