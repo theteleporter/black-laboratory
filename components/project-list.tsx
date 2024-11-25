@@ -96,7 +96,7 @@ export default function ProjectList() {
           <h2 className="text-stone-300 font-thin uppercase border-b border-[#212121] max-w-fit">{category}</h2>
           <ul>
             {displayNames[category as keyof typeof displayNames].map((name, index) => (
-              <li key={index} className="text-sm relative">
+              <li key={index} className="text-sm relative flex items-center justify-center">
                 {projects[index].type === 'internal' ? (
                   <Link
                     href={projects[index].url}
@@ -121,7 +121,7 @@ export default function ProjectList() {
 
                 {/* Conditional Fork Icon and Message */}
                 {hoveredProject === name && projects[index].forkedFrom && (
-                  <div className="justify-end align-middle text-xs flex items-center gap-1 text-gray-400">
+                  <div className="absolute left-1/2 transform -translate-x-1/2 text-xs flex items-center gap-1 text-gray-400">
                     <GitBranch size={14} />
                     <span>Forked cc: {projects[index].forkedFrom}</span>
                   </div>
