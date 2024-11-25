@@ -1,3 +1,5 @@
+'use client'
+
 import { Canvas, extend, useFrame } from '@react-three/fiber'
 import { OrbitControls, shaderMaterial, Torus, Sphere, TorusKnot, Html } from '@react-three/drei'
 import React, { useRef, useState } from 'react'

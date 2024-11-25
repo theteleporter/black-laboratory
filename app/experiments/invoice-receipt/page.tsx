@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useRef } from 'react';
 import { Copy, MoreHorizontal, ImageDown } from 'lucide-react';
 
