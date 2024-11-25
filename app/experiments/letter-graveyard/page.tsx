@@ -3,6 +3,13 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import Matter from 'matter-js'
 
+declare module 'matter-js' {
+  interface IBodyRenderOptions {
+    text?: string;
+    fillStyle?: string;
+  }
+}
+
 export default function FallingTextarea() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -82,7 +89,7 @@ export default function FallingTextarea() {
 
         const width = body.bounds.max.x - body.bounds.min.x
         const height = body.bounds.max.y - body.bounds.min.y
-
+        
         if (showBorders) {
           context.strokeStyle = '#ffffff'
           context.strokeRect(-width / 2, -height / 2, width, height)
@@ -253,7 +260,7 @@ export default function FallingTextarea() {
 }`
 
   return (
-    <div className="w-screen h-dvh overflow-hidden bg-black">
+    <div className="w-screen h-dvh overflow-hidden bg-[#161616]">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
       <div className="absolute top-4 right-4 flex items-center z-50">
         <label className="flex items-center cursor-pointer">
@@ -261,7 +268,7 @@ export default function FallingTextarea() {
             type="checkbox"
             checked={showBorders}
             onChange={(e) => setShowBorders(e.target.checked)}
-            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            className="w-4 h-4 text-blue-600 bg-gray-100 border-stone-600 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
           />
           <span className="ml-2 text-sm font-medium text-gray-300">Debug</span>
         </label>
