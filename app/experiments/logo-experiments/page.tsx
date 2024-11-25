@@ -4,6 +4,13 @@ import React, { useRef, useEffect, useState } from 'react'
 import { Comfortaa, Geist, Press_Start_2P, Courier_Prime } from 'next/font/google'
 import { Download, Moon, Sun, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
+import type { NextFont } from 'next/dist/compiled/@next/font'
+
+interface FontConfig {
+  name: string;
+  font: NextFont | { className: string; style: { fontFamily: string } };
+  defaultText: string;
+}
 
 const comfortaa = Comfortaa({ subsets: ['latin'], display: 'swap' })
 const geist = Geist({ weight: '700', subsets: ['latin'], display: 'swap' })
@@ -204,32 +211,40 @@ export default function LogoGenerators() {
     setTexts(newTexts)
   }
 
-  const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (customFont) {
-      const fontNames = customFont.split(',').map(name => name.trim())
-      const newFonts = await Promise.all(fontNames.map(async (fontName) => {
-        // Load the custom font
-        const link = document.createElement('link')
-        link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(/\s+/g, '+')}`
-        link.rel = 'stylesheet'
-        document.head.appendChild(link)
+const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault()
+  if (customFont) {
+    const fontNames = customFont.split(',').map(name => name.trim())
+    const newFonts = await Promise.all(fontNames.map(async (fontName) => {
+      // Load the custom font
+      const link = document.createElement('link')
+      link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(/\s+/g, '+')}`
+      link.rel = 'stylesheet'
+      document.head.appendChild(link)
 
-        await document.fonts.load(`16px "${fontName}"`)
+      await document.fonts.load(`16px "${fontName}"`)
 
-        return {
-          name: fontName,
-          font: { className: '' },
-          defaultText: fontName
-        }
-      }))
+      // a font config that matches the NextFont interface structure
+      const fontConfig: FontConfig = {
+        name: fontName,
+        font: {
+          className: '',
+          style: {
+            fontFamily: fontName
+          }
+        },
+        defaultText: fontName
+      }
 
-      setFonts(prevFonts => [...prevFonts, ...newFonts])
-      setTexts(prevTexts => [...prevTexts, ...newFonts.map(font => font.defaultText)])
-      setCurrentFontIndex(fonts.length)
-      setCustomFont('')
-    }
+      return fontConfig
+    }))
+
+    setFonts(prevFonts => [...prevFonts, ...newFonts])
+    setTexts(prevTexts => [...prevTexts, ...newFonts.map(font => font.defaultText)])
+    setCurrentFontIndex(fonts.length)
+    setCustomFont('')
   }
+}
 
   return (
     <div className={`min-h-screen w-screen flex flex-col items-center justify-center p-8 ${darkMode ? 'bg-[#161616] text-white' : 'bg-white text-black'}`}>
