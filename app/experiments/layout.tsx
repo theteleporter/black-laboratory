@@ -8,14 +8,12 @@ export const metadata: Metadata = {
 }
 
 export default function ExperimentLayout({
-  children,
-  params
+  children
 }: {
-  children: React.ReactNode,
-  params: React.ReactNode
+  children: React.ReactNode
 }) {
   // This is a placeholder. In a real app, you'd determine this based on the actual experiment.
-  const hasSourceCode = true
+ // const hasSourceCode = true
 
   return (
     <div className="min-h-screen bg-[#161616] text-stone-200 p-4 font-mono relative">
@@ -31,15 +29,13 @@ export default function ExperimentLayout({
         {children}
       </main>
 
-      {hasSourceCode && (
         <Link 
           href={`/experiments/${params.experiment}/source`} 
           className="absolute bottom-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 flex items-center gap-2"
         >
           <Code size={24} />
-          <span className="text-sm">Source Code</span>
+         {/** <span className="text-sm">Source Code</span>**/}
         </Link>
-      )}
     </div>
   )
 }
