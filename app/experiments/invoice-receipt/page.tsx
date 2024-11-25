@@ -137,7 +137,10 @@ const DownloadOptions = ({ invoiceRef }: { invoiceRef: React.RefObject<HTMLDivEl
 };
 
 export default function Component(props: Partial<InvoiceProps> = {}) {
-  const { sender, recipient, product, paymentInfo, invoiceNumber, issueDate } = { ...defaultProps, ...props };
+  const { sender, recipient, product, paymentInfo, invoiceNumber, issueDate } = {
+    ...defaultProps,
+    ...props,
+  };
   const total = product.quantity * product.price;
   const invoiceRef = useRef<HTMLDivElement>(null);
 
