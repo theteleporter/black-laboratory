@@ -24,11 +24,11 @@ const projectCategories: ProjectCategories = {
     { name: "STRALUR", url: "https://ship.theteleporter.me/aff", type: "external" },
     { name: "BROWSER CODE BLOCK", url: "/experiments/browser-code-block", type: "internal" },
     { name: "SNAKE GAME", url: "/experiments/snake-game", type: "internal" },
-    { name: "LETTER GRAVEYARD", url: "/experiments/letter-graveyard", type: "external", forkedFrom: "rauchg" },
+    { name: "LETTER GRAVEYARD", url: "/experiments/letter-graveyard", type: "internal", forkedFrom: "rauchg" },
     { name: "LOGO GENERATOR", url: "/experiments/logo-generator", type: "internal", forkedFrom: "rauchg" },
     { name: "COMMAND CARD", url: "/experiments/command-card", type: "internal", forkedFrom: "rauchg" },
     { name: "DYNAMIC AVATAR", url: "/experiments/dynamic-avatar", type: "internal" },
-    { name: "SLIDE TO SUBMIT", url: "/experiments/slide-to-submit", type: "external", forkedFrom: "rauchg" },
+    { name: "SLIDE TO SUBMIT", url: "/experiments/slide-to-submit", type: "internal", forkedFrom: "rauchg" },
     { name: "MORPH TOOLTIP", url: "/experiments/morph-tooltio", type: "internal" },
     { name: "SPOILER", url: "/experiments/spoiler", type: "internal" },
   ],
@@ -123,7 +123,7 @@ export default function ProjectList() {
                 {hoveredProject === name && projects[index].forkedFrom && (
                   <div className="absolute right-0 top-0 text-xs flex items-center gap-1 text-gray-400">
                     <GitBranch size={14} />
-                    <span>Forked cc: {projects[index].forkedBy}</span>
+                    <span>Forked cc: {projects[index].forkedFrom}</span>
                   </div>
                 )}
               </li>
