@@ -1,0 +1,64 @@
+.file-tree-container {
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.file-tree-content {
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.file-tree-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.file-tree-content::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+.file-tree-content::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 4px;
+}
+
+.file-tree-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.file-tree-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+.file-tree-item:hover::after {
+  opacity: 1;
+}
+
+.file-tree-item:active::after {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.folder-content {
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.folder-content.closed {
+  max-height: 0;
+  opacity: 0;
+}
+
+.folder-content.open {
+  max-height: 1000px;
+  opacity: 1;
+}
