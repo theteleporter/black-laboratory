@@ -19,11 +19,7 @@ type ProjectCategories = {
 const projectCategories: ProjectCategories = {
   experiments: [
     { name: "ROBOT HEAD", url: "/experiments/robot-head", type: "internal" },
-    { name: "TELEBALL", url: "https://ball.theteleporter.me", type: "external" },
-    { name: "CREPT STUDIO", url: "https://crept.studio", type: "external" },
-    { name: "STRALUR", url: "https://ship.theteleporter.me/aff", type: "external" },
     { name: "BROWSER CODE BLOCK", url: "/experiments/browser-code-block", type: "internal" },
-    { name: "SNAKE GAME", url: "/experiments/snake-game", type: "internal" },
     { name: "LETTER GRAVEYARD", url: "/experiments/letter-graveyard", type: "internal", forkedFrom: "rauchg" },
     { name: "LOGO GENERATOR", url: "/experiments/logo-experiments", type: "internal", forkedFrom: "rauchg" },
     { name: "COMMAND CARD", url: "/experiments/command-card", type: "internal", forkedFrom: "rauchg" },
@@ -31,6 +27,9 @@ const projectCategories: ProjectCategories = {
     { name: "AVATAR MICRO SERVICE", url: "/experiments/avatar-micro-service", type: "internal" },
     { name: "WORD ART", url: "/experiments/word-art", type: "internal", forkedFrom: "rauchg" },
     { name: "FILE TREE", url: "/experiments/file-tree", type: "internal" },
+{ name: "TELEBALL", url: "https://ball.theteleporter.me", type: "external" },
+    { name: "CREPT STUDIO", url: "https://crept.studio", type: "external" },
+    { name: "STRALUR", url: "https://ship.theteleporter.me/aff", type: "external" },
   ],
   materials: [
     { name: "RAUNO", url: "https://rauno.me", type: "external" },
