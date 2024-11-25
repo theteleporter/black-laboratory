@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Card } from "../../../components/ui/card"
+import { Card } from "../../../components/card"
 import { Download } from "lucide-react"
 import { toPng } from 'html-to-image'
 import { saveAs } from 'file-saver'
