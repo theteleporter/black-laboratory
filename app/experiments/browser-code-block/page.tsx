@@ -5,6 +5,7 @@ import { Card } from "../../../components/card"
 import { Download, Circle, ChevronRight, File } from "lucide-react"
 import { toPng } from 'html-to-image'
 import { saveAs } from 'file-saver'
+import './style.css'
 
 export default function Component() {
   const [isGenerating, setIsGenerating] = useState(false)
