@@ -1,12 +1,12 @@
 'use client'
 
 import React, { useRef, useEffect, useState } from 'react'
-import { Comfortaa, Geist_Sans, Press_Start_2P, Abril_Fatface, Courier_Prime } from 'next/font/google'
+import { Comfortaa, Geist, Press_Start_2P, Abril_Fatface, Courier_Prime } from 'next/font/google'
 import { Download, Moon, Sun, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 
 const comfortaa = Comfortaa({ subsets: ['latin'], display: 'swap' })
-const geist = Geist_Sans({ subsets: ['latin'], display: 'swap' })
+const geist = Geist({ subsets: ['latin'], display: 'swap' })
 const pressStart2P = Press_Start_2P({ weight: '400', subsets: ['latin'], display: 'swap' })
 const abrilFatface = Abril_Fatface({ weight: '400', subsets: ['latin'], display: 'swap' })
 const courierPrime = Courier_Prime({ weight: '400', subsets: ['latin'], display: 'swap' })
