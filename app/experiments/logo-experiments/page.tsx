@@ -65,11 +65,11 @@ export default function LogoGenerators() {
   const textRef = useRef<HTMLDivElement>(null)
 
   const fonts = [
-    { name: 'Comfortaa', font: comfortaa, defaultText: 'jaguar' },
-    { name: 'Geist', font: geist, defaultText: 'Vercel' },
-    { name: 'Press Start 2P', font: pressStart2P, defaultText: 'PIXEL' },
-    { name: 'Abril Fatface', font: abrilFatface, defaultText: 'Elegant' },
-    { name: 'Courier Prime', font: courierPrime, defaultText: 'Typewriter' },
+    { name: 'Comfortaa', font: comfortaa, defaultText: 'black labs' },
+    { name: 'Geist', font: geist, defaultText: 'Black Labs' },
+    { name: 'Press Start 2P', font: pressStart2P, defaultText: 'BLACK LABS' },
+    { name: 'Abril Fatface', font: abrilFatface, defaultText: 'Black Labs' },
+    { name: 'Courier Prime', font: courierPrime, defaultText: 'Black Labs' },
   ]
 
   useEffect(() => {
@@ -210,7 +210,7 @@ export default function LogoGenerators() {
     <div className={`min-h-screen w-screen flex flex-col items-center justify-center p-8 ${darkMode ? 'bg-[#161616] text-white' : 'bg-white text-black'}`}>
       <div className="flex items-center space-x-2 mb-8">
         <Sun className="h-4 w-4" />
-        <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+        <Switch checked={darkMode} onChange={() => setDarkMode(darkMode)} />
         <Moon className="h-4 w-4" />
       </div>
       
