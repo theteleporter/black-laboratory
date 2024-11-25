@@ -72,8 +72,7 @@ export default function FallingTextarea() {
     context.textBaseline = 'middle'
 
     bodies.forEach(body => {
-      // Ensure text property exists on body
-      if (body.render && body.render.text) {
+      if (body.render.text) {
         const { x, y } = body.position
         const angle = body.angle
 
@@ -149,7 +148,7 @@ export default function FallingTextarea() {
     window.addEventListener('resize', handleResize)
 
     // Initialize lastTextRef with the initial text content
-    lastTextRef.current = textareaRef.current?.value || ''
+    lastTextRef.current = codeSnippet
     updateCharPositions()
 
     return () => {
@@ -201,29 +200,88 @@ export default function FallingTextarea() {
       deletedChars.split('').forEach((char, index) => {
         const position = positionsRef.current[startIndex + index]
         if (position) {
-          const body = Bodies.circle(position.x, position.y, 5, {
-            render: {
-              text: char, // Assign the text property here
-              fillStyle: '#ffffff'
+          const { x, y } = position
+          const charWidth = 8.5
+          const charHeight = 17
+
+          const letter = Bodies.rectangle(
+            x + charWidth / 2,
+            y + charHeight / 2,
+            charWidth,
+            charHeight,
+            {
+              restitution: 0.8,
+              friction: 0.005,
+              density: 0.001,
+              render: {
+                fillStyle: '#cccccc',
+                text: char
+              }
             }
-          })
-          Composite.add(engineRef.current.world, body)
+          )
+          Composite.add(sceneRef.current!, letter)
         }
       })
     }
 
     lastTextRef.current = newText
-  }, [])
+    updateCharPositions()
+  }, [updateCharPositions])
+
+  const handleFocus = useCallback(() => {
+    if (isMobile && groundRef.current && engineRef.current) {
+      const textareaBottom = textareaRef.current?.getBoundingClientRect().bottom || 0
+      Matter.Body.setPosition(groundRef.current, Matter.Vector.create(window.innerWidth / 2, textareaBottom + 120)) // Changed from 20 to 120
+    }
+  }, [isMobile])
+
+  const handleBlur = useCallback(() => {
+    if (isMobile && groundRef.current && engineRef.current) {
+      Matter.Body.setPosition(groundRef.current, Matter.Vector.create(window.innerWidth / 2, window.innerHeight))
+    }
+  }, [isMobile])
+
+  const codeSnippet = `function fib(n) {
+  const seq = [0, 1];
+  while (seq.length < n) {
+    const len = seq.length;
+    seq.push(
+      seq[len - 1] + seq[len - 2]
+    );
+  }
+  return seq.slice(0, n);
+}`
 
   return (
-    <div>
-      <textarea
-        ref={textareaRef}
-        onChange={handleTextChange}
-        placeholder="Type here..."
-        style={{ position: 'absolute', top: 10, left: 10 }}
-      />
-      <canvas ref={canvasRef} />
+    <div className="w-screen h-dvh overflow-hidden bg-black">
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+      <div className="absolute top-4 right-4 flex items-center z-50">
+        <label className="flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            checked={showBorders}
+            onChange={(e) => setShowBorders(e.target.checked)}
+            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <span className="ml-2 text-sm font-medium text-gray-300">Debug</span>
+        </label>
+      </div>
+      <div className="absolute inset-x-0 top-0 flex items-start justify-center p-4 sm:inset-0 sm:items-center">
+        <textarea
+          ref={textareaRef}
+          defaultValue={codeSnippet}
+          onChange={handleTextChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          className="w-full max-w-3xl h-60 bg-transparent text-white border border-gray-700 rounded p-4 resize-none focus:outline-none focus:border-blue-500"
+          style={{
+            fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+            fontSize: '14px',
+            lineHeight: '1.5',
+            padding: '16px',
+          }}
+        />
+      </div>
     </div>
   )
 }
