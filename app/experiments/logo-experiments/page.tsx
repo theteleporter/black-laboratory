@@ -6,7 +6,7 @@ import { Download, Moon, Sun, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 
 const comfortaa = Comfortaa({ subsets: ['latin'], display: 'swap' })
-const geist = Geist({ weight: '400', subsets: ['latin'], display: 'swap' })
+const geist = Geist({ weight: '700', subsets: ['latin'], display: 'swap' })
 const pressStart2P = Press_Start_2P({ weight: '400', subsets: ['latin'], display: 'swap' })
 const abrilFatface = Abril_Fatface({ weight: '400', subsets: ['latin'], display: 'swap' })
 const courierPrime = Courier_Prime({ weight: '400', subsets: ['latin'], display: 'swap' })
@@ -66,7 +66,7 @@ export default function LogoGenerators() {
 
   const fonts = [
     { name: 'Comfortaa', font: comfortaa, defaultText: 'jaguar' },
-    { name: 'Geist Sans', font: geist, defaultText: 'Vercel' },
+    { name: 'Geist', font: geist, defaultText: 'Vercel' },
     { name: 'Press Start 2P', font: pressStart2P, defaultText: 'PIXEL' },
     { name: 'Abril Fatface', font: abrilFatface, defaultText: 'Elegant' },
     { name: 'Courier Prime', font: courierPrime, defaultText: 'Typewriter' },
@@ -207,7 +207,7 @@ export default function LogoGenerators() {
   }
 
   return (
-    <div className={`min-h-screen w-screen flex flex-col items-center justify-center p-8 ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
+    <div className={`min-h-screen w-screen flex flex-col items-center justify-center p-8 ${darkMode ? 'bg-[#161616] text-white' : 'bg-white text-black'}`}>
       <div className="flex items-center space-x-2 mb-8">
         <Sun className="h-4 w-4" />
         <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
@@ -239,13 +239,13 @@ export default function LogoGenerators() {
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <Button
             onClick={() => generateImage('png')}
-            className={`${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-gray-800'}`}
+            className={`${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
           >
             Download PNG <Download className="inline-block ml-2 w-4 h-4" />
           </Button>
           <Button
             onClick={() => generateImage('svg')}
-            className={`${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-gray-800'}`}
+            className={`${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
           >
             Download SVG <Download className="inline-block ml-2 w-4 h-4" />
           </Button>
