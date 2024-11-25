@@ -20,16 +20,16 @@ const projectCategories: ProjectCategories = {
   experiments: [
     { name: "ROBOT HEAD", url: "/experiments/robot-head", type: "internal" },
     { name: "BROWSER CODE BLOCK", url: "/experiments/browser-code-block", type: "internal" },
+{ name: "STRALUR", url: "https://ship.theteleporter.me/aff", type: "external" },
     { name: "LETTER GRAVEYARD", url: "/experiments/letter-graveyard", type: "internal", forkedFrom: "rauchg" },
     { name: "LOGO GENERATOR", url: "/experiments/logo-experiments", type: "internal", forkedFrom: "rauchg" },
+{ name: "TELEBALL", url: "https://ball.theteleporter.me", type: "external" },
     { name: "COMMAND CARD", url: "/experiments/command-card", type: "internal", forkedFrom: "rauchg" },
     { name: "DYNAMIC AVATAR", url: "/experiments/dynamic-avatar", type: "internal" },
+{ name: "CREPT STUDIO", url: "https://crept.studio", type: "external" },
     { name: "AVATAR MICRO SERVICE", url: "/experiments/avatar-micro-service", type: "internal" },
     { name: "WORD ART", url: "/experiments/word-art", type: "internal", forkedFrom: "rauchg" },
     { name: "FILE TREE", url: "/experiments/file-tree", type: "internal" },
-{ name: "TELEBALL", url: "https://ball.theteleporter.me", type: "external" },
-    { name: "CREPT STUDIO", url: "https://crept.studio", type: "external" },
-    { name: "STRALUR", url: "https://ship.theteleporter.me/aff", type: "external" },
   ],
   materials: [
     { name: "RAUNO", url: "https://rauno.me", type: "external" },
@@ -94,35 +94,40 @@ export default function ProjectList() {
         <div key={category}>
           <h2 className="text-stone-300 font-thin uppercase border-b border-[#212121] max-w-fit">{category}</h2>
           <ul>
-            {displayNames[category as keyof typeof displayNames].map((name, index) => (
+            {projects.reverse().map((project, index) => (
               <li key={index} className="text-sm relative flex items-center justify-center">
-                {projects[index].type === 'internal' ? (
+                {project.type === 'internal' ? (
                   <Link
-                    href={projects[index].url}
+                    href={project.url}
                     className="inline-block w-full font-light py-1 hover:bg-[#232323] transition-colors duration-200"
-                    onMouseEnter={() => setHoveredProject(name)}
+                    onMouseEnter={() => setHoveredProject(project.name)}
                     onMouseLeave={() => setHoveredProject(null)}
                   >
-                    {name}
+                    {project.name}
                   </Link>
                 ) : (
                   <a
-                    href={projects[index].url}
+                    href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block w-full font-light py-1 hover:bg-[#232323] transition-colors duration-200"
-                    onMouseEnter={() => setHoveredProject(name)}
+                    onMouseEnter={() => setHoveredProject(project.name)}
                     onMouseLeave={() => setHoveredProject(null)}
                   >
-                    {name}
+                    {project.name}
                   </a>
                 )}
 
+                {/* Show numbers on hover */}
+                {hoveredProject === project.name && (
+                  <span className="absolute right-0 text-xs text-gray-400">{index + 1}</span>
+                )}
+
                 {/* Conditional Fork Icon and Message */}
-                {hoveredProject === name && projects[index].forkedFrom && (
+                {hoveredProject === project.name && project.forkedFrom && (
                   <div className="absolute left-1/2 transform -translate-x-1/2 text-xs flex items-center gap-1 text-gray-400 justify-end">
                     <GitBranch size={12} />
-                    <span>{projects[index].forkedFrom}</span>
+                    <span>{project.forkedFrom}</span>
                   </div>
                 )}
               </li>
