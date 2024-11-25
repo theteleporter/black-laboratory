@@ -82,7 +82,7 @@ export default function Component() {
               className="outline-none whitespace-nowrap min-w-[1ch]"
               spellCheck="false"
             >
-              next build --ios
+              npx rage-ui init
             </span>
             <span className="w-3 h-7 bg-[#FF00FF]"></span>
           </div>
