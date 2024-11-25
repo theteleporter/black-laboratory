@@ -298,6 +298,9 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
           className="px-2 py-1 border-b border-current focus:border-b-2 focus:outline-none bg-transparent"
         />
         <Button type="submit">Add Font(s)</Button>
+<p className="text-xs text-gray-500 mt-1">
+          For multi-name fonts, separate names with commas (e.g., "Roboto Slab, Roboto")
+        </p>
       </form>
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
