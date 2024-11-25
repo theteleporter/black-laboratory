@@ -27,7 +27,7 @@ const projectCategories: ProjectCategories = {
     { name: "AVATAR MICRO SERVICE", url: "/experiments/avatar-micro-service", type: "internal" },
     { name: "WORD ART", url: "/experiments/word-art", type: "internal", forkedFrom: "rauchg" },
     { name: "FILE TREE", url: "/experiments/file-tree", type: "internal" },
-    { name: "TELEBALL", url: "https://ball.theteleporter.me", type: "external" },
+{ name: "TELEBALL", url: "https://ball.theteleporter.me", type: "external" },
     { name: "CREPT STUDIO", url: "https://crept.studio", type: "external" },
     { name: "STRALUR", url: "https://ship.theteleporter.me/aff", type: "external" },
   ],
@@ -60,21 +60,13 @@ export default function ProjectList() {
 
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
-  // Sort projects in descending order
-  const sortedProjects = Object.fromEntries(
-    Object.entries(projectCategories).map(([category, projects]) => [
-      category,
-      [...projects].reverse(), // Reverse to make the latest project appear first
-    ])
-  );
-
   useEffect(() => {
     const interval = setInterval(() => {
-      const categories = Object.keys(sortedProjects) as (keyof ProjectCategories)[];
+      const categories = Object.keys(projectCategories) as (keyof ProjectCategories)[];
       const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-      const randomIndex = Math.floor(Math.random() * sortedProjects[randomCategory].length);
+      const randomIndex = Math.floor(Math.random() * projectCategories[randomCategory].length);
 
-      const originalName = sortedProjects[randomCategory][randomIndex].name;
+      const originalName = projectCategories[randomCategory][randomIndex].name;
 
       setDisplayNames((prev) => ({
         ...prev,
@@ -98,46 +90,39 @@ export default function ProjectList() {
 
   return (
     <div className="space-y-5">
-      {Object.entries(sortedProjects).map(([category, projects]) => (
+      {Object.entries(projectCategories).map(([category, projects]) => (
         <div key={category}>
           <h2 className="text-stone-300 font-thin uppercase border-b border-[#212121] max-w-fit">{category}</h2>
           <ul>
-            {projects.map((project, index) => (
+            {displayNames[category as keyof typeof displayNames].map((name, index) => (
               <li key={index} className="text-sm relative flex items-center justify-center">
-                {project.type === 'internal' ? (
+                {projects[index].type === 'internal' ? (
                   <Link
-                    href={project.url}
+                    href={projects[index].url}
                     className="inline-block w-full font-light py-1 hover:bg-[#232323] transition-colors duration-200"
-                    onMouseEnter={() => setHoveredProject(project.name)}
+                    onMouseEnter={() => setHoveredProject(name)}
                     onMouseLeave={() => setHoveredProject(null)}
                   >
-                    {displayNames[category as keyof typeof displayNames][index]}
+                    {name}
                   </Link>
                 ) : (
                   <a
-                    href={project.url}
+                    href={projects[index].url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block w-full font-light py-1 hover:bg-[#232323] transition-colors duration-200"
-                    onMouseEnter={() => setHoveredProject(project.name)}
+                    onMouseEnter={() => setHoveredProject(name)}
                     onMouseLeave={() => setHoveredProject(null)}
                   >
-                    {displayNames[category as keyof typeof displayNames][index]}
+                    {name}
                   </a>
                 )}
 
-                {/* Show number at the end of the link when hovered */}
-                {hoveredProject === project.name && (
-                  <div className="absolute right-0 text-xs text-gray-400">
-                    {index + 1} {/* Show number based on the index */}
-                  </div>
-                )}
-
                 {/* Conditional Fork Icon and Message */}
-                {hoveredProject === project.name && project.forkedFrom && (
+                {hoveredProject === name && projects[index].forkedFrom && (
                   <div className="absolute left-1/2 transform -translate-x-1/2 text-xs flex items-center gap-1 text-gray-400 justify-end">
                     <GitBranch size={12} />
-                    <span>{project.forkedFrom}</span>
+                    <span>{projects[index].forkedFrom}</span>
                   </div>
                 )}
               </li>
