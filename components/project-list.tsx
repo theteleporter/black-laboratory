@@ -27,7 +27,7 @@ const projectCategories: ProjectCategories = {
     { name: "AVATAR MICRO SERVICE", url: "/experiments/avatar-micro-service", type: "internal" },
     { name: "WORD ART", url: "/experiments/word-art", type: "internal", forkedFrom: "rauchg" },
     { name: "FILE TREE", url: "/experiments/file-tree", type: "internal" },
-{ name: "TELEBALL", url: "https://ball.theteleporter.me", type: "external" },
+    { name: "TELEBALL", url: "https://ball.theteleporter.me", type: "external" },
     { name: "CREPT STUDIO", url: "https://crept.studio", type: "external" },
     { name: "STRALUR", url: "https://ship.theteleporter.me/aff", type: "external" },
   ],
@@ -104,6 +104,11 @@ export default function ProjectList() {
                     onMouseLeave={() => setHoveredProject(null)}
                   >
                     {name}
+                    {hoveredProject === name && (
+                      <span className="ml-2 text-xs text-gray-400">
+                        {index + 1} {/* Number appears at the right when hovered */}
+                      </span>
+                    )}
                   </Link>
                 ) : (
                   <a
@@ -115,6 +120,11 @@ export default function ProjectList() {
                     onMouseLeave={() => setHoveredProject(null)}
                   >
                     {name}
+                    {hoveredProject === name && (
+                      <span className="ml-2 text-xs text-gray-400">
+                        {index + 1} {/* Number appears at the right when hovered */}
+                      </span>
+                    )}
                   </a>
                 )}
 
