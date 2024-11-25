@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { GitBranch } from 'lucide-react';
 
 type Project = {
   name: string;
   url: string;
   type: 'internal' | 'external';
+  forkedFrom?: string;
 };
 
 type ProjectCategories = {
@@ -21,12 +23,12 @@ const projectCategories: ProjectCategories = {
     { name: "CREPT STUDIO", url: "https://crept.studio", type: "external" },
     { name: "STRALUR", url: "https://ship.theteleporter.me/aff", type: "external" },
     { name: "BROWSER CODE BLOCK", url: "/experiments/browser-code-block", type: "internal" },
-{ name: "SNAKE GAME", url: "/experiments/snake-game", type: "internal" },
-    { name: "LETTER GRAVEYARD", url: "/experiments/letter-graveyard", type: "external" },
-    { name: "LOGO GENERATOR", url: "/experiments/logo-generator", type: "internal" },
-    { name: "COMMAND CARD", url: "/experiments/command-card", type: "internal" },
+    { name: "SNAKE GAME", url: "/experiments/snake-game", type: "internal" },
+    { name: "LETTER GRAVEYARD", url: "/experiments/letter-graveyard", type: "external", forkedFrom: "rauchg" },
+    { name: "LOGO GENERATOR", url: "/experiments/logo-generator", type: "internal", forkedFrom: "rauchg" },
+    { name: "COMMAND CARD", url: "/experiments/command-card", type: "internal", forkedFrom: "rauchg" },
     { name: "DYNAMIC AVATAR", url: "/experiments/dynamic-avatar", type: "internal" },
-    { name: "SLIDE TO SUBMIT", url: "/experiments/slide-to-submit", type: "external" },
+    { name: "SLIDE TO SUBMIT", url: "/experiments/slide-to-submit", type: "external", forkedFrom: "rauchg" },
     { name: "MORPH TOOLTIP", url: "/experiments/morph-tooltio", type: "internal" },
     { name: "SPOILER", url: "/experiments/spoiler", type: "internal" },
   ],
@@ -56,6 +58,8 @@ export default function ProjectList() {
       ])
     )
   );
+
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -92,11 +96,13 @@ export default function ProjectList() {
           <h2 className="text-stone-300 font-thin uppercase border-b border-[#212121] max-w-fit">{category}</h2>
           <ul>
             {displayNames[category as keyof typeof displayNames].map((name, index) => (
-              <li key={index} className="text-sm">
+              <li key={index} className="text-sm relative">
                 {projects[index].type === 'internal' ? (
                   <Link
                     href={projects[index].url}
                     className="inline-block w-full font-light py-1 hover:bg-[#232323] transition-colors duration-200"
+                    onMouseEnter={() => setHoveredProject(name)}
+                    onMouseLeave={() => setHoveredProject(null)}
                   >
                     {name}
                   </Link>
@@ -106,9 +112,19 @@ export default function ProjectList() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block w-full font-light py-1 hover:bg-[#232323] transition-colors duration-200"
+                    onMouseEnter={() => setHoveredProject(name)}
+                    onMouseLeave={() => setHoveredProject(null)}
                   >
                     {name}
                   </a>
+                )}
+
+                {/* Conditional Fork Icon and Message */}
+                {hoveredProject === name && projects[index].forkedFrom && (
+                  <div className="absolute right-0 top-0 text-xs flex items-center gap-1 text-gray-400">
+                    <GitBranch size={14} />
+                    <span>Forked cc: {projects[index].forkedBy}</span>
+                  </div>
                 )}
               </li>
             ))}
