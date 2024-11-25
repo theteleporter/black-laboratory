@@ -22,8 +22,8 @@ export default function Page() {
   }, [email])
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md flex flex-col items-center gap-8 bg-white py-16 px-4 rounded-lg">
+    <div className="min-h-screen bg-[#161616] flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-md flex flex-col items-center gap-8 bg-[#161616] py-16 px-4 rounded-lg">
         {/* Avatar */}
         <div
           className="w-[280px] h-[280px] rounded-full transition-all duration-500"
@@ -40,11 +40,11 @@ export default function Page() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full bg-transparent border-b border-gray-300 py-2 px-0 text-center focus:outline-none focus:border-gray-600 transition-colors"
+            className="w-full bg-transparent border-b border-stone-600 py-2 px-0 text-center focus:outline-none focus:border-[#6f6f6f] transition-colors"
             placeholder="email"
             autoComplete="email"
           />
-          <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gray-200" />
+          <div className="absolute bottom-0 left-0 w-full h-[1px] bg-[#161616]" />
         </div>
       </div>
     </div>
