@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { Folder, File } from 'lucide-react'
+import './style.css'
 
 interface FileTreeItem {
   name: string
@@ -84,53 +85,9 @@ export default function FileTree() {
       <div className="flex items-center justify-between p-2 border-b border-[#333]">
         <span>Select File</span>
       </div>
-      <div className="file-tree-content p-2 overflow-y-auto">
+      <div className="file-tree-content p-2">
         <FileTreeList items={data} />
       </div>
-      <style jsx>{`
-        .file-tree-container {
-          max-height: 400px;
-          display: flex;
-          flex-direction: column;
-        }
-        .file-tree-content {
-          flex-grow: 1;
-        }
-        .file-tree-item {
-          position: relative;
-          overflow: hidden;
-        }
-        .file-tree-item::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: rgba(255, 255, 255, 0.1);
-          opacity: 0;
-          transition: opacity 0.2s ease-in-out;
-          pointer-events: none;
-        }
-        .file-tree-item:hover::after {
-          opacity: 1;
-        }
-        .file-tree-item:active::after {
-          background-color: rgba(255, 255, 255, 0.2);
-        }
-        .folder-content {
-          overflow: hidden;
-          transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        }
-        .folder-content.closed {
-          max-height: 0;
-          opacity: 0;
-        }
-        .folder-content.open {
-          max-height: 1000px;
-          opacity: 1;
-        }
-      `}</style>
     </div>
   )
 }
