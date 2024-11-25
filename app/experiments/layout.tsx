@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowLeft, Code } from 'lucide-react'
+import BackButton from '../../components/buttons'
 
 export const metadata: Metadata = {
   title: 'Black Labs | Experiment',
@@ -21,7 +22,7 @@ export default function ExperimentLayout({
         href="/" 
         className="absolute top-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 z-40"
       >
-        <ArrowLeft size={24} />
+         <BackButton variant="dark" />
         <span className="sr-only">Back to Lab</span>
       </Link>
       
