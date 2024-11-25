@@ -16,7 +16,7 @@ export default function ExperimentLayout({
  // const hasSourceCode = true
 
   return (
-    <div className="min-h-screen text-stone-200 p-4 font-mono relative z-10">
+    <div className="min-h-screen text-stone-200 font-mono relative z-10">
       <Link 
         href="/" 
         className="absolute top-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 z-40"
