@@ -105,7 +105,7 @@ export default function ProjectList() {
                   >
                     {name}
                     {hoveredProject === name && (
-                      <span className="ml-2 text-xs text-gray-400">
+                      <span className="mr-0 text-xs text-stone-400">
                         {index + 1} {/* Number appears at the right when hovered */}
                       </span>
                     )}
@@ -121,7 +121,7 @@ export default function ProjectList() {
                   >
                     {name}
                     {hoveredProject === name && (
-                      <span className="ml-2 text-xs text-stone-400">
+                      <span className="mr-0 text-xs text-stone-400">
                         {index + 1} {/* Number appears at the right when hovered */}
                       </span>
                     )}
