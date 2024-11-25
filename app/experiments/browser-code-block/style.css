@@ -1,0 +1,55 @@
+/* Card Styles for responsiveness */
+@media (max-width: 768px) {
+  .browser-window {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto;
+    border-radius: 8px;
+  }
+}
+
+.browser-window {
+  width: 100%;
+  max-width: 720px;
+  height: 400px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.code-area {
+  display: flex;
+}
+
+.line-numbers {
+  padding: 12px 8px;
+  background: #1a1a1a;
+  color: #666;
+  font-family: 'Courier New', monospace;
+  text-align: right;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.code-content {
+  flex-grow: 1;
+  padding: 12px;
+  font-family: 'Courier New', monospace;
+  background: #1a1a1a;
+  color: #e4e4e4;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.code-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.code-content::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+.code-content::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 4px;
+}
