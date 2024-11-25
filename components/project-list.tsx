@@ -122,8 +122,8 @@ export default function ProjectList() {
                 {/* Conditional Fork Icon and Message */}
                 {hoveredProject === name && projects[index].forkedFrom && (
                   <div className="absolute left-1/2 transform -translate-x-1/2 text-xs flex items-center gap-1 text-gray-400">
-                    <GitBranch size={14} />
-                    <span>Forked cc: {projects[index].forkedFrom}</span>
+                    <GitBranch size={12} />
+                    <span>{projects[index].forkedFrom}</span>
                   </div>
                 )}
               </li>
