@@ -63,7 +63,7 @@ export default function Component() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-black p-4">
       <Card 
         ref={browserRef} 
-        className="w-[720px] bg-[#1a1a1a] shadow-xl rounded-lg overflow-hidden border-0"
+        className="w-full sm:w-[720px] bg-[#1a1a1a] shadow-xl rounded-lg overflow-hidden border-0"
       >
         {/* Window Header */}
         <div className="bg-[#2a2a2a] p-2 flex items-center gap-2">
@@ -98,7 +98,7 @@ export default function Component() {
             spellCheck="false"
             className="flex-1 p-4 font-mono text-xs outline-none whitespace-pre text-[#e4e4e4] leading-6"
           >
-{`export default function Example() {
+{`export default function Counter() {
   const [count, setCount] = useState(0);
   
   useEffect(() => {
@@ -140,4 +140,4 @@ export default function Component() {
       </button>
     </div>
   )
-        }
+}
