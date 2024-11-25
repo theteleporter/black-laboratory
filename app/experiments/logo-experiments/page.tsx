@@ -21,7 +21,7 @@ const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ class
 const Switch: React.FC<{ checked: boolean; onChange: () => void }> = ({ checked, onChange }) => (
   <button
     className={`w-11 h-6 flex items-center rounded-full p-1 ${
-      checked ? 'bg-gray-800' : 'bg-gray-300'
+      checked ? 'bg-[#232323]' : 'bg-gray-300'
     }`}
     onClick={onChange}
   >
@@ -210,7 +210,7 @@ export default function LogoGenerators() {
     <div className={`min-h-screen w-screen flex flex-col items-center justify-center p-8 ${darkMode ? 'bg-[#161616] text-white' : 'bg-white text-black'}`}>
       <div className="flex items-center space-x-2 mb-8">
         <Sun className="h-4 w-4" />
-        <Switch checked={darkMode} onChange={() => setDarkMode(darkMode)} />
+        <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
         <Moon className="h-4 w-4" />
       </div>
       
