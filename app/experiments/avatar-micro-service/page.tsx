@@ -30,7 +30,7 @@ export default function AvatarGenerator() {
               priority
             />
           ) : (
-            <div className="w-full h-full bg-gray-200" />
+            <div className="w-full h-full bg-gradient-to-br from-[#ff65a3] to-[#ffa63d]" />
           )}
         </div>
 
