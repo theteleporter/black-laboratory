@@ -83,7 +83,7 @@ export default function Component() {
         <div className="flex">
           {/* Line Numbers */}
           <div className="p-4 text-right font-mono text-xs text-[#666] select-none bg-[#1a1a1a] border-r border-[#333]">
-            {Array.from({ length: 15 }, (_, i) => (
+            {Array.from({ length: 17 }, (_, i) => (
               <div key={i + 1} className="leading-6">
                 {String(i + 1).padStart(2, '0')}
               </div>
