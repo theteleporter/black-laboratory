@@ -63,7 +63,7 @@ export default function Component() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-black p-4">
       <Card 
         ref={browserRef} 
-        className="w-full sm:w-[720px] bg-[#1a1a1a] shadow-xl rounded-lg overflow-hidden border-0"
+        className="browser-window w-full sm:w-[720px] bg-[#1a1a1a] shadow-xl rounded-lg overflow-hidden border-0"
       >
         {/* Window Header */}
         <div className="bg-[#2a2a2a] p-2 flex items-center gap-2">
@@ -80,9 +80,9 @@ export default function Component() {
         </div>
 
         {/* Code Editor Area */}
-        <div className="flex">
+        <div className="code-area flex">
           {/* Line Numbers */}
-          <div className="p-4 text-right font-mono text-xs text-[#666] select-none bg-[#1a1a1a] border-r border-[#333]">
+          <div className="line-numbers p-4 text-right font-mono text-xs text-[#666] select-none bg-[#1a1a1a] border-r border-[#333]">
             {Array.from({ length: 15 }, (_, i) => (
               <div key={i + 1} className="leading-6">
                 {String(i + 1).padStart(2, '0')}
@@ -96,9 +96,9 @@ export default function Component() {
             contentEditable
             suppressContentEditableWarning
             spellCheck="false"
-            className="flex-1 p-4 font-mono text-xs outline-none whitespace-pre text-[#e4e4e4] leading-6"
+            className="code-content flex-1 p-4 font-mono text-xs outline-none whitespace-pre text-[#e4e4e4] leading-6"
           >
-{`export default function Counter() {
+            {`export default function Counter() {
   const [count, setCount] = useState(0);
   
   useEffect(() => {
