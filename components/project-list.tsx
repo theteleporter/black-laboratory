@@ -53,7 +53,7 @@ export default function ProjectList() {
     Object.fromEntries(
       Object.entries(projectCategories).map(([category, projects]) => [
         category,
-        projects.map((p) => p.name),
+        projects.reverse().map((p) => p.name), // Reverse the order here
       ])
     )
   );
@@ -106,7 +106,7 @@ export default function ProjectList() {
                     {name}
                     {hoveredProject === name && (
                       <span className="absolute right-0 items-center text-xs text-stone-400">
-                        {index + 1} {/* Number appears at the right when hovered */}
+                        {projects.length - index} {/* Reversed number */}
                       </span>
                     )}
                   </Link>
@@ -122,7 +122,7 @@ export default function ProjectList() {
                     {name}
                     {hoveredProject === name && (
                       <span className="absolute right-0 items-center text-xs text-stone-400">
-                        {index + 1} {/* Number appears at the right when hovered */}
+                        {projects.length - index} {/* Reversed number */}
                       </span>
                     )}
                   </a>
