@@ -30,7 +30,7 @@ export default function ExperimentLayout({
       </main>
 
         <Link 
-          href={`/experiments/${params.experiment}/source`} 
+          href={`https://github.com/theteleporter/lab`} 
           className="absolute bottom-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 flex items-center gap-2"
         >
           <Code size={24} />
