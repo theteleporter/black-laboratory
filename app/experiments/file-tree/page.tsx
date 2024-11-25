@@ -81,8 +81,8 @@ const data: FileTreeItem[] = [
 
 export default function FileTree() {
   return (
-    <div className="file-tree-container w-[300px] bg-[#1e1e1e] text-[#d4d4d4] border border-[#333] rounded-md font-mono text-sm justify-center flex min-h-100vh">
-      <div className="flex items-center justify-between p-2 border-b border-[#333]">
+    <div className="file-tree-container w-[300px] bg-[#1e1e1e] text-[#d4d4d4] border border-[#333] rounded-md font-mono text-sm justify-center flex min-h-100vh flex-col">
+      <div className="flex items-center justify-center p-2 border-b border-[#333]">
         <span>Select File</span>
       </div>
       <div className="file-tree-content p-2">
