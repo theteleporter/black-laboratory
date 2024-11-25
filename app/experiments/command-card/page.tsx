@@ -70,7 +70,7 @@ export default function Component() {
       <div className="relative">
         <Card 
           ref={cardRef} 
-          className="w-[600px] h-[314px] bg-black border-[#333] border flex items-center justify-center"
+          className="w-[90vw] max-w-[600px] h-auto aspect-[600/314] bg-black border-[#333] border flex items-center justify-center"
         >
           <div className="font-mono text-2xl text-white flex items-center space-x-2">
             <span className="text-[#888888]">▲ ~/</span>
