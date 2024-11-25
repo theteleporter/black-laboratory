@@ -262,7 +262,7 @@ export default function FallingTextarea() {
   return (
     <div className="w-screen h-dvh overflow-hidden bg-[#161616]">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
-      <div className="absolute md:top-4 md:right-4 top-16 right-5 flex items-center z-50">
+      <div className="absolute md:top-4 md:right-4 top-10 right-5 flex items-center z-50">
         <label className="flex items-center cursor-pointer">
           <input
             type="checkbox"
@@ -273,7 +273,7 @@ export default function FallingTextarea() {
           <span className="ml-2 text-sm font-medium text-gray-300">Debug</span>
         </label>
       </div>
-      <div className="absolute inset-x-0 top-10 md:top-0 flex items-start justify-center p-4 sm:inset-0 sm:items-center">
+      <div className="absolute inset-x-0 top-4 md:top-0 flex items-start justify-center p-4 sm:inset-0 sm:items-center">
         <textarea
           ref={textareaRef}
           defaultValue={codeSnippet}
