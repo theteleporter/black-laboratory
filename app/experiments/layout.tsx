@@ -11,8 +11,8 @@ export default function ExperimentLayout({
   children,
   params
 }: {
-  children: React.ReactNode
-  params: { experiment: string }
+  children: React.ReactNode,
+  params: React.ReactNode
 }) {
   // This is a placeholder. In a real app, you'd determine this based on the actual experiment.
   const hasSourceCode = true
