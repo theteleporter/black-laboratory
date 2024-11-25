@@ -39,13 +39,12 @@ const projectCategories: ProjectCategories = {
 };
 
 function traceScramble(original: string): string {
-  const characters = original.split('');
-  for (let i = 0; i < characters.length; i++) {
-    if (Math.random() > 0.7) {
-      characters[i] = String.fromCharCode(33 + Math.floor(Math.random() * 94));
+  return original.split('').map(char => {
+    if (/[a-zA-Z0-9]/.test(char) && Math.random() > 0.7) {
+      return String.fromCharCode(33 + Math.floor(Math.random() * 94));
     }
-  }
-  return characters.join('');
+    return char;
+  }).join('');
 }
 
 export default function ProjectList() {
@@ -53,7 +52,7 @@ export default function ProjectList() {
     Object.fromEntries(
       Object.entries(projectCategories).map(([category, projects]) => [
         category,
-        projects.reverse().map((p) => p.name), // Reverse the order here
+        projects.map((p) => p.name)
       ])
     )
   );
@@ -61,12 +60,19 @@ export default function ProjectList() {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
   useEffect(() => {
+    const projectNames = Object.fromEntries(
+      Object.entries(projectCategories).map(([category, projects]) => [
+        category,
+        projects.map((p) => p.name)
+      ])
+    );
+
     const interval = setInterval(() => {
       const categories = Object.keys(projectCategories) as (keyof ProjectCategories)[];
       const randomCategory = categories[Math.floor(Math.random() * categories.length)];
       const randomIndex = Math.floor(Math.random() * projectCategories[randomCategory].length);
 
-      const originalName = projectCategories[randomCategory][randomIndex].name;
+      const originalName = projectNames[randomCategory][randomIndex];
 
       setDisplayNames((prev) => ({
         ...prev,
@@ -94,46 +100,42 @@ export default function ProjectList() {
         <div key={category}>
           <h2 className="text-stone-300 font-thin uppercase border-b border-[#212121] max-w-fit">{category}</h2>
           <ul>
-            {displayNames[category as keyof typeof displayNames].map((name, index) => (
-              <li key={index} className="text-sm relative flex items-center justify-center">
-                {projects[index].type === 'internal' ? (
+            {projects.map((project, index) => (
+              <li key={project.name} className="text-sm relative flex items-center justify-between">
+                {project.type === 'internal' ? (
                   <Link
-                    href={projects[index].url}
+                    href={project.url}
                     className="inline-block w-full font-light py-1 hover:bg-[#232323] transition-colors duration-200"
-                    onMouseEnter={() => setHoveredProject(name)}
+                    onMouseEnter={() => setHoveredProject(project.name)}
                     onMouseLeave={() => setHoveredProject(null)}
                   >
-                    {name}
-                    {hoveredProject === name && (
-                      <span className="absolute right-0 items-center text-xs text-stone-400">
-                        {projects.length - index} {/* Reversed number */}
-                      </span>
-                    )}
+                    <span>{displayNames[category as keyof typeof displayNames][index]}</span>
                   </Link>
                 ) : (
                   <a
-                    href={projects[index].url}
+                    href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block w-full font-light py-1 hover:bg-[#232323] transition-colors duration-200"
-                    onMouseEnter={() => setHoveredProject(name)}
+                    onMouseEnter={() => setHoveredProject(project.name)}
                     onMouseLeave={() => setHoveredProject(null)}
                   >
-                    {name}
-                    {hoveredProject === name && (
-                      <span className="absolute right-0 items-center text-xs text-stone-400">
-                        {projects.length - index} {/* Reversed number */}
-                      </span>
-                    )}
+                    <span>{displayNames[category as keyof typeof displayNames][index]}</span>
                   </a>
                 )}
 
-                {/* Conditional Fork Icon and Message */}
-                {hoveredProject === name && projects[index].forkedFrom && (
-                  <div className="absolute left-1/2 transform -translate-x-1/2 text-xs flex items-center gap-1 text-gray-400 justify-end">
-                    <GitBranch size={12} />
-                    <span>{projects[index].forkedFrom}</span>
-                  </div>
+                {hoveredProject === project.name && (
+                  <>
+                    <span className="absolute right-0 items-center text-xs text-stone-400">
+                      {projects.length - index}
+                    </span>
+                    {project.forkedFrom && (
+                      <div className="absolute left-1/2 transform -translate-x-1/2 text-xs flex items-center gap-1 text-gray-400 justify-end">
+                        <GitBranch size={12} />
+                        <span>{project.forkedFrom}</span>
+                      </div>
+                    )}
+                  </>
                 )}
               </li>
             ))}
