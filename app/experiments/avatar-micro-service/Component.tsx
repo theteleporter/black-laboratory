@@ -20,7 +20,7 @@ export default function Component() {
     <div className="min-h-screen bg-[#161616] flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md flex flex-col items-center gap-8 bg-[#161616] py-16 px-4 rounded-lg">
         {/* Avatar */}
-        <div className="w-[280px] h-[280px] rounded-full overflow-hidden">
+        <div className="w-[280px] h-[280px] rounded-none overflow-hidden">
           {avatarUrl ? (
             <Image
               src={avatarUrl}
@@ -51,7 +51,7 @@ export default function Component() {
         {avatarUrl && (
           <a
             href={avatarUrl}
-            download={`avatar-${email}.svg`}
+            download={`avatar-${email}.png`}
             className="mt-4 px-4 py-2 bg-[#232323] text-white rounded hover:bg-[#202020] transition-colors"
           >
             Download Avatar
