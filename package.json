@@ -13,6 +13,8 @@
     "@react-three/cannon": "^6.6.0",
     "@react-three/drei": "^9.117.3",
     "@react-three/fiber": "^8.17.10",
+    "@resvg/resvg-js": "^2.6.2",
+    "canvas": "^2.11.2",
     "canvas-confetti": "^1.9.3",
     "clsx": "^2.1.1",
     "feed": "^4.2.2",
