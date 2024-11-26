@@ -44,7 +44,8 @@ export async function GET() {
   // Return the RSS feed as a response
   return new NextResponse(feed.rss2(), {
     headers: {
-      'Content-Type': 'application/rss+xml; charset=utf-8',
+      'Content-Type': 'text/xml',
+      'Cache-Control': 's-maxage=3600, stale-while-revalidate',
     },
   });
 }
