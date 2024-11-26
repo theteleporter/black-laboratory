@@ -33,7 +33,7 @@ export default function BackButton({ variant, className, onClick }: BackButtonPr
         <div className="bg-[#232323] rounded-full p-0">
           <ChevronLeft className="w-4 h-4 text-white" strokeWidth={3} />
         </div>
-        <span className="text-[#6E6E6E] font-semibold text-sm font-mono">Back</span>
+        <span className="text-[#A0A0A0] font-semibold text-sm font-mono">Back</span>
       </button>
     )
   }
