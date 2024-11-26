@@ -1,63 +1,22 @@
-"use client"
+import type { Metadata } from 'next'
+import Component from './Component'
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
+export const metadata: Metadata = {
+  title: 'Avatar Micro Service | Black Labs',
+  description: 'A micro sercice experiment that generates a dynamic avatar based on email input and enables the user to download the avatar.',
+  openGraph: {
+    title: 'Avatar Micro Service | Black Labs',
+    description: 'A micro sercice experiment that generates a dynamic avatar based on email input and enables the user to download the avatar.',
+    images: [
+      {
+        url: '/api/og?experiment=avatar-micro-service',
+        width: 800,
+        height: 400,
+      },
+    ],
+  },
+}
 
-export default function AvatarGenerator() {
-  const [email, setEmail] = useState("")
-  const [avatarUrl, setAvatarUrl] = useState("")
-
-  useEffect(() => {
-    if (email) {
-      const url = `/api/avatar?email=${encodeURIComponent(email)}`
-      setAvatarUrl(url)
-    } else {
-      setAvatarUrl("")
-    }
-  }, [email])
-
-  return (
-    <div className="min-h-screen bg-[#161616] flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md flex flex-col items-center gap-8 bg-[#161616] py-16 px-4 rounded-lg">
-        {/* Avatar */}
-        <div className="w-[280px] h-[280px] rounded-full overflow-hidden">
-          {avatarUrl ? (
-            <Image
-              src={avatarUrl}
-              alt="Generated avatar"
-              width={280}
-              height={280}
-              priority
-            />
-          ) : (
-            <div className="w-full h-full bg-gradient-to-br from-[#ff65a3] to-[#ffa63d]" />
-          )}
-        </div>
-
-        {/* Input */}
-        <div className="w-full max-w-[280px] relative">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full bg-transparent border-b border-stone-600 py-2 px-0 text-center focus:outline-none focus:border-[#6f6f6f] transition-colors text-stone-200"
-            placeholder="email"
-            autoComplete="email"
-          />
-          <div className="absolute bottom-0 left-0 w-full h-[1px] bg-[#161616]" />
-        </div>
-
-        {/* Download Button */}
-        {avatarUrl && (
-          <a
-            href={avatarUrl}
-            download={`avatar-${email}.svg`}
-            className="mt-4 px-4 py-2 bg-[#232323] text-white rounded hover:bg-[#202020] transition-colors"
-          >
-            Download Avatar
-          </a>
-        )}
-      </div>
-    </div>
-  )
+export default function Page() {
+  return <Component />
 }
