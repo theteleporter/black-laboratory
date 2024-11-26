@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   const [color1, color2] = generateColors(email)
 
   const svg = `
-    <svg width="280" height="280" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+    <svg width="120" height="120" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:${color1};stop-opacity:1" />
