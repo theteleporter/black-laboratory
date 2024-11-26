@@ -2,39 +2,39 @@
 
 import { useEffect, useState } from 'react'
 
+function getFormattedDate() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+  const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
+  const timezone = -now.getTimezoneOffset() / 60;
+  const timezoneStr = timezone >= 0 ? `UTC+${timezone}` : `UTC${timezone}`;
+
+  return `© ${year}${month}${day}_${hours}${minutes}${seconds}.${milliseconds}_${timezoneStr}`;
+}
+
 export default function Footer() {
-  const [formattedDate, setFormattedDate] = useState('');
+  const [formattedDate, setFormattedDate] = useState(getFormattedDate());
   const [isSpinning, setIsSpinning] = useState(false);
 
   useEffect(() => {
     const updateDate = () => {
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const day = String(now.getDate()).padStart(2, '0');
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
-      const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
-      const timezone = -now.getTimezoneOffset() / 60;
-      const timezoneStr = timezone >= 0 ? `UTC+${timezone}` : `UTC${timezone}`;
-
-      setFormattedDate(
-        `© ${year}${month}${day}_${hours}${minutes}${seconds}.${milliseconds}_${timezoneStr}`
-      );
+      setFormattedDate(getFormattedDate());
     };
 
-    const interval = setInterval(updateDate, 1); // Update every millisecond
-    return () => clearInterval(interval);
-  }, []);
-
-  // Handle the fast spinning and pausing
-  useEffect(() => {
+    const dateInterval = setInterval(updateDate, 1); // Update every millisecond
     const spinInterval = setInterval(() => {
       setIsSpinning((prev) => !prev); // Toggle spin state every 3 seconds
     }, 6000); // 6 seconds total (3 seconds spin + 3 seconds pause)
 
-    return () => clearInterval(spinInterval);
+    return () => {
+      clearInterval(dateInterval);
+      clearInterval(spinInterval);
+    };
   }, []);
 
   return (
@@ -59,3 +59,4 @@ export default function Footer() {
     </footer>
   );
 }
+
