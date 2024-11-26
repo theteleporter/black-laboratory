@@ -1,26 +1,29 @@
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
+import { getExperiments } from '../utils/getExperiments';
 
 async function loadGoogleFont(font: string, text: string) {
   const url = `https://fonts.googleapis.com/css2?family=${font}:wght@700&text=${encodeURIComponent(text)}`;
-  const css = await (await fetch(url)).text();
-  const resource = css.match(/src: url$$(.+)$$ format$$'(opentype|truetype)'$$/);
-  if (!resource) throw new Error('Failed to load font');
-  const res = await fetch(resource[1]);
-  return res.arrayBuffer();
+  const css = await fetch(url).then((res) => res.text());
+  const match = css.match(/url(https:\/\/[^)]+)/); // Match the font URL
+  if (!match) throw new Error('Failed to load font URL');
+  return fetch(match[1]).then((res) => res.arrayBuffer());
 }
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
-  const experiment = searchParams.get('experiment');
+  const experimentName = searchParams.get('experiment');
 
-  const title = experiment ? experiment.replace(/-/g, ' ').toUpperCase() : 'BLACK LABS';
-  const description = experiment 
-    ? `Explore the ${experiment.replace(/-/g, ' ')} experiment`
+  const experiments = getExperiments();
+  const experiment = experiments.find((exp) => exp.name === experimentName);
+
+  const title = experiment ? experiment.name.replace(/-/g, ' ').toUpperCase() : 'BLACK LABS';
+  const description = experiment
+    ? `Explore the ${experiment.name.replace(/-/g, ' ')} experiment`
     : 'Experiments in design and technology';
   const creator = '@theteleporter';
 
-  const fontData = await loadGoogleFont('Geist+Mono', title + description + creator);
+  const fontData = await loadGoogleFont('Geist+Mono', `${title} ${description} ${creator}`);
 
   return new ImageResponse(
     (
@@ -50,7 +53,9 @@ export async function GET(req: NextRequest) {
           <rect x="0" y="0" width="75" height="75" />
         </svg>
         <div style={{ marginTop: 40, fontSize: 48 }}>{title}</div>
-        <div style={{ marginTop: 20, fontSize: 24, maxWidth: '80%', textAlign: 'center' }}>{description}</div>
+        <div style={{ marginTop: 20, fontSize: 24, maxWidth: '80%', textAlign: 'center' }}>
+          {description}
+        </div>
       </div>
     ),
     {
@@ -66,4 +71,3 @@ export async function GET(req: NextRequest) {
     },
   );
 }
-
