@@ -1,25 +1,24 @@
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
-import { getExperiments } from '../../../utils/getExperiments';
 
 async function loadGoogleFont(font: string, text: string) {
   const url = `https://fonts.googleapis.com/css2?family=${font}:wght@700&text=${encodeURIComponent(text)}`;
   const css = await fetch(url).then((res) => res.text());
-  const match = css.match(/url(https:\/\/[^)]+)/); // Match the font URL
-  if (!match) throw new Error('Failed to load font URL');
-  return fetch(match[1]).then((res) => res.arrayBuffer());
+  const match = css.match(/url(https:\/\/[^)]+\.ttf)/);
+
+  if (!match) throw new Error('Font URL not found in CSS');
+  const fontUrl = match[1];
+
+  return fetch(fontUrl).then((res) => res.arrayBuffer());
 }
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
-  const experimentName = searchParams.get('experiment');
+  const experiment = searchParams.get('experiment');
 
-  const experiments = getExperiments();
-  const experiment = experiments.find((exp) => exp.name === experimentName);
-
-  const title = experiment ? experiment.name.replace(/-/g, ' ').toUpperCase() : 'BLACK LABS';
+  const title = experiment ? experiment.replace(/-/g, ' ').toUpperCase() : 'BLACK LABS';
   const description = experiment
-    ? `Explore the ${experiment.name.replace(/-/g, ' ')} experiment`
+    ? `Explore the ${experiment.replace(/-/g, ' ')} experiment`
     : 'Experiments in design and technology';
   const creator = '@theteleporter';
 
@@ -36,10 +35,7 @@ export async function GET(req: NextRequest) {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: '#161616',
-          fontSize: 32,
-          fontWeight: 600,
           color: '#fff',
-          position: 'relative',
         }}
       >
         <div style={{ position: 'absolute', top: 20, right: 20, fontSize: 16 }}>{creator}</div>
