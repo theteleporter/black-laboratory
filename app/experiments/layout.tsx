@@ -35,7 +35,7 @@ export default function ExperimentLayout({
           className="absolute bottom-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 flex items-center gap-2 z-40"
         >
           <Code size={24} />
-         {/** <span className="text-sm">Source Code</span>**/}
+         <span className="sr-only">Source Code</span>
         </Link>
     </div>
   )
