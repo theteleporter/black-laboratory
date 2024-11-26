@@ -1,5 +1,6 @@
 import { Feed } from 'feed'
 import { NextResponse } from 'next/server'
+import { getExperiments } from '../../../utils/getExperiments'
 
 export async function GET() {
   const feed = new Feed({
@@ -18,25 +19,18 @@ export async function GET() {
     }
   });
 
-  feed.addItem({
-    title: "Dynamic Avatar",
-    id: "https://lab.theteleporter.me/experiments/dynamic-avatar",
-    link: "https://lab.theteleporter.me/experiments/dynamic-avatar",
-    description: "Generate dynamic avatars based on email input",
-    date: new Date(),
-    image: "https://lab.theteleporter.me/api/og?experiment=dynamic-avatar"
-  });
+  const experiments = getExperiments()
 
-  feed.addItem({
-    title: "Avatar Generator",
-    id: "https://lab.theteleporter.me/experiments/avatar-generator",
-    link: "https://lab.theteleporter.me/experiments/avatar-generator",
-    description: "Generate avatars using email addresses",
-    date: new Date(),
-    image: "https://lab.theteleporter.me/api/og?experiment=avatar-generator"
+  experiments.forEach(experiment => {
+    feed.addItem({
+      title: experiment.replace(/-/g, ' ').toUpperCase(),
+      id: `https://lab.theteleporter.me/experiments/${experiment}`,
+      link: `https://lab.theteleporter.me/experiments/${experiment}`,
+      description: `Explore the ${experiment.replace(/-/g, ' ')} experiment`,
+      date: new Date(),
+      image: `https://lab.theteleporter.me/api/og?experiment=${experiment}`
+    });
   });
-
-  // Add more items for other experiments
 
   return new NextResponse(feed.rss2(), {
     headers: {
