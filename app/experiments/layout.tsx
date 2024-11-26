@@ -13,7 +13,7 @@ export default function ExperimentLayout({
   source
 }: {
   children: React.ReactNode
-  source: string
+  source?: string
 }) {
   return (
     <div className="min-h-screen text-stone-200 font-mono relative z-10">
@@ -29,13 +29,15 @@ export default function ExperimentLayout({
         {children}
       </main>
 
-      <Link 
-        href={source} 
-        className="absolute bottom-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 flex items-center gap-2 z-40"
-      >
-        <Code size={24} />
-        <span className="sr-only">Source Code</span>
-      </Link>
+      {source && (
+        <Link 
+          href={source} 
+          className="absolute bottom-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 flex items-center gap-2 z-40"
+        >
+          <Code size={24} />
+          <span className="sr-only">Source Code</span>
+        </Link>
+      )}
     </div>
   )
 }
