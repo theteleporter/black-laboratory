@@ -27,7 +27,7 @@ export default function BackButton({ variant, className, onClick }: BackButtonPr
         onClick={onClick}
         className={`flex items-center space-x-2 bg-[#161616] rounded-full py-0 pr-2 ${className}`}
         style={{
-          boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.1), inset 0px 1px 0px rgba(255, 255, 255, 0.5)'
+          boxShadow: 'inset 0px -1px 0px rgba(255, 255, 255, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.1)'
         }}
       >
         <div className="bg-[#232323] rounded-full p-0">
