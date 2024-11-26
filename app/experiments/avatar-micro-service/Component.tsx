@@ -1,29 +1,37 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function Component() {
-  const [email, setEmail] = useState("")
-  const [avatarUrl, setAvatarUrl] = useState("")
+  const [email, setEmail] = useState('');
+  const [avatarUrl, setAvatarUrl] = useState('');
 
   useEffect(() => {
     if (email) {
-      const url = `/api/avatar?email=${encodeURIComponent(email)}`
-      setAvatarUrl(url)
+      const url = `/api/avatar?email=${encodeURIComponent(email)}`;
+      setAvatarUrl(url);
     } else {
-      setAvatarUrl("")
+      setAvatarUrl('');
     }
-  }, [email])
+  }, [email]);
+
+  const downloadAvatar = (format: 'svg' | 'png') => {
+    const url = `/api/avatar?email=${encodeURIComponent(email)}&format=${format}`;
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `avatar-${email}.${format}`;
+    link.click();
+  };
 
   return (
     <div className="min-h-screen bg-[#161616] flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md flex flex-col items-center gap-8 bg-[#161616] py-16 px-4 rounded-lg">
         {/* Avatar */}
-        <div className="w-[120px] h-[120px] rounded-none overflow-hidden">
+        <div className="w-[120px] h-[120px] rounded overflow-hidden">
           {avatarUrl ? (
             <Image
-              src={avatarUrl}
+              src={`${avatarUrl}&format=png`}
               alt="Generated avatar"
               width={120}
               height={120}
@@ -47,17 +55,24 @@ export default function Component() {
           <div className="absolute bottom-0 left-0 w-full h-[1px] bg-[#161616]" />
         </div>
 
-        {/* Download Button */}
+        {/* Download Buttons */}
         {avatarUrl && (
-          <a
-            href={avatarUrl}
-            download={`avatar-${email}.svg`}
-            className="mt-4 px-4 py-2 bg-[#232323] text-white rounded hover:bg-[#202020] transition-colors"
-          >
-            Download Avatar
-          </a>
+          <div className="mt-4 flex gap-4">
+            <button
+              onClick={() => downloadAvatar('svg')}
+              className="px-4 py-2 bg-[#232323] text-white rounded hover:bg-[#202020] transition-colors"
+            >
+              Download SVG
+            </button>
+            <button
+              onClick={() => downloadAvatar('png')}
+              className="px-4 py-2 bg-[#232323] text-white rounded hover:bg-[#202020] transition-colors"
+            >
+              Download PNG
+            </button>
+          </div>
         )}
       </div>
     </div>
-  )
+  );
 }
