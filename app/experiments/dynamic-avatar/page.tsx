@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import DynamicAvatar from './DynamicAvatar'
+import Component from './Component'
 
 export const metadata: Metadata = {
   title: 'Dynamic Avatar | Black Labs',
@@ -18,6 +18,6 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <DynamicAvatar />
+  return <Component />
 }
 
