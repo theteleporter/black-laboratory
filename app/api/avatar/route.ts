@@ -29,9 +29,6 @@ export async function GET(request: NextRequest) {
         </linearGradient>
       </defs>
       <rect width="120" height="120" fill="url(#gradient)" />
-      <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="48" font-family="Arial, sans-serif">
-        ${email[0].toUpperCase()}
-      </text>
     </svg>
   `;
 
