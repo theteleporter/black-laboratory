@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Code } from 'lucide-react'
 import BackButton from '../../components/buttons'
+import { getExperiments } from '../../utils/getExperiments'
 
 export const metadata: Metadata = {
   title: 'Black Labs | Experiment',
@@ -10,11 +11,15 @@ export const metadata: Metadata = {
 
 export default function ExperimentLayout({
   children,
-  source
+  params
 }: {
   children: React.ReactNode
-  source?: string
+  params: { experiment: string }
 }) {
+  const experiments = getExperiments()
+  const currentExperiment = experiments.find(exp => exp.name === params.experiment)
+  const sourceLink = currentExperiment?.sourceLink
+
   return (
     <div className="min-h-screen text-stone-200 font-mono relative z-10">
       <Link 
@@ -29,9 +34,9 @@ export default function ExperimentLayout({
         {children}
       </main>
 
-      {source && (
+      {sourceLink && (
         <Link 
-          href={source} 
+          href={sourceLink} 
           className="absolute bottom-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 flex items-center gap-2 z-40"
         >
           <Code size={24} />
