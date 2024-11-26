@@ -2,25 +2,17 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Code } from 'lucide-react'
 import BackButton from '../../components/buttons'
-import { getExperiments } from '../../utils/getExperiments'
 
 export const metadata: Metadata = {
   title: 'Black Labs | Experiment',
   description: 'Explore some experiments done on the web using some things and other things.',
 }
 
-type ExperimentLayoutProps = {
-  children: React.ReactNode;
-  params: {
-    experiment: string;
-  };
-}
-
 export default function ExperimentLayout({
   children,
-  params,
-}: ExperimentLayoutProps) {
-  // Remove async/await since we'll handle the data fetching in the page component
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <div className="min-h-screen text-stone-200 font-mono relative z-10">
       <Link 
@@ -36,7 +28,7 @@ export default function ExperimentLayout({
       </main>
 
       <Link 
-        href={`https://github.com/theteleporter/lab/tree/main/app/experiments/${params.experiment}`}
+        href="https://github.com/theteleporter/lab"
         className="absolute bottom-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 flex items-center gap-2 z-40"
       >
         <Code size={24} />
