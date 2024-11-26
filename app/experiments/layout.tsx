@@ -9,21 +9,18 @@ export const metadata: Metadata = {
   description: 'Explore some experiments done on the web using some things and other things.',
 }
 
-interface LayoutProps {
+type ExperimentLayoutProps = {
   children: React.ReactNode;
   params: {
     experiment: string;
   };
 }
 
-export default async function ExperimentLayout({
+export default function ExperimentLayout({
   children,
-  params
-}: LayoutProps) {
-  const experiments = await getExperiments()
-  const currentExperiment = experiments.find(exp => exp.name === params.experiment)
-  const sourceLink = currentExperiment?.sourceLink
-
+  params,
+}: ExperimentLayoutProps) {
+  // Remove async/await since we'll handle the data fetching in the page component
   return (
     <div className="min-h-screen text-stone-200 font-mono relative z-10">
       <Link 
@@ -38,15 +35,13 @@ export default async function ExperimentLayout({
         {children}
       </main>
 
-      {sourceLink && (
-        <Link 
-          href={sourceLink} 
-          className="absolute bottom-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 flex items-center gap-2 z-40"
-        >
-          <Code size={24} />
-          <span className="sr-only">Source Code</span>
-        </Link>
-      )}
+      <Link 
+        href={`https://github.com/theteleporter/lab/tree/main/app/experiments/${params.experiment}`}
+        className="absolute bottom-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 flex items-center gap-2 z-40"
+      >
+        <Code size={24} />
+        <span className="sr-only">Source Code</span>
+      </Link>
     </div>
   )
 }
