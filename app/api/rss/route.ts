@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import { Feed } from 'feed';
 import { NextResponse } from 'next/server';
 import { getExperiments } from '../../../utils/getExperiments';
@@ -22,22 +24,20 @@ export async function GET() {
   // Fetch experiments
   const experiments = getExperiments();
 
-  // Normalize experiments to string slugs
-  const experimentSlugs = experiments.map(experiment => 
-    typeof experiment === 'object' && 'slug' in experiment
-      ? experiment.slug
-      : String(experiment) // Fallback for unexpected types
-  );
-
   // Add experiments to the RSS feed
-  experimentSlugs.forEach(slug => {
+  experiments.forEach(experiment => {
+    const title = experiment.name.replace(/-/g, ' ').toUpperCase();
+    const link = `https://lab.theteleporter.me/experiments/${experiment.name}`;
+    const description = `Explore the ${experiment.name.replace(/-/g, ' ')} experiment`;
+
     feed.addItem({
-      title: slug.replace(/-/g, ' ').toUpperCase(),
-      id: `https://lab.theteleporter.me/experiments/${slug}`,
-      link: `https://lab.theteleporter.me/experiments/${slug}`,
-      description: `Explore the ${slug.replace(/-/g, ' ')} experiment`,
+      title,
+      id: link,
+      link,
+      description,
       date: new Date(),
-      image: `https://lab.theteleporter.me/api/og?experiment=${slug}`
+      image: `https://lab.theteleporter.me/api/og?experiment=${experiment.name}`,
+      ...(experiment.sourceLink ? { source: experiment.sourceLink } : {}) // Add `sourceLink` if it exists
     });
   });
 
