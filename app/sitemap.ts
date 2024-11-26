@@ -1,8 +1,13 @@
 import { MetadataRoute } from 'next';
-import { getExperiments } from '../utils/getExperiments';
+import fs from 'fs';
+import path from 'path';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const experiments = getExperiments();
+  const experimentsDir = path.join(process.cwd(), 'app/experiments');
+  const folders = fs.readdirSync(experimentsDir).filter((file) => {
+    return fs.statSync(path.join(experimentsDir, file)).isDirectory();
+  });
+
   const baseUrl = 'https://lab.theteleporter.me';
 
   return [
@@ -10,8 +15,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: baseUrl,
       lastModified: new Date(),
     },
-    ...experiments.map(({ name }) => ({
-      url: `${baseUrl}/experiments/${name}`, // Use the `name` property from each experiment
+    ...folders.map((folder) => ({
+      url: `${baseUrl}/experiments/${folder}`,
       lastModified: new Date(),
     })),
   ];
