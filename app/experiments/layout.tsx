@@ -9,14 +9,18 @@ export const metadata: Metadata = {
   description: 'Explore some experiments done on the web using some things and other things.',
 }
 
-export default function ExperimentLayout({
+interface LayoutProps {
+  children: React.ReactNode;
+  params: {
+    experiment: string;
+  };
+}
+
+export default async function ExperimentLayout({
   children,
   params
-}: {
-  children: React.ReactNode
-  params: { experiment: string }
-}) {
-  const experiments = getExperiments()
+}: LayoutProps) {
+  const experiments = await getExperiments()
   const currentExperiment = experiments.find(exp => exp.name === params.experiment)
   const sourceLink = currentExperiment?.sourceLink
 
