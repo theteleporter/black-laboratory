@@ -28,7 +28,7 @@ export default function AvatarComponent() {
     <div className="min-h-screen bg-[#161616] flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md flex flex-col items-center gap-8 bg-[#161616] py-16 px-4 rounded-lg">
         {/* Avatar */}
-        <div className="w-[120px] h-[120px] rounded overflow-hidden">
+        <div className="w-[120px] h-[120px] overflow-hidden">
           {avatarUrl ? (
             <Image
               src={avatarUrl}
