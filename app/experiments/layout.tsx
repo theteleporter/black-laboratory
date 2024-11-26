@@ -9,21 +9,20 @@ export const metadata: Metadata = {
   description: 'Explore some experiments done on the web using some things and other things.',
 };
 
-export default function ExperimentLayout({
-  children,
-  params, // Use dynamic route params to determine the experiment
-}: {
+interface LayoutProps {
   children: React.ReactNode;
-  params: { experiment: string };
-}) {
+  params: { experiment: string }; // Ensure this matches your route definition
+}
+
+export default function ExperimentLayout({ children, params }: LayoutProps) {
   const experiments = getExperiments();
   const currentExperiment = experiments.find((exp) => exp.name === params.experiment);
   const sourceLink = currentExperiment?.sourceLink;
 
   return (
     <div className="min-h-screen text-stone-200 font-mono relative z-10">
-      <Link 
-        href="/" 
+      <Link
+        href="/"
         className="absolute top-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 z-40"
       >
         <BackButton variant="dark" />
@@ -33,8 +32,8 @@ export default function ExperimentLayout({
       <main className="-z-10">{children}</main>
 
       {sourceLink && (
-        <Link 
-          href={sourceLink} 
+        <Link
+          href={sourceLink}
           className="absolute bottom-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 flex items-center gap-2 z-40"
         >
           <Code size={24} />
