@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 
-export default function DynamicAvatar() {
+export default function Component() {
   const [email, setEmail] = useState("")
   const [gradientColors, setGradientColors] = useState(["#ff65a3", "#ffa63d"])
 
