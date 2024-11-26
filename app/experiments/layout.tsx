@@ -1,44 +1,34 @@
-import fs from 'fs';
-import path from 'path';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Code } from 'lucide-react';
 import BackButton from '../../components/buttons';
 
-export async function generateStaticParams() {
-  const experimentsDir = path.join(process.cwd(), 'app/experiments');
-  const folders = fs.readdirSync(experimentsDir).filter((file) => {
-    return fs.statSync(path.join(experimentsDir, file)).isDirectory();
-  });
-
-  return folders.map((folder) => ({
-    experiment: folder,
-  }));
-}
-
-async function getExperimentMetadata(experimentName: string) {
-  const configPath = path.join(process.cwd(), `app/experiments/${experimentName}/config.json`);
-  if (fs.existsSync(configPath)) {
-    const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-    return {
-      sourceLink: config.sourceLink || null,
-    };
-  }
-  return { sourceLink: null };
-}
+type ExperimentLayoutProps = {
+  children: React.ReactNode;
+  params: { experiment: string };
+};
 
 export const metadata: Metadata = {
   title: 'Black Labs | Experiment',
   description: 'Explore some experiments done on the web using some things and other things.',
 };
 
+async function getExperimentMetadata(experimentName: string) {
+  try {
+    const configPath = `./app/experiments/${experimentName}/config.json`;
+    const response = await fetch(configPath);
+    const config = await response.json();
+    return { sourceLink: config.sourceLink || null };
+  } catch (err) {
+    console.error(err);
+    return { sourceLink: null };
+  }
+}
+
 export default async function ExperimentLayout({
   children,
   params,
-}: {
-  children: React.ReactNode;
-  params: { experiment: string };
-}) {
+}: ExperimentLayoutProps) {
   const experimentData = await getExperimentMetadata(params.experiment);
 
   return (
