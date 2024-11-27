@@ -56,22 +56,30 @@ export default function AvatarComponent() {
         </div>
 
         {/* Download Buttons */}
-        {avatarUrl && (
-          <div className="mt-4 flex gap-4">
-            <button
-              onClick={() => downloadAvatar("svg")}
-              className="px-4 py-2 bg-[#232323] text-white rounded hover:bg-[#202020] transition-colors"
-            >
-              Download SVG
-            </button>
-            <button
-              onClick={() => downloadAvatar("png")}
-              className="px-4 py-2 bg-[#232323] text-white rounded hover:bg-[#202020] transition-colors"
-            >
-              Download PNG
-            </button>
-          </div>
-        )}
+        <div className="mt-4 flex gap-4">
+          <button
+            onClick={() => downloadAvatar("svg")}
+            disabled={!email}
+            className={`px-4 py-2 rounded transition-colors ${
+              email
+                ? "bg-[#232323] text-white hover:bg-[#202020]"
+                : "bg-[#2a2a2a] text-stone-500 cursor-not-allowed"
+            }`}
+          >
+            Download SVG
+          </button>
+          <button
+            onClick={() => downloadAvatar("png")}
+            disabled={!email}
+            className={`px-4 py-2 rounded transition-colors ${
+              email
+                ? "bg-[#232323] text-white hover:bg-[#202020]"
+                : "bg-[#2a2a2a] text-stone-500 cursor-not-allowed"
+            }`}
+          >
+            Download PNG
+          </button>
+        </div>
       </div>
     </div>
   );
