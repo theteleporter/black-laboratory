@@ -26,11 +26,7 @@ const TooltipContent = forwardRef<
     <TooltipPrimitive.Content
       ref={ref}
       sideOffset={sideOffset}
-      className={`z-50 overflow-hidden rounded-md animate-in fade-in-0 zoom-in-95 bg-primary px-3 py-1.5 text-xs text-primary-foreground data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 ${className}`}
-style={{
-        maxWidth: '200px',
-        width: 'auto',
-      }}
+      className={`z-50 overflow-hidden rounded-md animate-in fade-in-0 zoom-in-95 max-w-[200px] w-full px-3 py-1.5 text-xs text-primary-foreground data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 ${className}`}
       {...props}
     />
   </TooltipPrimitive.Portal>
