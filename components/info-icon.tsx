@@ -2,6 +2,7 @@
 
 import React, { useState, forwardRef } from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import { Balancer } from "react-wrap-balancer";
 
 const variants = {
   default: { bg: "#0A0A0A", text: "#A1A1A1", border: "#2E2E2E" },
@@ -47,7 +48,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
       <Tooltip open={open} onOpenChange={setOpen}>
         <TooltipTrigger asChild>
           <button
-            className={`rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-${text}`}
+            className={`rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[${text}]`}
             aria-expanded={open}
           >
             <svg
@@ -77,7 +78,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
             borderWidth: 1,
           }}
         >
-          {tooltip}
+          <Balancer>{tooltip}</Balancer>
           <TooltipPrimitive.Arrow
             style={{
               fill: bg,
