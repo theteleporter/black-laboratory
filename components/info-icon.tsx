@@ -45,7 +45,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
 
   return (
     <TooltipProvider>
-      <Tooltip open={open} defaultOpen onOpenChange={setOpen}>
+      <Tooltip open={open} onOpenChange={setOpen}>
         <TooltipTrigger asChild>
           <button
             className={`rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[${text}]`}
