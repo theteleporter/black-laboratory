@@ -1,13 +1,11 @@
-"use client"
-
-import React, { useState } from 'react'
-import { FolderOpen, FolderClosed, File } from 'lucide-react'
-import './style.css'
+import React, { Suspense, useState } from 'react';
+import { FolderOpen, FolderClosed, File } from 'lucide-react';
+import './style.css';
 
 interface FileTreeItem {
-  name: string
-  type: 'file' | 'folder'
-  children?: FileTreeItem[]
+  name: string;
+  type: 'file' | 'folder';
+  children?: FileTreeItem[];
 }
 
 const data: FileTreeItem[] = [
@@ -82,16 +80,16 @@ const data: FileTreeItem[] = [
 export default function Component() {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">
-    <div className="file-tree-container w-[300px] bg-[#1e1e1e] text-[#d4d4d4] border border-[#333] rounded-md font-mono text-sm justify-center flex min-h-100vh">
-      <div className="flex items-center justify-center p-2 border-b border-[#333]">
-        <span>Select File</span>
-      </div>
-      <div className="file-tree-content p-2">
-        <FileTreeList items={data} />
+      <div className="file-tree-container w-[300px] bg-[#1e1e1e] text-[#d4d4d4] border border-[#333] rounded-md font-mono text-sm justify-center flex min-h-100vh">
+        <div className="flex items-center justify-center p-2 border-b border-[#333]">
+          <span>Select File</span>
+        </div>
+        <div className="file-tree-content p-2">
+          <FileTreeList items={data} />
+        </div>
       </div>
     </div>
-  </div>
-  )
+  );
 }
 
 function FileTreeList({ items }: { items: FileTreeItem[] }) {
@@ -101,13 +99,13 @@ function FileTreeList({ items }: { items: FileTreeItem[] }) {
         <FileTreeItem key={index} item={item} />
       ))}
     </ul>
-  )
+  );
 }
 
 function FileTreeItem({ item }: { item: FileTreeItem }) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleOpen = () => setIsOpen(!isOpen)
+  const toggleOpen = () => setIsOpen(!isOpen);
 
   return (
     <li>
@@ -129,12 +127,41 @@ function FileTreeItem({ item }: { item: FileTreeItem }) {
         <span>{item.name}</span>
       </div>
       {item.type === 'folder' && item.children && (
-        <ul className={`folder-content list-none m-0 pl-4 ${isOpen ? 'open' : 'closed'}`}>
+        <ul
+          className={`folder-content list-none m-0 pl-4 ${isOpen ? 'open' : 'closed'}`}
+        >
           <li className="relative before:absolute before:left-0 before:top-0 before:h-full before:w-px before:bg-[#333]">
-            <FileTreeList items={item.children} />
+            {/* Wrap the content with Suspense to handle loading */}
+            <Suspense fallback={<FileTreeSkeleton />}>
+              <FileTreeList items={item.children} />
+            </Suspense>
           </li>
         </ul>
       )}
     </li>
-  )
+  );
 }
+
+// Skeleton Component
+const FileTreeSkeleton = () => {
+  return (
+    <div className="space-y-2">
+      {/* Folder Item Skeleton */}
+      <div className="flex items-center gap-2 animate-pulse">
+        <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
+        <div className="w-3/4 h-4 bg-gray-400 rounded"></div>
+      </div>
+      {/* Nested Folder Items Skeleton */}
+      <div className="space-y-2 pl-6">
+        <div className="flex items-center gap-2 animate-pulse">
+          <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
+          <div className="w-3/4 h-4 bg-gray-400 rounded"></div>
+        </div>
+        <div className="flex items-center gap-2 animate-pulse">
+          <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
+          <div className="w-3/4 h-4 bg-gray-400 rounded"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
