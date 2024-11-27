@@ -67,7 +67,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
               <path d="M12 16v-4" />
               <path d="M12 8h.01" />
             </svg>
-          <span className="sr-only">More Information<span>
+          <span className="sr-only">More Information</span>
           </button>
         </TooltipTrigger>
         <TooltipContent
