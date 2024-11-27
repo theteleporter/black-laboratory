@@ -27,6 +27,10 @@ const TooltipContent = forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={`z-50 overflow-hidden rounded-md animate-in fade-in-0 zoom-in-95 bg-primary px-3 py-1.5 text-xs text-primary-foreground data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 ${className}`}
+style={{
+        maxWidth: '200px',
+        width: 'auto',
+      }}
       {...props}
     />
   </TooltipPrimitive.Portal>
@@ -78,7 +82,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
             borderWidth: 1,
           }}
         >
-          <Balancer>{tooltip}</Balancer>
+          <Balancer ratio={0.35} preferNative={false}>{tooltip}</Balancer>
           <TooltipPrimitive.Arrow
             style={{
               fill: bg,
