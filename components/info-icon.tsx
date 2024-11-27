@@ -1,39 +1,39 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { useState } from "react"
-import * as TooltipPrimitive from "@radix-ui/react-tooltip"
+import React, { useState } from "react";
+import Balancer from "react-wrap-balancer";
+import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 
 interface InfoIconProps {
-  tooltip: string
-  variant?: 'default' | 'error' | 'ghost' | 'success' | 'violet' | 'cyan' | 'warning'
-  side?: "top" | "right" | "bottom" | "left"
+  tooltip: string;
+  variant?: "default" | "error" | "ghost" | "success" | "violet" | "cyan" | "warning";
+  side?: "top" | "right" | "bottom" | "left";
 }
 
 const variants = {
-  default: { bg: '#0A0A0A', text: '#A1A1A1', border: '#2E2E2E' },
-  error: { bg: '#3C1618', text: '#FF6166', border: '#671E21' },
-  ghost: { bg: '#202020', text: '#888888', border: '#2E2E2E' },
-  success: { bg: '#10233D', text: '#3C7BBE', border: '#0D3868' },
-  violet: { bg: '#2E1938', text: '#BF7AF0', border: '#4F2768' },
-  cyan: { bg: '#062822', text: '#0AB7A5', border: '#053D35' },
-  warning: { bg: '#341C00', text: '#F1A10D', border: '#352108' }
-}
+  default: { bg: "#0A0A0A", text: "#A1A1A1", border: "#2E2E2E" },
+  error: { bg: "#3C1618", text: "#FF6166", border: "#671E21" },
+  ghost: { bg: "#202020", text: "#888888", border: "#2E2E2E" },
+  success: { bg: "#10233D", text: "#3C7BBE", border: "#0D3868" },
+  violet: { bg: "#2E1938", text: "#BF7AF0", border: "#4F2768" },
+  cyan: { bg: "#062822", text: "#0AB7A5", border: "#053D35" },
+  warning: { bg: "#341C00", text: "#F1A10D", border: "#352108" },
+};
 
-const InfoIcon = ({ tooltip, variant = 'default', side = "top" }: InfoIconProps) => {
-  const { text, bg, border } = variants[variant]
-  const [open, setOpen] = useState(false)
+const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps) => {
+  const { text, bg, border } = variants[variant];
+  const [open, setOpen] = useState(false);
 
   const handleOpenChange = (newOpen: boolean) => {
-    setOpen(newOpen)
-  }
+    setOpen(newOpen);
+  };
 
   return (
     <TooltipPrimitive.Provider>
       <TooltipPrimitive.Root open={open} onOpenChange={handleOpenChange} delayDuration={0}>
         <TooltipPrimitive.Trigger asChild>
           <button
-            className={`rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-${text}`}
+            className="rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
             aria-expanded={open}
           >
             <svg
@@ -46,7 +46,7 @@ const InfoIcon = ({ tooltip, variant = 'default', side = "top" }: InfoIconProps)
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="h-3.5 w-3.5 shrink-0"
+              className="h-4 w-4 shrink-0"
             >
               <circle cx="12" cy="12" r="10" />
               <path d="M12 16v-4" />
@@ -56,19 +56,23 @@ const InfoIcon = ({ tooltip, variant = 'default', side = "top" }: InfoIconProps)
         </TooltipPrimitive.Trigger>
         <TooltipPrimitive.Portal>
           <TooltipPrimitive.Content
-            className={`max-w-xs rounded-lg px-3 py-2 text-xs shadow-lg`}
-            style={{ backgroundColor: bg, color: text, borderColor: border, borderWidth: 1 }}
+            className="z-50 max-w-xs rounded-lg px-3 py-2 text-xs shadow-lg"
+            style={{
+              backgroundColor: bg,
+              color: text,
+              borderColor: border,
+              borderWidth: 1,
+            }}
             sideOffset={5}
             side={side}
           >
-            {tooltip}
+            <Balancer>{tooltip}</Balancer>
             <TooltipPrimitive.Arrow style={{ fill: bg }} />
           </TooltipPrimitive.Content>
         </TooltipPrimitive.Portal>
       </TooltipPrimitive.Root>
     </TooltipPrimitive.Provider>
-  )
-}
+  );
+};
 
-export default InfoIcon
-
+export default InfoIcon;
