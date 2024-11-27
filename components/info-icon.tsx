@@ -41,7 +41,7 @@ interface InfoIconProps {
 
 const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps) => {
   const { text, bg, border } = variants[variant];
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   return (
     <TooltipProvider>
