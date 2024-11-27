@@ -26,7 +26,7 @@ export default function Component() {
       <div className="w-full max-w-md flex flex-col items-center gap-8 bg-[#161616] py-16 px-4 rounded-lg">
         {/* Avatar */}
         <div
-          className="w-[280px] h-[280px] rounded-full transition-all duration-500"
+          className="w-[120px] h-[120px] rounded-full transition-all duration-700"
           style={{
             background: `linear-gradient(135deg, ${gradientColors[0]}, ${gradientColors[1]})`,
           }}
