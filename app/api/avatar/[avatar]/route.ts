@@ -1,32 +1,32 @@
-import { NextRequest, NextResponse } from "next/server";
-import sharp from "sharp";
+import { NextRequest, NextResponse } from 'next/server'
+import sharp from 'sharp'
 
 export async function GET(request: NextRequest, context: { params: { avatar: string } }) {
-  const { avatar } = context.params;
+  const { avatar } = context.params
 
   if (!avatar) {
-    return new NextResponse("Avatar is required", { status: 400 });
+    return new NextResponse("Avatar is required", { status: 400 })
   }
 
   const generateColors = (input: string) => {
-    const hash = input.split("").reduce((acc, char) => acc * 33 + char.charCodeAt(0), 5381);
-    const baseHue = Math.abs(hash % 360);
-    const offset = Math.abs((hash >> 3) % 45);
-    const hue1 = (baseHue + offset) % 360;
-    const hue2 = (baseHue + 120 + offset) % 360;
+    const hash = input.split('').reduce((acc, char) => acc * 33 + char.charCodeAt(0), 5381)
+    const baseHue = Math.abs(hash % 360)
+    const offset = Math.abs((hash >> 3) % 45)
+    const hue1 = (baseHue + offset) % 360
+    const hue2 = (baseHue + 120 + offset) % 360
 
-    const sat1 = 80 + Math.abs((hash >> 5) % 20);
-    const light1 = 60 + Math.abs((hash >> 7) % 20);
-    const sat2 = 90 + Math.abs((hash >> 8) % 10);
-    const light2 = 65 + Math.abs((hash >> 9) % 15);
+    const sat1 = 80 + Math.abs((hash >> 5) % 20)
+    const light1 = 60 + Math.abs((hash >> 7) % 20)
+    const sat2 = 90 + Math.abs((hash >> 8) % 10)
+    const light2 = 65 + Math.abs((hash >> 9) % 15)
 
     return [
       `hsl(${hue1}, ${sat1}%, ${light1}%)`,
-      `hsl(${hue2}, ${sat2}%, ${light2}%)`,
-    ];
-  };
+      `hsl(${hue2}, ${sat2}%, ${light2}%)`
+    ]
+  }
 
-  const [color1, color2] = generateColors(avatar);
+  const [color1, color2] = generateColors(avatar)
 
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
@@ -38,16 +38,16 @@ export async function GET(request: NextRequest, context: { params: { avatar: str
       </defs>
       <rect width="120" height="120" fill="url(#gradient)" />
     </svg>
-  `;
+  `
 
   const buffer = await sharp(Buffer.from(svg))
     .png()
-    .toBuffer();
+    .toBuffer()
 
   return new NextResponse(buffer, {
     headers: {
-      "Content-Type": "image/png",
-      "Cache-Control": "public, max-age=604800, immutable",
-    },
-  });
+      'Content-Type': 'image/png',
+      'Cache-Control': 'public, max-age=604800, immutable'
+    }
+  })
 }
