@@ -7,15 +7,15 @@ import './styles.css'
 
 const variants = {
   default: {
-    dark: { bg: "#FFFFFF", text: "#0A0A0A", border: "#FFFFFF21", info: "#1A1A1A" },
-    light: { bg: "#0A0A0A", text: "#EDEDED", border: "#2E2E2E", info: "#0A0A0A" },
+    dark: { bg: "bg-white", text: "text-[#0A0A0A]", border: "border-[#FFFFFF21]", info: "text-[#1A1A1A]" },
+    light: { bg: "bg-[#0A0A0A]", text: "text-[#EDEDED]", border: "border-[#2E2E2E]", info: "text-[#0A0A0A]" },
   },
-  error: { bg: "#3C1618", text: "#FF6166", border: "#671E21", info: "#1A1A1A" },
-  ghost: { bg: "#202020", text: "#888888", border: "#2E2E2E", info: "#1A1A1A" },
-  success: { bg: "#10233D", text: "#3C7BBE", border: "#0D3868", info: "#1A1A1A" },
-  violet: { bg: "#2E1938", text: "#BF7AF0", border: "#4F2768", info: "#1A1A1A" },
-  cyan: { bg: "#062822", text: "#0AB7A5", border: "#053D35", info: "#1A1A1A" },
-  warning: { bg: "#341C00", text: "#F1A10D", border: "#352108", info: "#1A1A1A" },
+  error: { bg: "bg-[#3C1618]", text: "text-[#FF6166]", border: "border-[#671E21]", info: "text-[#1A1A1A]" },
+  ghost: { bg: "bg-[#202020]", text: "text-[#888888]", border: "border-[#2E2E2E]", info: "text-[#1A1A1A]" },
+  success: { bg: "bg-[#10233D]", text: "text-[#3C7BBE]", border: "border-[#0D3868]", info: "text-[#1A1A1A]" },
+  violet: { bg: "bg-[#2E1938]", text: "text-[#BF7AF0]", border: "border-[#4F2768]", info: "text-[#1A1A1A]" },
+  cyan: { bg: "bg-[#062822]", text: "text-[#0AB7A5]", border: "border-[#053D35]", info: "text-[#1A1A1A]" },
+  warning: { bg: "bg-[#341C00]", text: "text-[#F1A10D]", border: "border-[#352108]", info: "text-[#1A1A1A]" },
 };
 
 const Tooltip = TooltipPrimitive.Root;
@@ -30,7 +30,7 @@ const TooltipContent = forwardRef<
     <TooltipPrimitive.Content
       ref={ref}
       sideOffset={sideOffset}
-      className={`z-50 overflow-hidden rounded-md animate-in fade-in-0 zoom-in-95 bg-primary px-3 py-1.5 text-xs text-primary-foreground data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 ${className}`}
+      className={`z-50 overflow-hidden rounded-md animate-in fade-in-0 zoom-in-95 ${className}`}
       {...props}
     />
   </TooltipPrimitive.Portal>
@@ -87,6 +87,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
         </TooltipTrigger>
         <TooltipContent
           side={side}
+          className={`${bg} ${text} ${border} rounded-md`}
           style={{
             backgroundColor: bg,
             color: text,
