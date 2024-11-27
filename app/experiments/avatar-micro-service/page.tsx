@@ -5,10 +5,10 @@ import { Code } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Avatar Micro Service | Black Labs',
-  description: 'This microservice dynamically generates unique, avatars for user profiles. It creates consistent designs based on user data (e.g., usernames or emails), by making a request to `/api/avatar?email=user@example.com`',
+  description: 'This microservice dynamically generates unique, avatars for user profiles. It creates consistent designs based on user data (e.g., usernames or emails), by making a request to `{url}/api/avatar?email=user@example.com`',
   openGraph: {
     title: 'Avatar Micro Service | Black Labs',
-    description: 'This microservice dynamically generates unique, avatars for user profiles. It creates consistent designs based on user data (e.g., usernames or emails), by making a request to `/api/avatar?email=user@example.com`',
+    description: 'This microservice dynamically generates unique, avatars for user profiles. It creates consistent designs based on user data (e.g., usernames or emails), by making a request to `{url}/api/avatar?email=user@example.com`',
     images: [
       {
         url: '/api/og',
@@ -36,7 +36,7 @@ const description = metadata.description ?? "No description available."
      <a
          target="_blank"
          rel="noopener noreferrer"
-href="https://github.com/theteleporter/lab/blob/main/app/experiments/avatar-micro-service"
+href="https://github.com/theteleporter/lab/tree/main/app/experiments/avatar-micro-service"
         className="absolute bottom-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 flex items-center gap-2 z-40"
       >
         <Code size={20} />
