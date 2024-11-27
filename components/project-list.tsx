@@ -13,7 +13,7 @@ type Project = {
 
 type ProjectCategories = {
   experiments: Project[];
-  materials: Project[];
+  resources: Project[];
 };
 
 const projectCategories: ProjectCategories = {
