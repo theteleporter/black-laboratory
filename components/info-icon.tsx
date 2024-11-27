@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import * as React, { useState } from "react"
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 
 interface InfoIconProps {
@@ -21,12 +21,20 @@ const variants = {
 
 const InfoIcon = ({ tooltip, variant = 'default', side = "top" }: InfoIconProps) => {
   const { text, bg, border } = variants[variant]
+  const [open, setOpen] = useState(false)
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen)
+  }
 
   return (
     <TooltipPrimitive.Provider>
-      <TooltipPrimitive.Root delayDuration={0}>
+      <TooltipPrimitive.Root open={open} onOpenChange={handleOpenChange} delayDuration={0}>
         <TooltipPrimitive.Trigger asChild>
-          <button className={`rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-${text}`}>
+          <button
+            className={`rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-${text}`}
+            aria-expanded={open}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
