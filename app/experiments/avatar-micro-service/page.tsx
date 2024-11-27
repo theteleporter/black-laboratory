@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Component from './Component'
 
 export const metadata: Metadata = {
   title: 'Avatar Micro Service | Black Labs',
