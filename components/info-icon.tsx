@@ -1,14 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import Balancer from "react-wrap-balancer";
+import React, { useState, forwardRef } from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
-
-interface InfoIconProps {
-  tooltip: string;
-  variant?: "default" | "error" | "ghost" | "success" | "violet" | "cyan" | "warning";
-  side?: "top" | "right" | "bottom" | "left";
-}
 
 const variants = {
   default: { bg: "#0A0A0A", text: "#A1A1A1", border: "#2E2E2E" },
@@ -20,20 +13,41 @@ const variants = {
   warning: { bg: "#341C00", text: "#F1A10D", border: "#352108" },
 };
 
+const Tooltip = TooltipPrimitive.Root;
+const TooltipTrigger = TooltipPrimitive.Trigger;
+const TooltipProvider = TooltipPrimitive.Provider;
+
+const TooltipContent = forwardRef<
+  React.ElementRef<typeof TooltipPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
+>(({ sideOffset = 5, className, ...props }, ref) => (
+  <TooltipPrimitive.Portal>
+    <TooltipPrimitive.Content
+      ref={ref}
+      sideOffset={sideOffset}
+      className={`z-50 overflow-hidden rounded-md animate-in fade-in-0 zoom-in-95 bg-primary px-3 py-1.5 text-xs text-primary-foreground data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 ${className}`}
+      {...props}
+    />
+  </TooltipPrimitive.Portal>
+));
+TooltipContent.displayName = TooltipPrimitive.Content.displayName;
+
+interface InfoIconProps {
+  tooltip: string;
+  variant?: "default" | "error" | "ghost" | "success" | "violet" | "cyan" | "warning";
+  side?: "top" | "right" | "bottom" | "left";
+}
+
 const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps) => {
   const { text, bg, border } = variants[variant];
   const [open, setOpen] = useState(false);
 
-  const handleOpenChange = (newOpen: boolean) => {
-    setOpen(newOpen);
-  };
-
   return (
-    <TooltipPrimitive.Provider>
-      <TooltipPrimitive.Root open={open} onOpenChange={handleOpenChange} delayDuration={0}>
-        <TooltipPrimitive.Trigger asChild>
+    <TooltipProvider>
+      <Tooltip open={open} onOpenChange={setOpen}>
+        <TooltipTrigger asChild>
           <button
-            className="relative rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            className={`rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-${text}`}
             aria-expanded={open}
           >
             <svg
@@ -46,38 +60,32 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="h-4 w-4"
+              className="h-3.5 w-3.5 shrink-0"
             >
               <circle cx="12" cy="12" r="10" />
               <path d="M12 16v-4" />
               <path d="M12 8h.01" />
             </svg>
           </button>
-        </TooltipPrimitive.Trigger>
-        <TooltipPrimitive.Portal>
-          <TooltipPrimitive.Content
-            className="z-50 max-w-xs rounded-lg px-3 py-2 text-xs shadow-lg"
+        </TooltipTrigger>
+        <TooltipContent
+          side={side}
+          style={{
+            backgroundColor: bg,
+            color: text,
+            borderColor: border,
+            borderWidth: 1,
+          }}
+        >
+          {tooltip}
+          <TooltipPrimitive.Arrow
             style={{
-              backgroundColor: bg,
-              color: text,
-              borderColor: border,
-              borderWidth: 1,
-              position: "relative",
-              zIndex: 999,
+              fill: bg,
             }}
-            sideOffset={10} // Adjusted offset for better visibility
-            side={side}
-          >
-            <Balancer>{tooltip}</Balancer>
-            <TooltipPrimitive.Arrow
-              style={{
-                fill: bg,
-              }}
-            />
-          </TooltipPrimitive.Content>
-        </TooltipPrimitive.Portal>
-      </TooltipPrimitive.Root>
-    </TooltipPrimitive.Provider>
+          />
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 };
 
