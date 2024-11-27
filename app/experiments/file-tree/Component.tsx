@@ -131,7 +131,6 @@ function FileTreeItem({ item }: { item: FileTreeItem }) {
           className={`folder-content list-none m-0 pl-4 ${isOpen ? 'open' : 'closed'}`}
         >
           <li className="relative before:absolute before:left-0 before:top-0 before:h-full before:w-px before:bg-[#333]">
-            {/* Wrap the content with Suspense to handle loading */}
             <Suspense fallback={<FileTreeSkeleton />}>
               <FileTreeList items={item.children} />
             </Suspense>
@@ -142,7 +141,6 @@ function FileTreeItem({ item }: { item: FileTreeItem }) {
   );
 }
 
-// Skeleton Component
 const FileTreeSkeleton = () => {
   return (
     <div className="space-y-2">
