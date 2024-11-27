@@ -1,6 +1,7 @@
 "use client"
 
-import * as React, { useState } from "react"
+import * as React from "react"
+import { useState } from "react"
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 
 interface InfoIconProps {
