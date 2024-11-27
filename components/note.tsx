@@ -72,7 +72,7 @@ export default function Note({ children, variant = 'warning' }: NoteProps) {
     >
       <div className="flex gap-2 items-start">
         <InfoIcon color={text} />
-        <Balancer className="text-[13px] leading-6" style={{ color: text }}>{children}</Balancer>
+        <Balancer ratio={0.00} preferNative={false} className="text-[13px]" style={{ color: text }}>{children}</Balancer>
       </div>
     </div>
   )
