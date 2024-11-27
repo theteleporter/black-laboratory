@@ -1,22 +1,19 @@
-import generateMetadata as nextGenerateMetadata from 'next'
-import Component from './Component'
+import { Metadata } from 'next'
 
-export function nextGenerateMetadata() {
-  return {
+export const metadata: Metadata = {
+  title: 'Avatar Micro Service | Black Labs',
+  description: 'A micro service experiment that generates a dynamic avatar based on email input and enables the user to download the avatar.',
+  openGraph: {
     title: 'Avatar Micro Service | Black Labs',
     description: 'A micro service experiment that generates a dynamic avatar based on email input and enables the user to download the avatar.',
-    openGraph: {
-      title: 'Avatar Micro Service | Black Labs',
-      description: 'A micro service experiment that generates a dynamic avatar based on email input and enables the user to download the avatar.',
-      images: [
-        {
-          url: '/api/og?experiment=avatar-micro-service',
-          width: 800,
-          height: 400,
-        },
-      ],
-    },
-  }
+    images: [
+      {
+        url: '/api/og?experiment=avatar-micro-service',
+        width: 800,
+        height: 400,
+      },
+    ],
+  },
 }
 
 export default function Page() {
