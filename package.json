@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@bsmnt/scrollytelling": "^0.3.3",
+    "@radix-ui/react-tooltip": "^1.1.4",
     "@react-three/cannon": "^6.6.0",
     "@react-three/drei": "^9.117.3",
     "@react-three/fiber": "^8.17.10",
