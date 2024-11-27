@@ -1,4 +1,4 @@
-import { generateMetadata } from 'next'
+import generateMetadata from "next"
 import Component from './Component'
 
 export function generateMetadata() {
