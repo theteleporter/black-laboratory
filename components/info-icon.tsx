@@ -26,7 +26,7 @@ const TooltipContent = forwardRef<
     <TooltipPrimitive.Content
       ref={ref}
       sideOffset={sideOffset}
-      className={`z-50 overflow-hidden rounded-md max-w-[300px] w-full px-3 py-1.5 mr-2 text-xs ${className}`}
+      className={`z-50 overflow-hidden rounded-md max-w-[300px] w-full px-3 py-1.5 text-xs ${className}`}
       {...props}
     />
   </TooltipPrimitive.Portal>
@@ -45,7 +45,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
 
   return (
     <TooltipProvider>
-      <Tooltip open={open} onOpenChange={setOpen}>
+      <Tooltip open={open} defaultOpen onOpenChange={setOpen}>
         <TooltipTrigger asChild>
           <button
             className={`rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[${text}]`}
@@ -61,7 +61,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className={`h-3.5 w-3.5 shrink-0 stroke-[#0A0A0A] dark:stroke-[${text}]`}
+              className={`h-3.5 w-3.5 shrink-0`}
             >
               <circle cx="12" cy="12" r="10" />
               <path d="M12 16v-4" />
