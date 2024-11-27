@@ -20,8 +20,8 @@ export async function GET(request: NextRequest) {
     const hue1 = baseHue;                 // Primary color
     const hue2 = (baseHue + 120) % 360;   // Triadic color
 
-    // Deeper and richer colors: increased saturation, lower lightness
-    return [`hsl(${hue1}, 80%, 50%)`, `hsl(${hue2}, 80%, 40%)`];
+    // Richer and brighter colors: increased saturation and lightness
+    return [`hsl(${hue1}, 90%, 60%)`, `hsl(${hue2}, 90%, 50%)`];
   };
 
   const [color1, color2] = generateColors(email);
