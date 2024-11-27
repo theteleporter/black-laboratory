@@ -38,7 +38,7 @@ export default function AvatarComponent() {
               priority
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-[#ff65a3] to-[#ffa63d]" />
+            <div className="w-full h-full bg-gradient-to-br from-[#232323] to-[#232323]" />
           )}
         </div>
 
