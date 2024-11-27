@@ -10,16 +10,23 @@ export async function GET(request: NextRequest) {
     return new NextResponse("Email is required", { status: 400 });
   }
 
-  // Generate colors based on email input
+  // Generate colors using djb2 hash and triadic HSL
   const generateColors = (input: string) => {
-    const hue1 = (input.length * 40) % 360;
-    const hue2 = (hue1 + 60) % 360;
-    return [`hsl(${hue1}, 70%, 60%)`, `hsl(${hue2}, 70%, 60%)`];
+    // djb2 hash algorithm
+    const hash = input.split("").reduce((acc, char) => acc * 33 + char.charCodeAt(0), 5381);
+
+    // Generate base hue and triadic hues
+    const baseHue = Math.abs(hash % 360); // Base hue
+    const hue1 = baseHue;                 // Primary color
+    const hue2 = (baseHue + 120) % 360;   // Triadic color
+
+    // Deeper and richer colors: increased saturation, lower lightness
+    return [`hsl(${hue1}, 80%, 50%)`, `hsl(${hue2}, 80%, 40%)`];
   };
 
   const [color1, color2] = generateColors(email);
 
-  // Base SVG string
+  // Base SVG string with the gradient
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
       <defs>
@@ -63,5 +70,6 @@ export async function GET(request: NextRequest) {
     });
   }
 
+  // If format is unsupported
   return new NextResponse("Unsupported format", { status: 400 });
 }
