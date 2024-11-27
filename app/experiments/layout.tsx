@@ -13,7 +13,6 @@ export default function ExperimentLayout({
 }: {
   children: React.ReactNode
 }) {
-  const description = metadata.description ?? "No description available."
 
   return (
     <div className="min-h-screen text-stone-200 font-mono relative z-10">
