@@ -14,7 +14,6 @@ export default function ExperimentLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Ensure metadata.description is a string, fallback to an empty string if undefined or null
   const description = metadata.description ?? "No description available."
 
   return (
