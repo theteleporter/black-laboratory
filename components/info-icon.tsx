@@ -6,8 +6,8 @@ import { Balancer } from "react-wrap-balancer";
 
 const variants = {
   default: {
-    dark: { bg: "#FFFFFF", text: "#0A0A0A", border: "#FFFFFF21" },
-    light: { bg: "#FFFFFF", text: "#EDEDED", border: "#FFFFFF21" },
+    dark: { bg: "#FFFFFF", text: "#0A0A0A", border: "#FFFFFF21", info: "#1A1A1A" },
+    light: { bg: "#0A0A0A", text: "#EDEDED", border: "#2E2E2E", info: "#0A0A0A" },
   },
   error: { bg: "#3C1618", text: "#FF6166", border: "#671E21" },
   ghost: { bg: "#202020", text: "#888888", border: "#2E2E2E" },
@@ -49,7 +49,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
     window.matchMedia("(prefers-color-scheme: dark)").matches;
 
   // Get the right variant colors based on mode and type
-  const { bg, text, border } =
+  const { bg, text, border, info } =
     variant === "default"
       ? isDarkMode
         ? variants[variant].dark
@@ -63,7 +63,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
       <Tooltip open={open} onOpenChange={setOpen}>
         <TooltipTrigger asChild>
           <button
-            className={`rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[${text}]`}
+            className={`rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[${info}]`}
             aria-expanded={open}
           >
             <svg
@@ -72,7 +72,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
               height="16"
               viewBox="0 0 24 24"
               fill="none"
-              stroke={text}
+              stroke={info}
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
