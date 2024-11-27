@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import Component from './Component'
 import InfoIcon from '../../../components/info-icon'
+import { Code } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Avatar Micro Service | Black Labs',
@@ -32,6 +33,13 @@ const description = metadata.description ?? "No description available."
         />
       </div>
         <Component />
+     <Link
+        href="https://github.com/theteleporter/lab/blob/main/app/experiments/avatar-micro-service"
+        className="absolute bottom-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 flex items-center gap-2 z-40"
+      >
+        <Code size={20} />
+        <span className="sr-only">Source Code</span>
+      </Link>
 	</>
 	)
 }
