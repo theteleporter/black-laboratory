@@ -301,7 +301,7 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
         />
         <Button type="submit">Add Font(s)</Button>
    </div>
-<Note variant='warning'>
+<Note variant={`${darkMode ? 'warning' : 'success'}`}>
           For multi-name fonts, separate names with commas (e.g., "Roboto Slab, Roboto")
         </Note>
       </form>
