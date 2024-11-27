@@ -4,19 +4,20 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Check if the path matches a valid email-like pattern
+  // Check if the path matches an email-like pattern
   if (pathname.startsWith("/") && pathname.length > 1) {
     const email = pathname.slice(1); // Extract the email from the URL
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Validate email format
 
     if (emailRegex.test(email)) {
-      // Rewrite the request to your API endpoint
+      // Redirect to the avatar API with the default format as PNG
       const url = request.nextUrl.clone();
-      url.pathname = `/api/avatar/${email}`;
-      url.searchParams.set("format", "png"); // Default to PNG
-      return NextResponse.rewrite(url);
+      url.pathname = `/api/avatar`; // Direct to API endpoint
+      url.searchParams.set("email", email); // Pass email as query param
+      url.searchParams.set("format", "png"); // Default to PNG format
+      return NextResponse.redirect(url); // Redirect to the new API URL
     }
   }
 
-  return NextResponse.next();
+  return NextResponse.next(); // Proceed as usual if no valid email
 }
