@@ -43,7 +43,7 @@ const variants = {
   }
 }
 
-const InfoIcon = ({ color, className }: { color: string, className: string }) => (
+const InfoIcon = ({ color }: { color: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="16"
@@ -54,7 +54,7 @@ const InfoIcon = ({ color, className }: { color: string, className: string }) =>
     strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="h-4 w-4 mt-1 shrink-0 rotate-180"
+    className="h-4 w-4 mt-0.8 md:mt-0.4 shrink-0 rotate-180"
   >
     <circle cx="12" cy="12" r="10" />
     <path d="M12 16v-4" />
@@ -70,8 +70,8 @@ export default function Note({ children, variant = 'warning' }: NoteProps) {
       className="w-full rounded-lg p-2" 
       style={{ backgroundColor: bg, borderColor: border, borderWidth: '1px', borderStyle: 'solid', color: text }}
     >
-      <div className="flex gap-2 md:align-middle items-start">
-        <InfoIcon color={text} className="pt-0.8 md:pt-0" />
+      <div className="flex gap-2 items-start">
+        <InfoIcon color={text} />
         <Balancer ratio={0.00} preferNative={false} className="text-[13px]" style={{ color: text }}>{children}</Balancer>
       </div>
     </div>
