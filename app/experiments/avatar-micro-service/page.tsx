@@ -1,7 +1,7 @@
-import { generateMetadata as nextGenerateMetadata } from 'next'  // Renaming the imported function
+import generateMetadata as nextGenerateMetadata from 'next'
 import Component from './Component'
 
-export function generateMetadata() {
+export function nextGenerateMetadata() {
   return {
     title: 'Avatar Micro Service | Black Labs',
     description: 'A micro service experiment that generates a dynamic avatar based on email input and enables the user to download the avatar.',
