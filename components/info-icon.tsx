@@ -5,7 +5,10 @@ import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { Balancer } from "react-wrap-balancer";
 
 const variants = {
-  default: { bg: "#0A0A0A", text: "#A1A1A1", border: "#2E2E2E" },
+  default: {
+    dark: { bg: "#FFFFFF", text: "#0A0A0A", border: "#FFFFFF21" },
+    light: { bg: "#FFFFFF", text: "#EDEDED", border: "#FFFFFF21" },
+  },
   error: { bg: "#3C1618", text: "#FF6166", border: "#671E21" },
   ghost: { bg: "#202020", text: "#888888", border: "#2E2E2E" },
   success: { bg: "#10233D", text: "#3C7BBE", border: "#0D3868" },
@@ -40,7 +43,19 @@ interface InfoIconProps {
 }
 
 const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps) => {
-  const { text, bg, border } = variants[variant];
+  const isDarkMode =
+    typeof window !== "undefined" &&
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  // Get the right variant colors based on mode and type
+  const { bg, text, border } =
+    variant === "default"
+      ? isDarkMode
+        ? variants[variant].dark
+        : variants[variant].light
+      : variants[variant];
+
   const [open, setOpen] = useState(false);
 
   return (
