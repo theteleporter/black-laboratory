@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
 
-export async function GET(request: NextRequest, { params }: { params: { email: string } }) {
-  const { email } = params;
+export async function GET(request: NextRequest, context: { params: { avatar: string } }) {
+  const { avatar: email } = context.params;  // Use `context.params` instead of destructuring from `{ params }`
 
   if (!email) {
     return new NextResponse("Email is required", { status: 400 });
