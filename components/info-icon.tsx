@@ -33,7 +33,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
       <TooltipPrimitive.Root open={open} onOpenChange={handleOpenChange} delayDuration={0}>
         <TooltipPrimitive.Trigger asChild>
           <button
-            className="rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            className="relative rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
             aria-expanded={open}
           >
             <svg
@@ -46,7 +46,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="h-4 w-4 shrink-0"
+              className="h-4 w-4"
             >
               <circle cx="12" cy="12" r="10" />
               <path d="M12 16v-4" />
@@ -62,12 +62,18 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
               color: text,
               borderColor: border,
               borderWidth: 1,
+              position: "relative",
+              zIndex: 999,
             }}
-            sideOffset={5}
+            sideOffset={10} // Adjusted offset for better visibility
             side={side}
           >
             <Balancer>{tooltip}</Balancer>
-            <TooltipPrimitive.Arrow style={{ fill: bg }} />
+            <TooltipPrimitive.Arrow
+              style={{
+                fill: bg,
+              }}
+            />
           </TooltipPrimitive.Content>
         </TooltipPrimitive.Portal>
       </TooltipPrimitive.Root>
