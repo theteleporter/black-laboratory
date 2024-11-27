@@ -54,7 +54,7 @@ const InfoIcon = ({ color }: { color: string }) => (
     strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="h-4 w-4 mt-0.9 md:mt-0.5 shrink-0 rotate-180"
+    className="h-4 w-4 mt-1 md:mt-0.5 shrink-0 rotate-180"
   >
     <circle cx="12" cy="12" r="10" />
     <path d="M12 16v-4" />
