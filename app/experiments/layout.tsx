@@ -6,7 +6,7 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Black Labs | Experiment',
-  description: 'Explore some experiments done on the web using some things and other things.',
+  description: 'No bigs just some experiments done on the web using some things and other things also.',
 }
 
 export default function ExperimentLayout({
