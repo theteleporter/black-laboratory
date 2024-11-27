@@ -9,7 +9,8 @@ export default function AvatarComponent() {
 
   useEffect(() => {
     if (email) {
-      const url = `/api/avatar?email=${encodeURIComponent(email)}&format=png`;
+      // Updated URL structure
+      const url = `/${encodeURIComponent(email)}`;
       setAvatarUrl(url);
     } else {
       setAvatarUrl("");
@@ -17,7 +18,8 @@ export default function AvatarComponent() {
   }, [email]);
 
   const downloadAvatar = (format: "svg" | "png") => {
-    const url = `/api/avatar?email=${encodeURIComponent(email)}&format=${format}`;
+    // Updated URL structure with format
+    const url = `/${encodeURIComponent(email)}?format=${format}`;
     const link = document.createElement("a");
     link.href = url;
     link.download = `avatar-${email}.${format}`;
