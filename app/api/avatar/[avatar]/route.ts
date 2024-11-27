@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
 
 export async function GET(request: NextRequest, context: { params: { avatar: string } }) {
-  const { avatar: email } = context.params;  // Use `context.params` instead of destructuring from `{ params }`
+  const { avatar } = context.params;
 
-  if (!email) {
-    return new NextResponse("Email is required", { status: 400 });
+  if (!avatar) {
+    return new NextResponse("Avatar is required", { status: 400 });
   }
 
   const generateColors = (input: string) => {
@@ -26,7 +26,7 @@ export async function GET(request: NextRequest, context: { params: { avatar: str
     ];
   };
 
-  const [color1, color2] = generateColors(email);
+  const [color1, color2] = generateColors(avatar);
 
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
