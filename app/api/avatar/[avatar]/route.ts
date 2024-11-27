@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import sharp from 'sharp'
 
-export async function GET(request: NextRequest, context: { params: { avatar: string } }) {
-  const { avatar } = context.params
+export async function GET(request: NextRequest, { params }: { params: { avatar: string } }) {
+  const { avatar } = params
 
   if (!avatar) {
     return new NextResponse("Avatar is required", { status: 400 })
