@@ -6,15 +6,14 @@ export default function Example() {
   return (
     <div className="p-4 bg-black min-h-screen space-y-4">
       <Note>This is a default warning note.</Note>
+      <Note variant="warning>This is a warning note.</Note>
       <Note variant="default">This is a default note.</Note>
       <Note variant="error">This is an error note.</Note>
       <Note variant="ghost">This is a ghost note.</Note>
       <Note variant="success">This is a success note.</Note>
       <Note variant="violet">This is a violet note.</Note>
       <Note variant="cyan">This is a cyan note.</Note>
-    </div>
 
-    <div className="p-4 bg-black min-h-screen space-y-8">
       <div className="space-y-2">
         <h3 className="text-lg font-semibold text-white">Info Icons with Tooltips</h3>
         <div className="flex space-x-4">
@@ -85,7 +84,7 @@ export default function Example() {
         >
           Warning section information.
         </SectionInfo>
-      </div>
+     </div>
     </div>
   )
 }
