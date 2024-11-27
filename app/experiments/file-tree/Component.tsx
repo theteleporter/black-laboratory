@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react'
-import { Folder, File } from 'lucide-react'
+import { FolderOpen, FolderClosed, File } from 'lucide-react'
 import './style.css'
 
 interface FileTreeItem {
@@ -118,7 +118,11 @@ function FileTreeItem({ item }: { item: FileTreeItem }) {
         onClick={item.type === 'folder' ? toggleOpen : undefined}
       >
         {item.type === 'folder' ? (
-          <Folder className="w-4 h-4 text-[#dcb67a]" />
+          isOpen ? (
+            <FolderOpen className="w-4 h-4 text-[#dcb67a]" />
+          ) : (
+            <FolderClosed className="w-4 h-4 text-[#dcb67a]" />
+          )
         ) : (
           <File className="w-4 h-4" />
         )}
