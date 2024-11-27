@@ -12,17 +12,24 @@ export async function GET(request: NextRequest) {
 
   // Generate colors using djb2 hash and triadic HSL
   const generateColors = (input: string) => {
-    // djb2 hash algorithm
-    const hash = input.split("").reduce((acc, char) => acc * 33 + char.charCodeAt(0), 5381);
+  const hash = input.split("").reduce((acc, char) => acc * 33 + char.charCodeAt(0), 5381);
 
-    // Generate base hue and triadic hues
-    const baseHue = Math.abs(hash % 360); // Base hue
-    const hue1 = baseHue;                 // Primary color
-    const hue2 = (baseHue + 120) % 360;   // Triadic color
+  const baseHue = Math.abs(hash % 360);
+  const offset = Math.abs((hash >> 3) % 45); // Generate a semi-random offset for more variety
+  const hue1 = (baseHue + offset) % 360;    // Slightly shift the first hue
+  const hue2 = (baseHue + 120 + offset) % 360; // Shift the second hue
 
-    // Deeper and richer colors: increased saturation, lower lightness
-    return [`hsl(${hue1}, 80%, 50%)`, `hsl(${hue2}, 80%, 40%)`];
-  };
+  // Randomize saturation and lightness within reasonable ranges
+  const sat1 = 60 + Math.abs((hash >> 5) % 20); // 60-80%
+  const light1 = 40 + Math.abs((hash >> 7) % 20); // 40-60%
+  const sat2 = 70 + Math.abs((hash >> 8) % 10); // 70-80%
+  const light2 = 35 + Math.abs((hash >> 9) % 15); // 35-50%
+
+  return [
+    `hsl(${hue1}, ${sat1}%, ${light1}%)`,
+    `hsl(${hue2}, ${sat2}%, ${light2}%)`,
+  ];
+};
 
   const [color1, color2] = generateColors(email);
 
