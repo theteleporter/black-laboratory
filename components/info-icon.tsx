@@ -61,7 +61,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="h-3.5 w-3.5 shrink-0 stroke-[#0A0A0A] dark:stroke-[#1A1A1A]"
+              className={`h-3.5 w-3.5 shrink-0 stroke-[#0A0A0A] dark:stroke-[${text}]`}
             >
               <circle cx="12" cy="12" r="10" />
               <path d="M12 16v-4" />
