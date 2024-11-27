@@ -1,7 +1,8 @@
-import type { Metadata } from 'next'
+import { generateMetadata } from 'next'
 import Component from './Component'
 
-export const metadata: Metadata = {
+export function generateMetadata() {
+return {
   title: 'Avatar Micro Service | Black Labs',
   description: 'A micro sercice experiment that generates a dynamic avatar based on email input and enables the user to download the avatar.',
   openGraph: {
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
       },
     ],
   },
+ }
 }
 
 export default function Page() {
