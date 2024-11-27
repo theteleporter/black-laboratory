@@ -5,6 +5,7 @@ import { Comfortaa, Geist, Press_Start_2P, Courier_Prime } from 'next/font/googl
 import { Download, Moon, Sun, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import type { NextFont } from 'next/dist/compiled/@next/font'
+import Note from '../../../components/note'
 
 interface FontConfig {
   name: string;
@@ -300,9 +301,9 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
         />
         <Button type="submit">Add Font(s)</Button>
    </div>
-<p className="text-xs text-gray-500 mt-1">
+<Note variant='warning'>
           For multi-name fonts, separate names with commas (e.g., "Roboto Slab, Roboto")
-        </p>
+        </Note>
       </form>
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
