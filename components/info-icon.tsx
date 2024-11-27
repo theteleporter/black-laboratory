@@ -9,12 +9,12 @@ const variants = {
     dark: { bg: "#FFFFFF", text: "#0A0A0A", border: "#FFFFFF21", info: "#1A1A1A" },
     light: { bg: "#0A0A0A", text: "#EDEDED", border: "#2E2E2E", info: "#0A0A0A" },
   },
-  error: { bg: "#3C1618", text: "#FF6166", border: "#671E21" },
-  ghost: { bg: "#202020", text: "#888888", border: "#2E2E2E" },
-  success: { bg: "#10233D", text: "#3C7BBE", border: "#0D3868" },
-  violet: { bg: "#2E1938", text: "#BF7AF0", border: "#4F2768" },
-  cyan: { bg: "#062822", text: "#0AB7A5", border: "#053D35" },
-  warning: { bg: "#341C00", text: "#F1A10D", border: "#352108" },
+  error: { bg: "#3C1618", text: "#FF6166", border: "#671E21", info: "#1A1A1A" },
+  ghost: { bg: "#202020", text: "#888888", border: "#2E2E2E", info: "#1A1A1A" },
+  success: { bg: "#10233D", text: "#3C7BBE", border: "#0D3868", info: "#1A1A1A" },
+  violet: { bg: "#2E1938", text: "#BF7AF0", border: "#4F2768", info: "#1A1A1A" },
+  cyan: { bg: "#062822", text: "#0AB7A5", border: "#053D35", info: "#1A1A1A" },
+  warning: { bg: "#341C00", text: "#F1A10D", border: "#352108", info: "#1A1A1A" },
 };
 
 const Tooltip = TooltipPrimitive.Root;
