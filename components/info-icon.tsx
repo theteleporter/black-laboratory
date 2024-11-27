@@ -26,7 +26,7 @@ const TooltipContent = forwardRef<
     <TooltipPrimitive.Content
       ref={ref}
       sideOffset={sideOffset}
-      className={`z-50 overflow-hidden rounded-md animate-in fade-in-0 zoom-in-95 max-w-[200px] w-full px-3 py-1.5 text-xs text-primary-foreground data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 ${className}`}
+      className={`z-50 overflow-hidden rounded-md max-w-[300px] w-full px-3 py-1.5 text-xs ${className}`}
       {...props}
     />
   </TooltipPrimitive.Portal>
@@ -61,7 +61,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="h-3.5 w-3.5 shrink-0"
+              className="h-3.5 w-3.5 shrink-0 stroke-[#0A0A0A] dark:stroke-[#1A1A1A]"
             >
               <circle cx="12" cy="12" r="10" />
               <path d="M12 16v-4" />
