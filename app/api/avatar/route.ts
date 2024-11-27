@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import sharp from "sharp";
+import { createCanvas, loadImage } from "canvas";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -10,26 +10,23 @@ export async function GET(request: NextRequest) {
     return new NextResponse("Email is required", { status: 400 });
   }
 
+  // Generate colors using djb2 hash and triadic HSL
   const generateColors = (input: string) => {
+    // djb2 hash algorithm
     const hash = input.split("").reduce((acc, char) => acc * 33 + char.charCodeAt(0), 5381);
-    const baseHue = Math.abs(hash % 360);
-    const offset = Math.abs((hash >> 3) % 45);
-    const hue1 = (baseHue + offset) % 360;
-    const hue2 = (baseHue + 120 + offset) % 360;
 
-    const sat1 = 80 + Math.abs((hash >> 5) % 20);
-    const light1 = 60 + Math.abs((hash >> 7) % 20);
-    const sat2 = 90 + Math.abs((hash >> 8) % 10);
-    const light2 = 65 + Math.abs((hash >> 9) % 15);
+    // Generate base hue and triadic hues
+    const baseHue = Math.abs(hash % 360); // Base hue
+    const hue1 = baseHue;                 // Primary color
+    const hue2 = (baseHue + 120) % 360;   // Triadic color
 
-    return [
-      `hsl(${hue1}, ${sat1}%, ${light1}%)`,
-      `hsl(${hue2}, ${sat2}%, ${light2}%)`,
-    ];
+    // Deeper and richer colors: increased saturation, lower lightness
+    return [`hsl(${hue1}, 80%, 50%)`, `hsl(${hue2}, 80%, 40%)`];
   };
 
   const [color1, color2] = generateColors(email);
 
+  // Base SVG string with the gradient
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
       <defs>
@@ -42,6 +39,7 @@ export async function GET(request: NextRequest) {
     </svg>
   `;
 
+  // Serve SVG directly
   if (format === "svg") {
     return new NextResponse(svg, {
       headers: {
@@ -51,12 +49,20 @@ export async function GET(request: NextRequest) {
     });
   }
 
+  // Convert to PNG if requested
   if (format === "png") {
-    const buffer = await sharp(Buffer.from(svg))
-      .png()
-      .toBuffer();
+    const canvas = createCanvas(120, 120);
+    const ctx = canvas.getContext("2d");
 
-    return new NextResponse(buffer, {
+    // Load the SVG into a canvas
+    const svgBuffer = Buffer.from(svg);
+    const image = await loadImage(`data:image/svg+xml;base64,${svgBuffer.toString("base64")}`);
+
+    ctx.drawImage(image, 0, 0, 120, 120);
+
+    // Convert the canvas to PNG
+    const pngBuffer = canvas.toBuffer("image/png");
+    return new NextResponse(pngBuffer, {
       headers: {
         "Content-Type": "image/png",
         "Cache-Control": "public, max-age=604800, immutable",
@@ -64,5 +70,6 @@ export async function GET(request: NextRequest) {
     });
   }
 
+  // If format is unsupported
   return new NextResponse("Unsupported format", { status: 400 });
 }
