@@ -1,8 +1,8 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Code } from 'lucide-react'
 import BackButton from '../../components/buttons'
 import InfoIcon from '../../components/info-icon'
+import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Black Labs | Experiment',
@@ -11,10 +11,8 @@ export const metadata: Metadata = {
 
 export default function ExperimentLayout({
   children,
-  metadata,
 }: {
-  children: React.ReactNode;
-  metadata: Metadata;
+  children: React.ReactNode
 }) {
   return (
     <div className="min-h-screen text-stone-200 font-mono relative z-10">
@@ -27,6 +25,7 @@ export default function ExperimentLayout({
       </Link>
 
       <div className="absolute top-4 right-4 z-40">
+        {/* Access description directly via metadata */}
         <InfoIcon 
           tooltip={metadata.description} 
           variant="default" 
@@ -37,13 +36,6 @@ export default function ExperimentLayout({
       <main className="-z-10">
         {children}
       </main>
-{/** <Link 
-        href="https://github.com/theteleporter/lab"
-        className="absolute bottom-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 flex items-center gap-2 z-40"
-      >
-        <Code size={24} />
-        <span className="sr-only">Source Code</span>
-      </Link>**/}
     </div>
   )
 }
