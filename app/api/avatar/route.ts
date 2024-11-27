@@ -10,8 +10,8 @@ export async function GET(request: NextRequest) {
     return new NextResponse("Email is required", { status: 400 });
   }
 
-  // Generate colors using djb2 hash and triadic HSL
-  const generateColors = (input: string) => {
+// Generate colors using djb2 hash and triadic HSL
+const generateColors = (input: string) => {
   const hash = input.split("").reduce((acc, char) => acc * 33 + char.charCodeAt(0), 5381);
 
   const baseHue = Math.abs(hash % 360);
@@ -19,11 +19,11 @@ export async function GET(request: NextRequest) {
   const hue1 = (baseHue + offset) % 360;    // Slightly shift the first hue
   const hue2 = (baseHue + 120 + offset) % 360; // Shift the second hue
 
-  // Randomize saturation and lightness within reasonable ranges
-  const sat1 = 60 + Math.abs((hash >> 5) % 20); // 60-80%
-  const light1 = 40 + Math.abs((hash >> 7) % 20); // 40-60%
-  const sat2 = 70 + Math.abs((hash >> 8) % 10); // 70-80%
-  const light2 = 35 + Math.abs((hash >> 9) % 15); // 35-50%
+  // Increase saturation and lightness ranges for brighter colors
+  const sat1 = 80 + Math.abs((hash >> 5) % 20); // 80-100%
+  const light1 = 60 + Math.abs((hash >> 7) % 20); // 60-80%
+  const sat2 = 90 + Math.abs((hash >> 8) % 10); // 90-100%
+  const light2 = 65 + Math.abs((hash >> 9) % 15); // 65-80%
 
   return [
     `hsl(${hue1}, ${sat1}%, ${light1}%)`,
