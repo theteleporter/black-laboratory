@@ -65,7 +65,7 @@ const Pagination: React.FC<{
 )
 
 export default function Component() {
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(true)
   const [currentFontIndex, setCurrentFontIndex] = useState(0)
   const [texts, setTexts] = useState<string[]>([])
   const [customFont, setCustomFont] = useState('')
