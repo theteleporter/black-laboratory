@@ -6,7 +6,7 @@ export default function Example() {
   return (
     <div className="p-4 bg-black min-h-screen space-y-4">
       <Note>This is a default warning note.</Note>
-      <Note variant="warning>This is a warning note.</Note>
+      <Note variant="warning">This is a warning note.</Note>
       <Note variant="default">This is a default note.</Note>
       <Note variant="error">This is an error note.</Note>
       <Note variant="ghost">This is a ghost note.</Note>
