@@ -4,7 +4,7 @@ import { createCanvas, loadImage } from "canvas";
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const email = searchParams.get("email");
-  const format = searchParams.get("format") || "svg"; // Default format is SVG
+  const format = searchParams.get("format") || "png"; // Default format is PNG
 
   if (!email) {
     return new NextResponse("Email is required", { status: 400 });
