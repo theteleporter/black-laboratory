@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { Code } from 'lucide-react'
 import BackButton from '../../components/buttons'
-import InfoIcon from '../../components/info-icon'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -25,14 +24,6 @@ export default function ExperimentLayout({
         <BackButton variant="dark" />
         <span className="sr-only">Back to Lab</span>
       </Link>
-
-      <div className="absolute top-4 right-4 z-40">
-        <InfoIcon 
-          tooltip={description} 
-          variant="default" 
-          side="bottom" 
-        />
-      </div>
 
       <main className="-z-10">
         {children}
