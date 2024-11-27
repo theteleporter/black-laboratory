@@ -26,7 +26,7 @@ const TooltipContent = forwardRef<
     <TooltipPrimitive.Content
       ref={ref}
       sideOffset={sideOffset}
-      className={`z-50 overflow-hidden rounded-md max-w-[300px] w-full px-3 py-1.5 text-xs ${className}`}
+      className={`z-50 overflow-hidden rounded-md max-w-[300px] w-full px-3 py-1.5 space-r-2 text-xs ${className}`}
       {...props}
     />
   </TooltipPrimitive.Portal>
