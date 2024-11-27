@@ -14,6 +14,9 @@ export default function ExperimentLayout({
 }: {
   children: React.ReactNode
 }) {
+  // Ensure metadata.description is a string, fallback to an empty string if undefined or null
+  const description = metadata.description ?? "No description available."
+
   return (
     <div className="min-h-screen text-stone-200 font-mono relative z-10">
       <Link 
@@ -25,9 +28,8 @@ export default function ExperimentLayout({
       </Link>
 
       <div className="absolute top-4 right-4 z-40">
-        {/* Access description directly via metadata */}
         <InfoIcon 
-          tooltip={metadata.description} 
+          tooltip={description} 
           variant="default" 
           side="bottom" 
         />
