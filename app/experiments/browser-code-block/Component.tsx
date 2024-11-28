@@ -8,28 +8,25 @@ import { saveAs } from 'file-saver'
 
 export default function Component() {
   const [isGenerating, setIsGenerating] = useState(false)
-  const [lineCount, setLineCount] = useState(1)
+  const [lineCount, setLineCount] = useState(1) // Track number of lines dynamically
   const browserRef = useRef<HTMLDivElement>(null)
   const codeRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const updateLineCount = () => {
-      if (codeRef.current) {
-        const lines = codeRef.current.textContent?.split('\n').length || 1
-        setLineCount(lines)
-      }
+    const handlePaste = (e: ClipboardEvent) => {
+      e.preventDefault()
+      const text = e.clipboardData?.getData('text/plain')
+      document.execCommand('insertText', false, text)
     }
-
-    const handleInput = () => updateLineCount()
 
     const codeElement = codeRef.current
     if (codeElement) {
-      codeElement.addEventListener('input', handleInput)
+      codeElement.addEventListener('paste', handlePaste)
     }
 
     return () => {
       if (codeElement) {
-        codeElement.removeEventListener('input', handleInput)
+        codeElement.removeEventListener('paste', handlePaste)
       }
     }
   }, [])
@@ -63,10 +60,27 @@ export default function Component() {
     }
   }
 
+  // Dynamically update the line numbers based on the content in the editor
+  useEffect(() => {
+    const codeElement = codeRef.current
+    if (codeElement) {
+      const updateLineCount = () => {
+        const lines = codeElement.innerText.split('\n').length
+        setLineCount(lines)
+      }
+      updateLineCount()
+      codeElement.addEventListener('input', updateLineCount)
+
+      return () => {
+        codeElement.removeEventListener('input', updateLineCount)
+      }
+    }
+  }, [])
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-black p-4">
-      <Card 
-        ref={browserRef} 
+      <Card
+        ref={browserRef}
         className="w-full sm:w-[720px] bg-[#1a1a1a] shadow-xl rounded-lg overflow-hidden border-0"
       >
         {/* Window Header */}
@@ -84,7 +98,7 @@ export default function Component() {
         </div>
 
         {/* Code Editor Area */}
-        <div className="flex">
+        <div className="flex max-h-[75vh] overflow-auto">
           {/* Line Numbers */}
           <div className="p-4 text-right font-mono text-xs text-[#666] select-none bg-[#1a1a1a] border-r border-[#333]">
             {Array.from({ length: lineCount }, (_, i) => (
@@ -101,7 +115,6 @@ export default function Component() {
             suppressContentEditableWarning
             spellCheck="false"
             className="flex-1 p-4 font-mono text-xs outline-none whitespace-pre text-[#e4e4e4] leading-6"
-            style={{ whiteSpace: "pre-wrap" }}
           >
 {`export default function Counter() {
   const [count, setCount] = useState(0);
