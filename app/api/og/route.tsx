@@ -28,6 +28,7 @@ export async function GET(req: Request) {
 
   return new ImageResponse(
     (
+  <>
   <div
   style={{
     height: '100%',
@@ -90,6 +91,7 @@ export async function GET(req: Request) {
           {currentDate}
         </div>
       </div>
+   </>
     ),
     {
       width: 800,
