@@ -1,5 +1,3 @@
-"use client"
-
 import { Metadata } from 'next'
 import Component from './Component'
 import InfoIcon from '../../../components/info-icon'
