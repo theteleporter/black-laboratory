@@ -28,7 +28,7 @@ export async function GET(req: Request) {
 
   return new ImageResponse(
     (
-  <>
+  <div>
   <div
   style={{
     height: '100%',
@@ -63,7 +63,7 @@ export async function GET(req: Request) {
          >
         <rect x="0" y="0" width="75" height="75" />
        </svg>
-        <div style={{ marginTop: 40, font family: 'Geist', }}>
+        <div style={{ marginTop: 40, fontFamily: 'Geist', }}>
          {formattedExperiment}
       </div>
         <div
@@ -91,7 +91,7 @@ export async function GET(req: Request) {
           {currentDate}
         </div>
       </div>
-   </>
+   </div>
     ),
     {
       width: 800,
