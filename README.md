@@ -1,8 +1,9 @@
 # Black Labs
 
-Black Labs is reimagining the boundaries of web development and design by merging bold design aesthetics with cutting-edge technology. We're turning the web into a canvas for innovation.
-
 ![Black Labs](https://lab.theteleporter.me/logo.png)
+
+Black Laboratory is reimagining the boundaries of web development by merging bold design aesthetics with cutting-edge technology. We're turning the web into a canvas for innovation.
+
 
 ## Core Technologies
 - [Next.js](https://nextjs.org/)

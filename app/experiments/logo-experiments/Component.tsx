@@ -324,6 +324,9 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
           </span>
         ))}
       </div>
+    <div className="mt-1 text-xs text-gray-500">
+    Font Source: <a href="https://fonts.google.com" target="_blank" rel="noopener noreferrer">Google Fonts</a>
+    </div>
     </div>
   )
 }

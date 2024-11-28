@@ -14,9 +14,9 @@ export default function Example() {
       <Note variant="violet">This is a violet note.</Note>
       <Note variant="cyan">This is a cyan note.</Note>
 
-      <div className="space-y-2">
+      <div className="space-y-4">
         <h3 className="text-lg font-semibold text-white">Info Icons with Tooltips</h3>
-        <div className="flex space-x-4">
+        <div className="flex space-x-8 overflow-x-auto">
           <InfoIcon tooltip="Default tooltip" variant="default" side="top" />
           <InfoIcon tooltip="Error tooltip" variant="error" side="right" />
           <InfoIcon tooltip="Ghost tooltip" variant="ghost" side="bottom" />
@@ -27,7 +27,7 @@ export default function Example() {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-8">
         <h3 className="text-lg font-semibold text-white">Section Info Cards</h3>
         <SectionInfo 
           title="Default Section" 

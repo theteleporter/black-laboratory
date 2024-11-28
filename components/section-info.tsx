@@ -25,7 +25,7 @@ export default function SectionInfo({ title, tooltip, children, variant = 'defau
   const { bg, text, border } = variants[variant]
 
   return (
-    <div className="rounded-xl p-4" style={{ backgroundColor: bg, borderWidth: 0 }}>
+    <div className="rounded-xl p-2" style={{ backgroundColor: bg, borderWidth: 0 }}>
       <div className="flex items-center gap-2 mb-1">
         <h2 className="text-xs font-normal" style={{ color: text }}>{title}</h2>
         <InfoIcon tooltip={tooltip} variant={variant} side={tooltipSide} />
