@@ -15,10 +15,14 @@ async function loadGoogleFont(font: string, text: string) {
   throw new Error('Failed to load font data');
 }
 
+function capitalizeFirstLetterOfEachWord(text: string) {
+  return text.replace(/\b\w/g, char => char.toUpperCase()).replace(/-/g, ' ');
+}
+
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const experiment = searchParams.get('experiment') || 'black-labs';
-  const formattedExperiment = experiment.charAt(0).toUpperCase() + experiment.slice(1).toLowerCase().replace(/-/g, ' ');
+  const formattedExperiment = capitalizeFirstLetterOfEachWord(experiment);
   const currentDate = new Date().toISOString().split('T')[0];
   const defaultTitle = 'BLACK LABS';
   const handle = '@theteleporter_';
@@ -39,6 +43,7 @@ export async function GET(req: Request) {
           fontSize: 32,
           fontWeight: 600,
           color: '#fff',
+          fontFamily: 'Geist',
         }}
       >
         <div
@@ -47,7 +52,6 @@ export async function GET(req: Request) {
             top: 20,
             right: 20,
             fontSize: 20,
-            fontFamily: 'Geist',
           }}
         >
           {handle}
@@ -61,7 +65,7 @@ export async function GET(req: Request) {
         >
           <rect x="0" y="0" width="75" height="75" />
         </svg>
-        <div style={{ marginTop: 40, fontFamily: 'Geist' }}>
+        <div style={{ marginTop: 40 }}>
           {formattedExperiment}
         </div>
         <div
@@ -70,7 +74,6 @@ export async function GET(req: Request) {
             bottom: 20,
             left: 20,
             fontSize: 24,
-            fontFamily: 'Geist',
           }}
         >
           {defaultTitle}
@@ -81,7 +84,6 @@ export async function GET(req: Request) {
             bottom: 20,
             right: 20,
             fontSize: 20,
-            fontFamily: 'Geist',
           }}
         >
           {currentDate}
