@@ -25,6 +25,7 @@ export async function GET(req: Request) {
 
   const defaultTitle = 'BLACK LABS';
   const handle = '@theteleporter_';
+  const applyFonts = [formattedExperiment, currentDate, handle]
 
   return new ImageResponse(
     (
@@ -97,7 +98,7 @@ export async function GET(req: Request) {
       fonts: [
         {
           name: 'Geist',
-          data: await loadGoogleFont('Geist+Mono', formattedExperiment, currentDate, handle),
+          data: await loadGoogleFont('Geist+Mono', applyFonts),
           style: 'normal',
         },
       ],
