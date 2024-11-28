@@ -1,4 +1,4 @@
-# Avatar Generation Microservice 
+# Avatar Microservice | Black Labs
 
 This experiment demonstrates a simple microservice and a corresponding UI component for generating and displaying unique avatars based on user email. The microservice supports dynamic gradient creation, serves avatars in both `SVG` and `PNG` formats, and allows users to download them directly from the UI or it can be served to other applications by using the API endpoint.
 
