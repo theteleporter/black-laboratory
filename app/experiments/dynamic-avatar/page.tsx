@@ -35,7 +35,7 @@ export default function Page() {
       <a
         target="_blank"
         rel="noopener noreferrer"
-        href="https://github.com/theteleporter/lab/tree/main/app/experiments/dynamic-avatar"
+        href="https://github.com/theteleporter/black-laboratory/tree/main/app/experiments/dynamic-avatar"
         className="absolute bottom-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 flex items-center gap-2 z-40"
       >
         <Code size={20} />

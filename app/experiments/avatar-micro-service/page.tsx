@@ -36,7 +36,7 @@ const description = metadata.description ?? "No description available."
      <a
          target="_blank"
          rel="noopener noreferrer"
-href="https://github.com/theteleporter/lab/tree/main/app/experiments/avatar-micro-service"
+href="https://github.com/theteleporter/black-laboratory/tree/main/app/experiments/avatar-micro-service"
         className="absolute bottom-4 left-4 text-stone-400 hover:text-stone-200 transition-colors duration-200 flex items-center gap-2 z-40"
       >
         <Code size={20} />
