@@ -13,7 +13,7 @@ This is a **File Tree** component built for navigating directories and files in 
 To use this component in your Next.js application, import the `FileTree` component and pass the required data for your file structure:
 
 ```tsx
-import Component from './file-tree';
+import Component from './Component';
 
 const fileTreeData = [
   {
