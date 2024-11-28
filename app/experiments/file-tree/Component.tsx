@@ -1,3 +1,5 @@
+'use client'
+
 import React, { Suspense, useState } from 'react';
 import { FolderOpen, FolderClosed, File } from 'lucide-react';
 import './style.css';
