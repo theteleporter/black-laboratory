@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: 'A textarea that allows text to fall into a letter graveyard when deleted.',
     images: [
       {
-        url: '/api/og',
+        url: '/api/og?experiment=letter-graveyard',
         width: 800,
         height: 400,
       },

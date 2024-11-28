@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: 'A content editable 2D word art, forked from rauchg and a guy in Asia, that allows interactive text manipulation.',
     images: [
       {
-        url: '/api/og',
+        url: '/api/og?experiment=word-art',
         width: 800,
         height: 400,
       },

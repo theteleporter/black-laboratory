@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: 'An experiment generating a dynamic avatar based on text input. The avatar’s gradient colors change according to every keystroke.',
     images: [
       {
-        url: '/api/og',
+        url: '/api/og?experiment=dynamic-avatar',
         width: 800,
         height: 400,
       },

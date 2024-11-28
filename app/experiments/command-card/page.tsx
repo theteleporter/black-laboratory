@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: 'A beautiful content editable command card that is downloadable in png format.',
     images: [
       {
-        url: '/api/og',
+        url: '/api/og?experiment=command-card',
         width: 800,
         height: 400,
       },

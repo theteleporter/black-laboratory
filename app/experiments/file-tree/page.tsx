@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: 'A file tree that expands, collapses, and shows different directories and files. This component mimics a file explorer interface for navigating nested directories.',
     images: [
       {
-        url: '/api/og',
+        url: '/api/og?experiment=file-tree',
         width: 800,
         height: 400,
       },

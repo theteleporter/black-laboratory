@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: 'An experimental 3D robot head with glasses, forked from Teleball, showcasing cool interactive animations and design.',
     images: [
       {
-        url: '/api/og',
+        url: '/api/og?experiment=robot-head',
         width: 800,
         height: 400,
       },

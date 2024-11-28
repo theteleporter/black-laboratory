@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: 'An experiment showcasing logos and a content editable field that can be used to generate logos on the fly. Custom fonts are also supported.',
     images: [
       {
-        url: '/api/og',
+        url: '/api/og?experiment=logo-experiments',
         width: 800,
         height: 400,
       },

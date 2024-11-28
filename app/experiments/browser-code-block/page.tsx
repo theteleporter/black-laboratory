@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: 'A browser code block that is content editable, and the image can be downloaded as a PNG. This component allows you to edit code within a styled browser-like block and save the content as an image.',
     images: [
       {
-        url: '/api/og',
+        url: '/api/og?experiment=browser-code-block',
         width: 800,
         height: 400,
       },
