@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import Component from './Component'
 import InfoIcon from '../../../components/info-icon'
 import { Code } from 'lucide-react'
+import './style.css'
 
 export const metadata: Metadata = {
   title: 'File Tree | Black Labs',
