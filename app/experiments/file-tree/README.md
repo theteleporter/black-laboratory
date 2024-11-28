@@ -27,7 +27,7 @@ const fileTreeData = [
   { name: 'package.json', type: 'file' },
 ];
 
-<FileTree data={fileTreeData} />;
+<Component data={fileTreeData} />;
 ```
 
 ## Customization
