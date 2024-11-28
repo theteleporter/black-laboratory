@@ -8,24 +8,28 @@ import { saveAs } from 'file-saver'
 
 export default function Component() {
   const [isGenerating, setIsGenerating] = useState(false)
+  const [lineCount, setLineCount] = useState(1)
   const browserRef = useRef<HTMLDivElement>(null)
   const codeRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const handlePaste = (e: ClipboardEvent) => {
-      e.preventDefault()
-      const text = e.clipboardData?.getData('text/plain')
-      document.execCommand('insertText', false, text)
+    const updateLineCount = () => {
+      if (codeRef.current) {
+        const lines = codeRef.current.textContent?.split('\n').length || 1
+        setLineCount(lines)
+      }
     }
+
+    const handleInput = () => updateLineCount()
 
     const codeElement = codeRef.current
     if (codeElement) {
-      codeElement.addEventListener('paste', handlePaste)
+      codeElement.addEventListener('input', handleInput)
     }
 
     return () => {
       if (codeElement) {
-        codeElement.removeEventListener('paste', handlePaste)
+        codeElement.removeEventListener('input', handleInput)
       }
     }
   }, [])
@@ -83,7 +87,7 @@ export default function Component() {
         <div className="flex">
           {/* Line Numbers */}
           <div className="p-4 text-right font-mono text-xs text-[#666] select-none bg-[#1a1a1a] border-r border-[#333]">
-            {Array.from({ length: 17 }, (_, i) => (
+            {Array.from({ length: lineCount }, (_, i) => (
               <div key={i + 1} className="leading-6">
                 {String(i + 1).padStart(2, '0')}
               </div>
@@ -97,6 +101,7 @@ export default function Component() {
             suppressContentEditableWarning
             spellCheck="false"
             className="flex-1 p-4 font-mono text-xs outline-none whitespace-pre text-[#e4e4e4] leading-6"
+            style={{ whiteSpace: "pre-wrap" }}
           >
 {`export default function Counter() {
   const [count, setCount] = useState(0);
@@ -125,7 +130,7 @@ export default function Component() {
             <span className="text-[#666]">|</span>
             <span>UTF-8</span>
           </div>
-          <span>Ln 15, Col 1</span>
+          <span>Ln {lineCount}, Col 1</span>
         </div>
       </Card>
 
