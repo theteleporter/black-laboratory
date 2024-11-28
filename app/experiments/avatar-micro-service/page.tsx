@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: 'This microservice dynamically generates unique, avatars for user profiles. It creates consistent designs based on user data (e.g., usernames or emails), by making a request to `{url}/api/avatar?email=user@example.com`',
     images: [
       {
-        url: '/api/og',
+        url: '/api/og?experiment=avatar-micro-service',
         width: 800,
         height: 400,
       },
