@@ -11,22 +11,33 @@ export default function Component() {
   const [lineCount, setLineCount] = useState(1) // Track number of lines dynamically
   const browserRef = useRef<HTMLDivElement>(null)
   const codeRef = useRef<HTMLDivElement>(null)
+  const lineRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const handlePaste = (e: ClipboardEvent) => {
-      e.preventDefault()
-      const text = e.clipboardData?.getData('text/plain')
-      document.execCommand('insertText', false, text)
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        const selection = window.getSelection()
+        const range = selection?.getRangeAt(0)
+        const newLineNode = document.createTextNode('\n')
+
+        if (range) {
+          range.deleteContents()
+          range.insertNode(newLineNode)
+          range.setStartAfter(newLineNode)
+          range.setEndAfter(newLineNode)
+        }
+      }
     }
 
     const codeElement = codeRef.current
     if (codeElement) {
-      codeElement.addEventListener('paste', handlePaste)
+      codeElement.addEventListener('keydown', handleKeyDown)
     }
 
     return () => {
       if (codeElement) {
-        codeElement.removeEventListener('paste', handlePaste)
+        codeElement.removeEventListener('keydown', handleKeyDown)
       }
     }
   }, [])
@@ -60,14 +71,19 @@ export default function Component() {
     }
   }
 
-  // Dynamically update the line numbers based on the content in the editor
+  // Dynamically update the line numbers and adjust separator height
   useEffect(() => {
     const codeElement = codeRef.current
-    if (codeElement) {
+    const lineElement = lineRef.current
+    if (codeElement && lineElement) {
       const updateLineCount = () => {
         const lines = codeElement.innerText.split('\n').length
         setLineCount(lines)
+
+        // Adjust separator height to match the content height
+        lineElement.style.height = `${codeElement.scrollHeight}px`
       }
+
       updateLineCount()
       codeElement.addEventListener('input', updateLineCount)
 
@@ -100,7 +116,10 @@ export default function Component() {
         {/* Code Editor Area */}
         <div className="flex max-h-[75vh] overflow-auto">
           {/* Line Numbers */}
-          <div className="p-4 text-right font-mono text-xs text-[#666] select-none bg-[#1a1a1a] border-r border-[#333]">
+          <div
+            ref={lineRef}
+            className="p-4 text-right font-mono text-xs text-[#666] select-none bg-[#1a1a1a] border-r border-[#333]"
+          >
             {Array.from({ length: lineCount }, (_, i) => (
               <div key={i + 1} className="leading-6">
                 {String(i + 1).padStart(2, '0')}
