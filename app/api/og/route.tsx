@@ -28,21 +28,20 @@ export async function GET(req: Request) {
 
   return new ImageResponse(
     (
-      <div
-        style={{
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          backgroundColor: '#000',
-          fontSize: 32,
-          fontWeight: 600,
-          color: '#fff',
-          position: 'relative',
-        }}
-      >
+  <div
+  style={{
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#000',
+    fontSize: 32,
+    fontWeight: 600,
+     color: '#fff',
+  }}
+>
         <div
           style={{
             position: 'absolute',
@@ -54,18 +53,18 @@ export async function GET(req: Request) {
         >
           {handle}
         </div>
-
-        <div
-          style={{
-            fontSize: 48,
-            fontWeight: 900,
-            textAlign: 'center',
-            fontFamily: 'Geist',
-          }}
-        >
-          {formattedExperiment}
-        </div>
-
+       <svg
+         width="75"
+         height="75"
+         viewBox="0 0 75 75"
+         fill="#fff"
+         style={{ margin: '0 75px 3px' }}
+         >
+        <rect x="0" y="0" width="75" height="75" />
+       </svg>
+        <div style={{ marginTop: 40 }}>
+         {formattedExperiment}
+      </div>
         <div
           style={{
             position: 'absolute',
@@ -98,7 +97,7 @@ export async function GET(req: Request) {
       fonts: [
         {
           name: 'Geist',
-          data: await loadGoogleFont('Geist+Mono', formattedExperiment),
+          data: await loadGoogleFont('Geist+Mono', formattedExperiment, currentDate, handle),
           style: 'normal',
         },
       ],
