@@ -25,7 +25,6 @@ export async function GET(req: Request) {
 
   const defaultTitle = 'BLACK LABS';
   const handle = '@theteleporter_';
-  const applyFonts = [formattedExperiment, currentDate, handle]
 
   return new ImageResponse(
     (
@@ -63,7 +62,7 @@ export async function GET(req: Request) {
          >
         <rect x="0" y="0" width="75" height="75" />
        </svg>
-        <div style={{ marginTop: 40 }}>
+        <div style={{ marginTop: 40, font family: 'Geist', }}>
          {formattedExperiment}
       </div>
         <div
@@ -98,7 +97,7 @@ export async function GET(req: Request) {
       fonts: [
         {
           name: 'Geist',
-          data: await loadGoogleFont('Geist+Mono', applyFonts),
+          data: await loadGoogleFont('Geist+Mono', formattedExperiment),
           style: 'normal',
         },
       ],
