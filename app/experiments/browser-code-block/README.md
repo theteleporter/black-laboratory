@@ -29,7 +29,7 @@ To use the **Browser Code Block** component in your Next.js project, follow thes
 2. **Add the Component**: 
 Import and use the component within your page:
    ```
-   import Component from './browser-code-block';
+   import Component from './Component';
    
    export default function Page() {
    return <Component />;
