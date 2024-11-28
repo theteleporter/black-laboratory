@@ -18,7 +18,7 @@ async function loadGoogleFont(font: string, text: string) {
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const experiment = searchParams.get('experiment') || 'black-labs';
-  const formattedExperiment = experiment.toUpperCase().replace(/-/g, ' ');
+  const formattedExperiment = experiment.charAt(0).toUpperCase() + experiment.slice(1).toLowerCase().replace(/-/g, ' ');
   const currentDate = new Date().toISOString().split('T')[0];
   const defaultTitle = 'BLACK LABS';
   const handle = '@theteleporter_';
