@@ -6,10 +6,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { GitBranch, ChevronLeft, ChevronRight } from 'lucide-react';
 import { experiments, resources, Project } from '../utils/projectData';
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 5;
 const LIST_HEIGHT = ITEMS_PER_PAGE * 32; // Each item is 32px high
 
-export default function ExperimentsList() {
+export default function ProjectList() {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -26,20 +26,18 @@ export default function ExperimentsList() {
   const categories = ['design', 'engineering', 'inspiration', 'tools', 'references'];
 
   const renderProjects = (projects: Project[]) => (
-    // <motion.ul 
-    <ul
- //  style={{ minHeight: LIST_HEIGHT }}
+    <motion.ul 
+      style={{ minHeight: LIST_HEIGHT }}
       className="relative"
     >
-     {/** <AnimatePresence mode="wait">**/}
+      <AnimatePresence mode="wait">
         {projects.map((project, index) => (
-      //    <motion.
-          <li
+          <motion.li
             key={project.name}
-      //      initial={{ opacity: 0, y: 10 }}
-    //        animate={{ opacity: 1, y: 0 }}
-   //         exit={{ opacity: 0, y: -10 }}
-       //     transition={{ duration: 0.2, delay: index * 0.05 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2, delay: index * 0.05 }}
             className="text-sm relative flex items-center justify-between"
           >
             {project.type === 'internal' ? (
@@ -65,11 +63,10 @@ export default function ExperimentsList() {
             )}
 
             {hoveredProject === project.name && (
-      //        <motion.div
-               <div
-          //      initial={{ opacity: 0 }}
-      //          animate={{ opacity: 1 }}
-         //       exit={{ opacity: 0 }}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 className="flex items-center space-x-4"
               >
                 <span className="text-xs text-stone-400">
@@ -81,13 +78,12 @@ export default function ExperimentsList() {
                     <span>{project.forkedFrom}</span>
                   </div>
                 )}
-     {     /**    </motion.div>**/}</div>
+              </motion.div>
             )}
-      {/**    </motion.li>**/}</li>
+          </motion.li>
         ))}
-  {  /**  </AnimatePresence>**/}
-  {/**  </motion.ul>**/}
-  </ul>
+      </AnimatePresence>
+    </motion.ul>
   );
 
   return (
@@ -113,7 +109,6 @@ export default function ExperimentsList() {
             >
               ALL
             </button>
-            <div style={{ minHeight: LIST_HEIGHT }}>
             {categories.map((category) => (
               <button
                 key={category}
@@ -129,14 +124,14 @@ export default function ExperimentsList() {
               >
                 {category.toUpperCase()}
               </button>
-            ))}</div>
+            ))}
           </div>
           {renderProjects(currentResources)}
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="text-stone-400 hover:text-white bg-[#232323] disabled: bg-transparent disabled:opacity-50"
+              className="text-stone-400 hover:text-white disabled:opacity-50"
             >
               <ChevronLeft size={20} />
              <span className="sr-only">
@@ -149,7 +144,7 @@ export default function ExperimentsList() {
             <button
               onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="text-stone-400 hover:text-white bg-[#232323] disabled: bg-transparent disabled:opacity-50"
+              className="text-stone-400 hover:text-white disabled:opacity-50"
             >
               <ChevronRight size={20} />
             <span className="sr-only">
