@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Inter, Dela_Gothic_One, Rubik_Glitch, Pixelify_Sans, Faster_One, Rubik_Maze, Honk, Bungee_Spice, Lacquer, Kranky, Major_Mono_Display } from 'next/font/google';
 import "./globals.css";
 import Script from 'next/script';
+import CMDK from '../components/cmdk';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -88,6 +89,7 @@ export default function RootLayout({
            antialiased font-mono font-thin selection:bg-[#FFFFFF] selection:text-[#000000]
            `}
       >
+      <CMDK />
         {children}
       </body>
     </html>
