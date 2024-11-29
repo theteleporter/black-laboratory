@@ -69,7 +69,7 @@ export default function CMDK() {
       open={open}
       onOpenChange={setOpen}
       ref={ref}
-      className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[95vw] max-w-[640px] max-h-[85vh] min-h-[380px] bg-[#1C1C1C] rounded-lg shadow-lg border border-[#585D63] overflow-hidden"
+      className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[95vw] max-w-[640px] max-h-[85vh] min-h-[380px] bg-[#1C1C1C] rounded-lg shadow-lg border border-[#585D63] overflow-hidden z-50"
     >
       <Command.Input 
         className="w-full text-sm bg-transparent text-[#EFEFEF] placeholder:text-[#6C6C6C] px-6 py-4 outline-none border-b border-[#333333]"

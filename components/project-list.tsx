@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { GitBranch, ChevronLeft, ChevronRight } from 'lucide-react';
 import { experiments, resources, Project } from '../utils/projectData';
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 20;
 const LIST_HEIGHT = ITEMS_PER_PAGE * 32; // Each item is 32px high
 
 export default function ProjectList() {
@@ -134,6 +134,9 @@ export default function ProjectList() {
               className="text-stone-400 hover:text-white disabled:opacity-50"
             >
               <ChevronLeft size={20} />
+             <span className="sr-only">
+             Previous 
+             </span>
             </button>
             <span className="text-stone-400 text-sm">
               {currentPage} of {totalPages}
@@ -144,6 +147,9 @@ export default function ProjectList() {
               className="text-stone-400 hover:text-white disabled:opacity-50"
             >
               <ChevronRight size={20} />
+            <span className="sr-only">
+             Next
+             </span>
             </button>
           </div>
         </div>
