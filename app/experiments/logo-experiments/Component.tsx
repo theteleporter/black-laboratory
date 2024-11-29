@@ -248,7 +248,7 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
 }
 
   return (
-    <div className={`min-h-screen w-screen flex flex-col items-center justify-center p-8 ${darkMode ? 'bg-[#161616] text-white' : 'bg-white text-black'}`}>
+    <div className={`min-h-screen w-screen flex flex-col items-center justify-center p-8 ${darkMode ? 'bg-[#161616] text-white selection:bg-[#FFFFFF] selection:text-[#000000]' : 'bg-white text-black selection:bg-[#0A0A0A] selection:text-[#FFFFFF]'}`}>
       <div className="flex items-center space-x-2 mb-8">
         <Sun className="h-4 w-4" />
         <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
@@ -266,7 +266,7 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
           style={{
             wordBreak: 'break-word',
             fontFamily: fonts[currentFontIndex].name,
-            letterSpacing: fonts[currentFontIndex].name === 'Press Start 2P' ? '0.1em' : fonts[currentFontIndex].name === 'Comfortaa' ? '0.2em' : 'normal',
+            letterSpacing: fonts[currentFontIndex].name === 'Press Start 2P' ? 'normal' : fonts[currentFontIndex].name === 'Comfortaa' ? '0.2em' : 'normal',
           }}
         />
         <div className="flex flex-wrap justify-center gap-4 mb-8">
@@ -297,7 +297,7 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
           value={customFont}
           onChange={(e) => setCustomFont(e.target.value)}
           placeholder="Enter google font name(s)"
-          className="px-2 py-1 border-b border-current focus:border-b-2 focus:outline-none bg-transparent"
+          className="px-2 py-1 border-b border-current focus:border-b-2 focus:outline-none bg-transparent placeholder:text-[#767676]"
         />
         <Button type="submit">Add Font(s)</Button>
    </div>
@@ -308,7 +308,7 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      <div className="mt-8 text-xs text-gray-500">
+      <div className="mt-8 text-start text-xs text-[#A1A1A1]">
         Fonts:
 {fonts.map(({ name }, index) => (
           <span key={name}>
@@ -324,7 +324,7 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
           </span>
         ))}
       </div>
-    <div className="mt-1 text-xs text-gray-500">
+    <div className="mt-1 text-start text-xs text-[#A1A1A1">
     Font Source: <a href="https://fonts.google.com" target="_blank" rel="noopener noreferrer">Google Fonts</a>
     </div>
     </div>
