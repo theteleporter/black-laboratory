@@ -5,10 +5,10 @@ import { Code } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Logo Experiments | Black Labs',
-  description: 'An experiment showcasing logos and a content editable field that can be used to generate logos on the fly. Custom fonts are also supported.',
+  description: 'An experiment showcasing logos and a content editable field that can be used to generate logos on the fly. Custom from Google Fonts are also supported.',
   openGraph: {
     title: 'Logo Experiments | Black Labs',
-    description: 'An experiment showcasing logos and a content editable field that can be used to generate logos on the fly. Custom fonts are also supported.',
+    description: 'An experiment showcasing logos and a content editable field that can be used to generate logos on the fly. Custom fonts from Google Fonts are also supported.',
     images: [
       {
         url: '/api/og?experiment=logo-experiments',

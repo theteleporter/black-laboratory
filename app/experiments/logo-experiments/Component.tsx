@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useRef, useEffect, useState } from 'react'
-import { Comfortaa, Geist, Press_Start_2P, Courier_Prime } from 'next/font/google'
+import { Comfortaa, Geist, Dela_Gothic_One, Courier_Prime } from 'next/font/google'
 import { Download, Moon, Sun, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import type { NextFont } from 'next/dist/compiled/@next/font'
@@ -15,12 +15,12 @@ interface FontConfig {
 
 const comfortaa = Comfortaa({ subsets: ['latin'], display: 'swap' })
 const geist = Geist({ weight: '700', subsets: ['latin'], display: 'swap' })
-const pressStart2P = Press_Start_2P({ weight: '400', subsets: ['latin'], display: 'swap' })
+const delaGothicOne = Dela_Gothic_One({ weight: '400', subsets: ['latin'], display: 'swap' })
 const courierPrime = Courier_Prime({ weight: '400', subsets: ['latin'], display: 'swap' })
 
 const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ className, ...props }) => (
   <button
-    className={`px-4 py-2 rounded-md font-medium transition-colors ${className}`}
+    className={`px-3 py-1 rounded-md font-normal transition-colors ${className}`}
     {...props}
   />
 )
@@ -72,7 +72,7 @@ export default function Component() {
   const [fonts, setFonts] = useState([
     { name: 'Comfortaa', font: comfortaa, defaultText: 'black labs' },
     { name: 'Geist', font: geist, defaultText: 'Black Labs' },
-    { name: 'Press Start 2P', font: pressStart2P, defaultText: 'BLACK LABS' },
+    { name: 'Dela Gothic One', font: delaGothicOne, defaultText: 'BLACK LABS' },
     { name: 'Courier Prime', font: courierPrime, defaultText: 'Black Labs' },
   ])
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -266,10 +266,10 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
           style={{
             wordBreak: 'break-word',
             fontFamily: fonts[currentFontIndex].name,
-            letterSpacing: fonts[currentFontIndex].name === 'Press Start 2P' ? 'normal' : fonts[currentFontIndex].name === 'Comfortaa' ? '0.2em' : 'normal',
+            letterSpacing: fonts[currentFontIndex].name === 'Comfortaa' ? '0.2em' : 'normal',
           }}
         />
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
+        <div className="flex flex-row justify-center gap-4 mb-8">
           <Button
             onClick={() => generateImage('png')}
             className={`${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
@@ -280,7 +280,7 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
             onClick={() => generateImage('svg')}
             className={`${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
           >
-            Download SVG <Download className="inline-block ml-2 w-4 h-4" />
+           Download SVG <Download className="inline-block ml-2 w-4 h-4" />
           </Button>
         </div>
         <Pagination
@@ -301,14 +301,14 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
         />
         <Button type="submit">Add Font(s)</Button>
    </div>
-<Note variant={`${darkMode ? 'warning' : 'success'}`}>
+<Note variant={`${darkMode ? 'warning' : 'warning'}`}>
           For multi-name fonts, separate names with commas (e.g., "Roboto Slab, Roboto")
         </Note>
       </form>
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      <div className="mt-8 flex justify-start align-middle text-xs text-[#A1A1A1]">
+      <div className="mt-8 text-xs text-gray-500">
         Fonts:
 {fonts.map(({ name }, index) => (
           <span key={name}>
@@ -316,7 +316,7 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
               href={`https://fonts.google.com/specimen/${name.replace(/\s+/g, '+')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-gray-700 transition-colors"
+              className="text-[#A1A1A1] hover:text-[#EFEFEF] transition-colors"
             >
               {name}
             </Link>
@@ -324,9 +324,6 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
           </span>
         ))}
       </div>
-    <div className="mt-1 flex justify-start align-middle text-xs text-[#A1A1A1]">
-    Font Source: <a href="https://fonts.google.com" target="_blank" rel="noopener noreferrer">Google Fonts</a>
-    </div>
     </div>
   )
 }
