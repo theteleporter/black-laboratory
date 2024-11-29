@@ -77,7 +77,7 @@ const InfoIcon = ({ tooltip, variant = "default", side = "top" }: InfoIconProps)
             color: text,
             borderColor: border,
             borderWidth: 1,
-            textAlign: center,
+            textAlign: "center",
           }}
         >
           <Balancer ratio={0.35} preferNative={false}>{tooltip}</Balancer>
