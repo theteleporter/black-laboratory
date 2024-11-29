@@ -20,7 +20,7 @@ const courierPrime = Courier_Prime({ weight: '400', subsets: ['latin'], display:
 
 const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ className, ...props }) => (
   <button
-    className={`px-3 py-1 rounded-md font-normal transition-colors ${className}`}
+    className={`px-2 py-1 rounded-md font-normal transition-colors ${className}`}
     {...props}
   />
 )
@@ -272,13 +272,13 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
         <div className="flex flex-row justify-center gap-4 mb-8">
           <Button
             onClick={() => generateImage('png')}
-            className={`${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80 flex align-middle'}`}
+            className={`flex align-middle ${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
           >
             Download PNG <Download className="inline-block ml-2 w-4 h-4" />
           </Button>
           <Button
             onClick={() => generateImage('svg')}
-            className={`${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80 flex align-middle'}`}
+            className={`flex align-middle ${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
           >
            Download SVG <Download className="inline-block ml-2 w-4 h-4" />
           </Button>
@@ -290,7 +290,7 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
         />
       </div>
 
-      <form onSubmit={handleAddCustomFont} className="flex flex-col gap-2 mb-4">
+      <form onSubmit={handleAddCustomFont} className="flex flex-col gap-2 mb-4 w-full max-w-3xl">
   <div className="flex gap-2">
         <input
           type="text"
@@ -308,7 +308,7 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      <div className="mt-8 text-xs text-gray-500">
+      <div className="mt-8 text-xs text-gray-500 w-full max-w-3xl">
         Fonts:
 {fonts.map(({ name }, index) => (
           <span key={name}>
