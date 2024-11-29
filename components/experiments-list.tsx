@@ -113,6 +113,7 @@ export default function ExperimentsList() {
             >
               ALL
             </button>
+            <div style={{ minHeight: LIST_HEIGHT }}>
             {categories.map((category) => (
               <button
                 key={category}
@@ -128,14 +129,14 @@ export default function ExperimentsList() {
               >
                 {category.toUpperCase()}
               </button>
-            ))}
+            ))}</div>
           </div>
           {renderProjects(currentResources)}
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="text-stone-400 hover:text-white disabled:opacity-50"
+              className="text-stone-400 hover:text-white bg-[#232323] disabled: bg-transparent disabled:opacity-50"
             >
               <ChevronLeft size={20} />
              <span className="sr-only">
@@ -148,7 +149,7 @@ export default function ExperimentsList() {
             <button
               onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="text-stone-400 hover:text-white disabled:opacity-50"
+              className="text-stone-400 hover:text-white bg-[#232323] disabled: bg-transparent disabled:opacity-50"
             >
               <ChevronRight size={20} />
             <span className="sr-only">
