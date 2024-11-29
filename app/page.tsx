@@ -1,4 +1,4 @@
-import ProjectList from '../components/project-list'
+import ExperimentsList from '../components/experiments-list'
 import ServerFooter from '../components/server-footer'
 import { Logo } from '../components/logo'
 
@@ -8,7 +8,7 @@ export default function Home() {
       <div className="mb-8">
       <Logo />
       </div>
-      <ProjectList />
+      <ExperimentsList />
       <ServerFooter />
     </main>
   )

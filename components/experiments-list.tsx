@@ -2,14 +2,13 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
 import { GitBranch, ChevronLeft, ChevronRight } from 'lucide-react';
 import { experiments, resources, Project } from '../utils/projectData';
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 20;
 const LIST_HEIGHT = ITEMS_PER_PAGE * 32; // Each item is 32px high
 
-export default function ProjectList() {
+export default function ExperimentsList() {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -26,64 +25,53 @@ export default function ProjectList() {
   const categories = ['design', 'engineering', 'inspiration', 'tools', 'references'];
 
   const renderProjects = (projects: Project[]) => (
-    <motion.ul 
-      style={{ minHeight: LIST_HEIGHT }}
+    <ul 
+  //  style={{ minHeight: LIST_HEIGHT }}
       className="relative"
     >
-      <AnimatePresence mode="wait">
-        {projects.map((project, index) => (
-          <motion.li
-            key={project.name}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2, delay: index * 0.05 }}
-            className="text-sm relative flex items-center justify-between"
-          >
-            {project.type === 'internal' ? (
-              <Link
-                href={project.url}
-                className="inline-block w-full font-light py-1 hover:bg-[#232323] transition-colors duration-200"
-                onMouseEnter={() => setHoveredProject(project.name)}
-                onMouseLeave={() => setHoveredProject(null)}
-              >
-                <span>{project.name}</span>
-              </Link>
-            ) : (
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block w-full font-light py-1 hover:bg-[#232323] transition-colors duration-200"
-                onMouseEnter={() => setHoveredProject(project.name)}
-                onMouseLeave={() => setHoveredProject(null)}
-              >
-                <span>{project.name}</span>
-              </a>
-            )}
+      {projects.map((project, index) => (
+        <li
+          key={project.name}
+          className="text-sm relative flex items-center justify-between animate-fade-in"
+        >
+          {project.type === 'internal' ? (
+            <Link
+              href={project.url}
+              className="inline-block w-full font-light py-1 hover:bg-[#232323] transition-colors duration-200"
+              onMouseEnter={() => setHoveredProject(project.name)}
+              onMouseLeave={() => setHoveredProject(null)}
+            >
+              <span>{project.name}</span>
+            </Link>
+          ) : (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block w-full font-light py-1 hover:bg-[#232323] transition-colors duration-200"
+              onMouseEnter={() => setHoveredProject(project.name)}
+              onMouseLeave={() => setHoveredProject(null)}
+            >
+              <span>{project.name}</span>
+            </a>
+          )}
 
-            {hoveredProject === project.name && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex items-center space-x-4"
-              >
-                <span className="text-xs text-stone-400">
-                  {projects.length - index}
-                </span>
-                {project.forkedFrom && (
-                  <div className="flex items-center gap-1 text-xs text-gray-400">
-                    <GitBranch size={12} />
-                    <span>{project.forkedFrom}</span>
-                  </div>
-                )}
-              </motion.div>
-            )}
-          </motion.li>
-        ))}
-      </AnimatePresence>
-    </motion.ul>
+          {hoveredProject === project.name && (
+            <div className="flex items-center space-x-4">
+              <span className="text-xs text-stone-400">
+                {projects.length - index}
+              </span>
+              {project.forkedFrom && (
+                <div className="flex items-center gap-1 text-xs text-gray-400">
+                  <GitBranch size={12} />
+                  <span>{project.forkedFrom}</span>
+                </div>
+              )}
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
   );
 
   return (
@@ -95,7 +83,7 @@ export default function ProjectList() {
       <div>
         <h2 className="text-stone-300 font-thin uppercase border-b border-[#212121] max-w-fit">resources</h2>
         <div className="mt-2 space-y-4">
-          <div className="flex overflow-x-hidden gap-2">
+          <div className="flex overflow-x-auto gap-2">
             <button
               onClick={() => {
                 setSelectedCategory(null);
