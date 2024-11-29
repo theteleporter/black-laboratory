@@ -290,16 +290,16 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
         />
       </div>
 
-      <form onSubmit={handleAddCustomFont} className="flex flex-col gap-2 mb-4 w-full max-w-3xl">
-  <div className="flex gap-2">
+      <form onSubmit={handleAddCustomFont} className="flex flex-col gap-2 mb-4 w-full max-w-xl">
+  <div className="flex gap-2 w-full">
         <input
           type="text"
           value={customFont}
           onChange={(e) => setCustomFont(e.target.value)}
           placeholder="Enter google font name(s)"
-          className="px-2 py-1 border-b border-current focus:border-b-2 focus:outline-none bg-transparent placeholder:text-[#767676]"
+          className="px-2 py-1 border-b border-current focus:border-b-2 focus:outline-none bg-transparent placeholder:text-[#767676] w-2/3"
         />
-        <Button type="submit">Add Font(s)</Button>
+        <Button type="submit" className="w-1/3">Add Font(s)</Button>
    </div>
 <Note variant={`${darkMode ? 'warning' : 'warning'}`}>
           For multi-name fonts, separate names with commas (e.g., "Roboto Slab, Roboto")
