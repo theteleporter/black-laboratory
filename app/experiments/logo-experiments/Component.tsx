@@ -255,7 +255,7 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
         <Moon className="h-4 w-4" />
       </div>
 
-      <div className="w-full max-w-3xl mb-8">
+      <div className="w-full max-w-2xl mb-8">
         <h2 className="text-2xl font-bold mb-4 text-center">{fonts[currentFontIndex].name}</h2>
         <input
           ref={textRef}
@@ -269,16 +269,16 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
             letterSpacing: fonts[currentFontIndex].name === 'Comfortaa' ? '0.2em' : 'normal',
           }}
         />
-        <div className="flex flex-row justify-center gap-4 mb-8">
+        <div className="flex flex-row justify-center items-center gap-4 mb-8">
           <Button
             onClick={() => generateImage('png')}
-            className={`flex align-middle ${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
+            className={`flex items-center ${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
           >
             Download PNG <Download className="inline-block ml-2 w-4 h-4" />
           </Button>
           <Button
             onClick={() => generateImage('svg')}
-            className={`flex align-middle ${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
+            className={`flex items-center ${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
           >
            Download SVG <Download className="inline-block ml-2 w-4 h-4" />
           </Button>
@@ -291,13 +291,13 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
       </div>
 
       <form onSubmit={handleAddCustomFont} className="flex flex-col gap-2 mb-4 w-full max-w-xl">
-  <div className="flex gap-2 w-full">
+  <div className="flex items-center w-full">
         <input
           type="text"
           value={customFont}
           onChange={(e) => setCustomFont(e.target.value)}
-          placeholder="Enter google font name(s)"
-          className="px-2 py-1 border-b border-current focus:border-b-2 focus:outline-none bg-transparent placeholder:text-[#767676] w-2/3"
+          placeholder="Enter google font name"
+          className="px-2 py-1 border-b border-current focus:border-b-2 focus:outline-none bg-transparent placeholder:text-[#767676] w-2/3 "
         />
         <Button type="submit" className="w-1/3">Add Font(s)</Button>
    </div>
@@ -308,7 +308,7 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      <div className="mt-8 text-xs text-gray-500 w-full max-w-3xl">
+      <div className="mt-8 text-xs text-gray-500 w-full max-w-xl">
         Fonts:
 {fonts.map(({ name }, index) => (
           <span key={name}>
