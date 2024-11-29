@@ -1,6 +1,6 @@
 import ProjectList from '../components/project-list'
 import ServerFooter from '../components/server-footer'
-import { Logo } from '../../components/logo'
+import { Logo } from '../components/logo'
 
 export default function Home() {
   return (
