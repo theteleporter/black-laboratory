@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { GitBranch, ChevronLeft, ChevronRight } from 'lucide-react';
 import { experiments, resources, Project } from '../utils/projectData';
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 5;
 const LIST_HEIGHT = ITEMS_PER_PAGE * 32; // Each item is 32px high
 
 export default function ProjectList() {
