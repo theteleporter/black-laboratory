@@ -119,7 +119,7 @@ const projectCategories: ProjectCategories = {
      { name: "WHIM", url: "https://www.raphaelsalaja.com/projects/whim", type: "external" },
      { name: "COLOR MAGIC", url: "https://colormagic.app", type: "external" },
      { name: "INVISIBLE DETAILS OF INTERACTION DESIGN", url: "https://rauno.me/craft/interaction-design", type: "external" },
-     { name: "Image Component with Next.js", url: "https://image-component.nextjs.gallery", type: "external" },
+     { name: "IMAGE COMPONENT WITH NEXT.JS", url: "https://image-component.nextjs.gallery", type: "external" },
     ],
   },
 };
