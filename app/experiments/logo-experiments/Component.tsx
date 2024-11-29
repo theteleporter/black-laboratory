@@ -272,13 +272,13 @@ const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
         <div className="flex flex-row justify-center gap-4 mb-8">
           <Button
             onClick={() => generateImage('png')}
-            className={`${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
+            className={`${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80 flex align-middle'}`}
           >
             Download PNG <Download className="inline-block ml-2 w-4 h-4" />
           </Button>
           <Button
             onClick={() => generateImage('svg')}
-            className={`${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
+            className={`${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80 flex align-middle'}`}
           >
            Download SVG <Download className="inline-block ml-2 w-4 h-4" />
           </Button>
