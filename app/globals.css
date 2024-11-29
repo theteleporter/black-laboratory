@@ -39,3 +39,22 @@ pre {
   font-size: 0.9rem;
   line-height: 1.4;
 }
+
+/* ProjectList animations */
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.translate-x-\[-100\%\] {
+  transform: translateX(-100%);
+}
+
