@@ -7,13 +7,14 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { experiments, resources, Project } from '../utils/projectData';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { AnimatedPlaceholder } from './animated-placeholder'
+import { AnimatedPlaceholder } from './animated-placeholder';
 
 export default function CMDK() {
   const [open, setOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [inputValue, setInputValue] = useState('');
+  const [cursorPosition, setCursorPosition] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const categoriesRef = useRef<HTMLDivElement>(null);
@@ -74,7 +75,18 @@ export default function CMDK() {
       e.preventDefault();
       const selectedItem = allItems[selectedIndex];
       handleItemSelect(selectedItem);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      setCursorPosition((prevPosition) => Math.max(0, prevPosition - 1));
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      setCursorPosition((prevPosition) => Math.min(inputValue.length, prevPosition + 1));
     }
+  };
+
+  const handleInputChange = (value: string) => {
+    setInputValue(value);
+    setCursorPosition(value.length);
   };
 
   const handleItemSelect = (item: Project) => {
@@ -104,9 +116,10 @@ export default function CMDK() {
         <Command.Input 
           ref={inputRef}
           value={inputValue}
-          onValueChange={setInputValue}
-          className="w-full text-sm bg-transparent text-[#EFEFEF] placeholder:text-[#6C6C6C] px-6 py-4 outline-none border-b border-[#333333] caret-transparent"
+          onValueChange={handleInputChange}
+          className="w-full text-sm bg-transparent text-[#EFEFEF] placeholder:text-[#6C6C6C] px-6 py-4 outline-none border-b border-[#333333]"
           placeholder=""
+          onClick={(e) => setCursorPosition((e.target as HTMLInputElement).selectionStart || 0)}
         />
         {!inputValue && (
           <div className="absolute left-6 top-1/2 -translate-y-1/2 text-[#6C6C6C] pointer-events-none">
@@ -116,16 +129,11 @@ export default function CMDK() {
         <motion.div
           className="absolute top-1/2 -translate-y-1/2 w-[4px] h-5 bg-[#ff00ff]"
           style={{
-            left: `calc(${inputRef.current?.selectionStart || 0} * 0.6rem + 1.5rem)`,
+            left: `calc(${cursorPosition}ch + 1.5rem)`,
           }}
-          animate={{
-            opacity: [1, 1, 0, 0],
-          }}
-          transition={{
-            repeat: Infinity,
-            duration: 1.5,
-            times: [0, 0.5, 0.5, 1],
-          }}
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.2 }}
         />
       </div>
       <Command.List className="overflow-y-auto h-[300px] py-2">
@@ -190,7 +198,7 @@ export default function CMDK() {
           </motion.div>
         </AnimatePresence>
       </Command.List>
-
+      
       <div className="border-t border-[#333333] p-2 flex items-center justify-between">
         <div className="flex items-center space-x-2 relative w-full">
           <button
