@@ -206,7 +206,7 @@ export default function CMDK() {
           </button>
           <div
             ref={categoriesRef}
-            className="flex items-center space-x-2 overflow-x-auto scrollbar-hide px-6 w-full"
+            className="flex items-center space-x-2 overflow-x-auto scrollbar-hide pl-6 w-full"
           >
             <motion.div
               className="flex space-x-2"
