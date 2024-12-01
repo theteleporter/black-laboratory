@@ -210,6 +210,7 @@ export default function ProjectList() {
               disabled={currentPage === 1}
               className="text-stone-400 hover:text-white disabled:opacity-50"
             >
+           <span className='sr-only'>Previous</span>
               <ChevronLeft size={20} />
             </button>
             <span className="text-stone-400 text-sm">
@@ -220,6 +221,7 @@ export default function ProjectList() {
               disabled={currentPage === totalPages}
               className="text-stone-400 hover:text-white disabled:opacity-50"
             >
+           <span className='sr-only'>Next</span>
               <ChevronRight size={20} />
             </button>
           </div>

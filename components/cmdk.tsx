@@ -201,6 +201,7 @@ export default function CMDK() {
               hoveredPrev ? 'text-white' : 'text-[#6E6E6E]'
             }`}
           >
+           <span className='sr-only'>Previous</span>
             <ChevronLeft size={16} />
           </button>
           <div
@@ -246,6 +247,7 @@ export default function CMDK() {
               hoveredNext ? 'text-white' : 'text-[#6E6E6E]'
             }`}
           >
+           <span className='sr-only'>Next</span>
             <ChevronRight size={16} />
           </button>
         </div>
