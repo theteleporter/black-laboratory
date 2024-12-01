@@ -157,6 +157,7 @@ export default function ProjectList() {
               }}
               className="absolute left-0 z-10 bg-gradient-to-r from-[#161616] to-transparent pr-4 h-full flex items-center"
             >
+            <span className='sr-only'>Previous</span>
               <ChevronLeft size={16} className="text-stone-400" />
             </button>
             <div
@@ -200,6 +201,7 @@ export default function ProjectList() {
               }}
               className="absolute right-0 z-10 bg-gradient-to-l from-[#161616] to-transparent pl-4 h-full flex items-center"
             >
+            <span className='sr-only'>Previous</span>
               <ChevronRight size={16} className="text-stone-400" />
             </button>
           </div>
@@ -221,7 +223,7 @@ export default function ProjectList() {
               disabled={currentPage === totalPages}
               className="text-stone-400 hover:text-white disabled:opacity-50"
             >
-           <span className='sr-only'>Next</span>
+           <span className='sr-only'></span>
               <ChevronRight size={20} />
             </button>
           </div>
