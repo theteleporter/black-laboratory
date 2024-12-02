@@ -15,7 +15,7 @@ const Component: React.FC = () => {
 
     // Scene setup
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x444444);
+    scene.background = new THREE.Color(0x161616);
 
     // Head geometry
     const headGeometry = new THREE.SphereGeometry(3, 84, 84);
