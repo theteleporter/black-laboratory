@@ -15,7 +15,7 @@ export const Logo: React.FC = () => {
         `}
       </style>
       <text
-        x="10"
+        x="0"
         y="35"
         fontFamily="'Dela Gothic One', sans"
         fontSize="24"
