@@ -75,7 +75,7 @@ export default function ProjectList() {
       ))}
     </ul>
   );
-
+{/**
   const renderResources = () => (
     <motion.ul 
       style={{ minHeight: LIST_HEIGHT }}
@@ -139,14 +139,15 @@ export default function ProjectList() {
       </AnimatePresence>
     </motion.ul>
   );
-
+**/}
   return (
     <div className="space-y-5">
       <div>
         <h2 className="text-stone-300 font-thin uppercase border-b border-[#212121] max-w-fit">experiments</h2>
         {renderExperiments()}
       </div>
-      <div>
+{/**
+   <div>
         <h2 className="text-stone-300 font-thin uppercase border-b border-[#212121] max-w-fit">resources</h2>
         <div className="mt-2 space-y-4">
           <div className="flex items-center space-x-2 relative">
@@ -238,6 +239,7 @@ export default function ProjectList() {
           scrollbar-width: none;
         }
       `}</style>
+**/}
     </div>
   );
 }
