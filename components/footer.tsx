@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Kbd } from './kbd'
+import { Fingerprint } from 'lucide-react'
 
 function getFormattedDate() {
   const now = new Date();
@@ -40,6 +42,7 @@ export default function Footer() {
   return (
     <footer className="mt-16 pb-8 text-xs font-extralight text-stone-300">
       <div className="pt-8">
+      <div className='items-center flex gap-1 mb-2'><Kbd size="sm">⌘K</Kbd> or 2 <Kbd><Fingerprint className="w-3 h-3" /></Kbd> taps to search</div>
         <p>{formattedDate} BLACK LABS</p>
         <p className="flex items-center space-x-2">
           <span
