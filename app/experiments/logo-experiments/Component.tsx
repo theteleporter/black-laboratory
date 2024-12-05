@@ -6,12 +6,13 @@ import { Download, Moon, Sun, ChevronLeft, ChevronRight, AlignLeft, AlignCenter,
 import Link from 'next/link'
 import type { NextFont } from 'next/dist/compiled/@next/font'
 import Note from '../../../components/note'
+import { getFontWeights } from '../../../utils/fontUtils'
 
 interface FontConfig {
   name: string;
   font: NextFont | { className: string; style: { fontFamily: string } };
   defaultText: string;
-  weights?: string[];
+  weights: string[];
 }
 
 interface FontSettings {
@@ -120,42 +121,34 @@ export default function Component() {
     ...defaultSettings,
     weight: '400', // Updated default weight
   })
-  const [fonts, setFonts] = useState([
-    { 
-      name: 'Comfortaa', 
-      font: comfortaa, 
-      defaultText: 'black labs',
-      weights: ['300', '400', '500', '600', '700']
-    },
-    { 
-      name: 'Geist', 
-      font: geist, 
-      defaultText: 'Black Labs',
-      weights: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
-    },
-    { 
-      name: 'Dela Gothic One', 
-      font: delaGothicOne, 
-      defaultText: 'BLACK LABS',
-      weights: ['400']
-    },
-    { 
-      name: 'Courier Prime', 
-      font: courierPrime, 
-      defaultText: 'Black Labs',
-      weights: ['400', '700']
-    },
-  ])
+  const [fonts, setFonts] = useState<FontConfig[]>([])
+  const [isLoading, setIsLoading] = useState(true); // Added loading state
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const textRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    fonts.forEach(({ font, weights }) => {
-      weights?.forEach(weight => {
-        document.fonts.load(`${weight} 16px ${font.style.fontFamily}`)
-      })
-    })
-    setTexts(fonts.map(font => font.defaultText))
+    const fetchFontWeights = async () => {
+      setIsLoading(true); // Set loading to true before fetching
+      const predefinedFonts: FontConfig[] = [
+        { name: 'Comfortaa', font: comfortaa, defaultText: 'black labs', weights: [] },
+        { name: 'Geist', font: geist, defaultText: 'Black Labs', weights: [] },
+        { name: 'Dela Gothic One', font: delaGothicOne, defaultText: 'BLACK LABS', weights: [] },
+        { name: 'Courier Prime', font: courierPrime, defaultText: 'Black Labs', weights: [] },
+      ]
+
+      const fontsWithWeights = await Promise.all(
+        predefinedFonts.map(async (font) => {
+          const weights = await getFontWeights(font.name)
+          return { ...font, weights }
+        })
+      )
+
+      setFonts(fontsWithWeights)
+      setTexts(fontsWithWeights.map(font => font.defaultText))
+      setIsLoading(false); // Set loading to false after fetching
+    }
+
+    fetchFontWeights()
   }, [])
 
   useEffect(() => {
@@ -308,6 +301,8 @@ export default function Component() {
 
         await document.fonts.load(`16px "${fontName}"`)
 
+        const weights = await getFontWeights(fontName)
+
         return {
           name: fontName,
           font: {
@@ -317,7 +312,7 @@ export default function Component() {
             }
           },
           defaultText: fontName,
-          weights: ['400'] // Default weight for custom fonts
+          weights
         }
       }))
 
@@ -338,90 +333,94 @@ export default function Component() {
 
       <div className="w-full max-w-2xl mb-8">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold text-center">{fonts[currentFontIndex].name}</h2>
+          <h2 className="text-2xl font-bold text-center">{fonts[currentFontIndex]?.name || 'Loading...'}</h2>
           <Button onClick={resetSettings} className="p-1" title="Reset settings">
             <RotateCcw className="w-4 h-4" />
           </Button>
         </div>
 
         {/* Font Controls */}
-        <div className="mb-6 space-y-3">
-          <div className="flex justify-between items-center gap-4">
-            {/* Weight Selector */}
-            <select
-              value={fontSettings.weight}
-              onChange={(e) => setFontSettings(prev => ({ ...prev, weight: e.target.value }))}
-              className={`${
-                darkMode 
-                  ? 'bg-white text-black' 
-                  : 'bg-black text-white'
-              } border-stone-200 dark:border-stone-800 rounded-md px-3 py-2 text-sm w-48`}
-            >
-              {fonts[currentFontIndex].weights?.map(weight => (
-                <option key={weight} value={weight}>
-                  {weight === '400' ? 'Regular' : weight === '700' ? 'Bold' : `Weight ${weight}`}
-                </option>
-              ))}
-            </select>
+        {fonts.length > 0 && (
+          <div className="mb-6 space-y-3">
+            <div className="flex justify-between items-center gap-4">
+              {/* Weight Selector */}
+              <select
+                value={fontSettings.weight}
+                onChange={(e) => setFontSettings(prev => ({ ...prev, weight: e.target.value }))}
+                className={`${
+                  darkMode 
+                    ? 'bg-white text-black' 
+                    : 'bg-black text-white'
+                } border-stone-200 dark:border-stone-800 rounded-md px-3 py-2 text-sm w-48`}
+              >
+                {fonts[currentFontIndex]?.weights.map(weight => (
+                  <option key={weight} value={weight}>
+                    {weight === '400' ? 'Regular' : weight === '700' ? 'Bold' : `Weight ${weight}`}
+                  </option>
+                ))}
+              </select>
 
-            {/* Alignment Controls */}
-            <div className="flex justify-start gap-1">
-              {(['left', 'center', 'right'] as const).map(align => (
-                <Button
-                  key={align}
-                  onClick={() => setFontSettings(prev => ({ ...prev, alignment: align }))}
-                  className={`p-1.5 rounded-lg ${
-                    fontSettings.alignment === align 
-                      ? 'bg-black dark:bg-white text-white dark:text-black' 
-                      : 'hover:bg-stone-100 dark:hover:bg-stone-800'
-                  }`}
-                >
-                  {align === 'left' && <AlignLeft className="w-3.5 h-3.5" />}
-                  {align === 'center' && <AlignCenter className="w-3.5 h-3.5" />}
-                  {align === 'right' && <AlignRight className="w-3.5 h-3.5" />}
-                </Button>
-              ))}
+              {/* Alignment Controls */}
+              <div className="flex justify-start gap-1">
+                {(['left', 'center', 'right'] as const).map(align => (
+                  <Button
+                    key={align}
+                    onClick={() => setFontSettings(prev => ({ ...prev, alignment: align }))}
+                    className={`p-1.5 rounded-lg ${
+                      fontSettings.alignment === align 
+                        ? 'bg-black dark:bg-white text-white dark:text-black' 
+                        : 'hover:bg-stone-100 dark:hover:bg-stone-800'
+                    }`}
+                  >
+                    {align === 'left' && <AlignLeft className="w-3.5 h-3.5" />}
+                    {align === 'center' && <AlignCenter className="w-3.5 h-3.5" />}
+                    {align === 'right' && <AlignRight className="w-3.5 h-3.5" />}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {/* Size and Spacing Sliders */}
+            <div className="flex gap-4">
+              <Slider
+                label="Size"
+                value={fontSettings.size}
+                onChange={(value) => setFontSettings(prev => ({ ...prev, size: value }))}
+                min={12}
+                max={120}
+                darkMode={darkMode}
+              />
+              <Slider
+                label="Spacing"
+                value={fontSettings.spacing}
+                onChange={(value) => setFontSettings(prev => ({ ...prev, spacing: value }))}
+                min={-10}
+                max={50}
+                step={1}
+                darkMode={darkMode}
+              />
             </div>
           </div>
+        )}
 
-          {/* Size and Spacing Sliders */}
-          <div className="flex gap-4">
-            <Slider
-              label="Size"
-              value={fontSettings.size}
-              onChange={(value) => setFontSettings(prev => ({ ...prev, size: value }))}
-              min={12}
-              max={120}
-              darkMode={darkMode}
-            />
-            <Slider
-              label="Spacing"
-              value={fontSettings.spacing}
-              onChange={(value) => setFontSettings(prev => ({ ...prev, spacing: value }))}
-              min={-10}
-              max={50}
-              step={1}
-              darkMode={darkMode}
-            />
-          </div>
-        </div>
-
-        <input
-          ref={textRef}
-          type="text"
-          value={texts[currentFontIndex] || ''}
-          onChange={handleTextChange}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center mb-8 w-full bg-transparent focus:outline-none"
-          style={{
-            wordBreak: 'break-word',
-            fontFamily: fonts[currentFontIndex].font.style.fontFamily,
-            fontSize: `${fontSettings.size}px`,
-            letterSpacing: `${fontSettings.spacing}px`,
-            fontWeight: fontSettings.weight,
-            fontVariationSettings: `"wght" ${fontSettings.weight}`,
-            textAlign: fontSettings.alignment,
-          }}
-        />
+        {fonts.length > 0 && (
+          <input
+            ref={textRef}
+            type="text"
+            value={texts[currentFontIndex] || ''}
+            onChange={handleTextChange}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center mb-8 w-full bg-transparent focus:outline-none"
+            style={{
+              wordBreak: 'break-word',
+              fontFamily: fonts[currentFontIndex]?.font.style.fontFamily,
+              fontSize: `${fontSettings.size}px`,
+              letterSpacing: `${fontSettings.spacing}px`,
+              fontWeight: fontSettings.weight,
+              fontVariationSettings: `"wght" ${fontSettings.weight}`,
+              textAlign: fontSettings.alignment,
+            }}
+          />
+        )}
 
         <div className="flex flex-row justify-center items-center gap-4 mb-8">
           <Button
@@ -438,11 +437,13 @@ export default function Component() {
           </Button>
         </div>
 
-        <Pagination
-          currentPage={currentFontIndex}
-          totalPages={fonts.length}
-          onPageChange={setCurrentFontIndex}
-        />
+        {fonts.length > 0 && (
+          <Pagination
+            currentPage={currentFontIndex}
+            totalPages={fonts.length}
+            onPageChange={setCurrentFontIndex}
+          />
+        )}
       </div>
 
       <form onSubmit={handleAddCustomFont} className="flex flex-col gap-2 mb-4 w-full max-w-xl">
@@ -463,22 +464,30 @@ export default function Component() {
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      <div className="mt-8 text-xs text-gray-500 w-full max-w-xl">
-        Fonts:
-        {fonts.map(({ name }, index) => (
-          <span key={name}>
-            <Link
-              href={`https://fonts.google.com/specimen/${name.replace(/\s+/g, '+')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#A1A1A1] hover:text-[#EFEFEF] transition-colors"
-            >
-              {name}
-            </Link>
-            {index < fonts.length - 1 ? ', ' : ''}
-          </span>
-        ))}
-      </div>
+      {isLoading && (
+        <div className="text-center">
+          <p>Loading fonts...</p>
+        </div>
+      )}
+
+      {fonts.length > 0 && (
+        <div className="mt-8 text-xs text-gray-500 w-full max-w-xl">
+          Fonts:
+          {fonts.map(({ name }, index) => (
+            <span key={name}>
+              <Link
+                href={`https://fonts.googleapis.com/specimen/${name.replace(/\s+/g, '+')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#A1A1A1] hover:text-[#EFEFEF] transition-colors"
+              >
+                {name}
+              </Link>
+              {index < fonts.length - 1 ? ', ' : ''}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
