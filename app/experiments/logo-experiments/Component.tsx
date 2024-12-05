@@ -5,9 +5,9 @@ import { Comfortaa, Geist, Dela_Gothic_One, Courier_Prime } from 'next/font/goog
 import { Download, Moon, Sun, ChevronLeft, ChevronRight, AlignLeft, AlignCenter, AlignRight, RotateCcw } from 'lucide-react'
 import Link from 'next/link'
 import type { NextFont } from 'next/dist/compiled/@next/font'
-import Note from '@/components/note'
-import SkeletonLoader from '@/components/skeleton'
-import { getFontWeights } from '@/utils/fontUtils'
+import Note from '../../../components/note'
+import SkeletonLoader from '../../../components/skeleton-loader'
+import { getFontWeights } from '../../../utils/fontUtils'
 
 interface FontConfig {
   name: string;
@@ -253,34 +253,37 @@ export default function Component() {
     const width = Math.max(totalWidth + padding * 2, 400)
     const height = Math.max(fontSize + padding * 2, 200)
 
-    let textX
+    let textX, textAnchor
     if (fontSettings.alignment === 'center') {
       textX = width / 2
+      textAnchor = 'middle'
     } else if (fontSettings.alignment === 'right') {
       textX = width - padding
+      textAnchor = 'end'
     } else {
       textX = padding
+      textAnchor = 'start'
     }
 
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-      <defs>
-        <style>
-          @import url('https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s+/g, '+')}:wght@${fontSettings.weight}');
-        </style>
-      </defs>
-      <rect width="100%" height="100%" fill="${darkMode ? 'black' : 'white'}"/>
-      <text
-        x="${textX}"
-        y="${height / 2}"
-        font-family="${fontFamily}, sans-serif"
-        font-size="${fontSize}"
-        font-weight="${fontSettings.weight}"
-        fill="${darkMode ? 'white' : 'black'}"
-        text-anchor="${fontSettings.alignment}"
-        dominant-baseline="middle"
-        letter-spacing="${letterSpacing}"
-      >${content}</text>
-    </svg>`
+    <defs>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s+/g, '+')}:wght@${fontSettings.weight}');
+      </style>
+    </defs>
+    <rect width="100%" height="100%" fill="${darkMode ? 'black' : 'white'}"/>
+    <text
+      x="${textX}"
+      y="${height / 2}"
+      font-family="${fontFamily}, sans-serif"
+      font-size="${fontSize}"
+      font-weight="${fontSettings.weight}"
+      fill="${darkMode ? 'white' : 'black'}"
+      text-anchor="${textAnchor}"
+      dominant-baseline="middle"
+      letter-spacing="${letterSpacing}"
+    >${content}</text>
+  </svg>`
 
     const blob = new Blob([svg], { type: 'image/svg+xml' })
     const url = URL.createObjectURL(blob)
