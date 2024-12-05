@@ -128,28 +128,29 @@ export default function Component() {
 
   useEffect(() => {
     const fetchFontWeights = async () => {
-      setIsLoading(true); // Set loading to true before fetching
+      setIsLoading(true);
       const predefinedFonts: FontConfig[] = [
         { name: 'Comfortaa', font: comfortaa, defaultText: 'black labs', weights: [] },
         { name: 'Geist', font: geist, defaultText: 'Black Labs', weights: [] },
         { name: 'Dela Gothic One', font: delaGothicOne, defaultText: 'BLACK LABS', weights: [] },
         { name: 'Courier Prime', font: courierPrime, defaultText: 'Black Labs', weights: [] },
-      ]
+      ];
 
       const fontsWithWeights = await Promise.all(
         predefinedFonts.map(async (font) => {
-          const weights = await getFontWeights(font.name)
-          return { ...font, weights }
+          const weights = await getFontWeights(font.name);
+          return { ...font, weights };
         })
-      )
+      );
 
-      setFonts(fontsWithWeights)
-      setTexts(fontsWithWeights.map(font => font.defaultText))
-      setIsLoading(false); // Set loading to false after fetching
-    }
+      setFonts(fontsWithWeights);
+      setTexts(fontsWithWeights.map(font => font.defaultText));
+      setFontSettings(prev => ({ ...prev, weight: fontsWithWeights[0].weights[0] || '400' }));
+      setIsLoading(false);
+    };
 
-    fetchFontWeights()
-  }, [])
+    fetchFontWeights();
+  }, []);
 
   useEffect(() => {
     if (textRef.current) {
@@ -290,18 +291,18 @@ export default function Component() {
   }
 
   const handleAddCustomFont = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     if (customFont) {
-      const fontNames = customFont.split(',').map(name => name.trim())
+      const fontNames = customFont.split(',').map(name => name.trim());
       const newFonts = await Promise.all(fontNames.map(async (fontName) => {
-        const link = document.createElement('link')
-        link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(/\s+/g, '+')}`
-        link.rel = 'stylesheet'
-        document.head.appendChild(link)
+        const link = document.createElement('link');
+        link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(/\s+/g, '+')}:wght@100;200;300;400;500;600;700;800;900&display=swap`;
+        link.rel = 'stylesheet';
+        document.head.appendChild(link);
 
-        await document.fonts.load(`16px "${fontName}"`)
+        await document.fonts.load(`16px "${fontName}"`);
 
-        const weights = await getFontWeights(fontName)
+        const weights = await getFontWeights(fontName);
 
         return {
           name: fontName,
@@ -313,15 +314,15 @@ export default function Component() {
           },
           defaultText: fontName,
           weights
-        }
-      }))
+        };
+      }));
 
-      setFonts(prevFonts => [...prevFonts, ...newFonts])
-      setTexts(prevTexts => [...prevTexts, ...newFonts.map(font => font.defaultText)])
-      setCurrentFontIndex(fonts.length)
-      setCustomFont('')
+      setFonts(prevFonts => [...prevFonts, ...newFonts]);
+      setTexts(prevTexts => [...prevTexts, ...newFonts.map(font => font.defaultText)]);
+      setCurrentFontIndex(fonts.length);
+      setCustomFont('');
     }
-  }
+  };
 
   return (
     <div className={`min-h-screen w-screen flex flex-col items-center justify-center p-8 ${darkMode ? 'bg-[#161616] text-white' : 'bg-white text-black'}`}>
@@ -416,7 +417,6 @@ export default function Component() {
               fontSize: `${fontSettings.size}px`,
               letterSpacing: `${fontSettings.spacing}px`,
               fontWeight: fontSettings.weight,
-              fontVariationSettings: `"wght" ${fontSettings.weight}`,
               textAlign: fontSettings.alignment,
             }}
           />
