@@ -5,8 +5,9 @@ import { Comfortaa, Geist, Dela_Gothic_One, Courier_Prime } from 'next/font/goog
 import { Download, Moon, Sun, ChevronLeft, ChevronRight, AlignLeft, AlignCenter, AlignRight, RotateCcw } from 'lucide-react'
 import Link from 'next/link'
 import type { NextFont } from 'next/dist/compiled/@next/font'
-import Note from '../../../components/note'
-import { getFontWeights } from '../../../utils/fontUtils'
+import Note from '@/components/note'
+import SkeletonLoader from '@/components/skeleton-loader'
+import { getFontWeights } from '@/utils/fontUtils'
 
 interface FontConfig {
   name: string;
@@ -188,12 +189,12 @@ export default function Component() {
     const padding = 40
     const letterSpacing = fontSettings.spacing
 
+    // Calculate text width with letter spacing
     ctx.font = `${fontSettings.weight} ${fontSize}px "${fontFamily}"`
-    const measurements = content.split('').map(char => ctx.measureText(char))
-
-    const totalWidth = measurements.reduce((width, measure, i) => {
-      return width + measure.width + (i < content.length - 1 ? letterSpacing : 0)
-    }, 0)
+    let totalWidth = 0
+    for (let i = 0; i < content.length; i++) {
+      totalWidth += ctx.measureText(content[i]).width + (i < content.length - 1 ? letterSpacing : 0)
+    }
 
     const displayWidth = Math.max(totalWidth + padding * 2, 400)
     const displayHeight = Math.max(fontSize + padding * 2, 200)
@@ -215,14 +216,18 @@ export default function Component() {
 
     let currentX
     if (fontSettings.alignment === 'center') {
-      currentX = displayWidth / 2
+      currentX = displayWidth / 2 - totalWidth / 2
     } else if (fontSettings.alignment === 'right') {
-      currentX = displayWidth - padding
+      currentX = displayWidth - padding - totalWidth
     } else {
       currentX = padding
     }
 
-    ctx.fillText(content, currentX, displayHeight / 2)
+    // Draw text with letter spacing
+    for (let i = 0; i < content.length; i++) {
+      ctx.fillText(content[i], currentX, displayHeight / 2)
+      currentX += ctx.measureText(content[i]).width + letterSpacing
+    }
 
     const dataUrl = canvas.toDataURL('image/png')
     const link = document.createElement('a')
@@ -240,10 +245,12 @@ export default function Component() {
     if (!context) return
 
     context.font = `${fontSettings.weight} ${fontSize}px "${fontFamily}"`
-    const metrics = context.measureText(content)
-    const textWidth = metrics.width + (content.length - 1) * letterSpacing
+    let totalWidth = 0
+    for (let i = 0; i < content.length; i++) {
+      totalWidth += context.measureText(content[i]).width + (i < content.length - 1 ? letterSpacing : 0)
+    }
 
-    const width = Math.max(textWidth + padding * 2, 400)
+    const width = Math.max(totalWidth + padding * 2, 400)
     const height = Math.max(fontSize + padding * 2, 200)
 
     let textX
@@ -333,116 +340,118 @@ export default function Component() {
       </div>
 
       <div className="w-full max-w-2xl mb-8">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold text-center">{fonts[currentFontIndex]?.name || 'Loading...'}</h2>
-          <Button onClick={resetSettings} className="p-1" title="Reset settings">
-            <RotateCcw className="w-4 h-4" />
-          </Button>
-        </div>
+        {isLoading ? (
+          <SkeletonLoader />
+        ) : (
+          <>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-bold text-center">{fonts[currentFontIndex]?.name}</h2>
+              <Button onClick={resetSettings} className="p-1" title="Reset settings">
+                <RotateCcw className="w-4 h-4" />
+              </Button>
+            </div>
 
-        {/* Font Controls */}
-        {fonts.length > 0 && (
-          <div className="mb-6 space-y-3">
-            <div className="flex justify-between items-center gap-4">
-              {/* Weight Selector */}
-              <select
-                value={fontSettings.weight}
-                onChange={(e) => setFontSettings(prev => ({ ...prev, weight: e.target.value }))}
-                className={`${
-                  darkMode 
-                    ? 'bg-white text-black' 
-                    : 'bg-black text-white'
-                } border-stone-200 dark:border-stone-800 rounded-md px-3 py-2 text-sm w-48`}
-              >
-                {fonts[currentFontIndex]?.weights.map(weight => (
-                  <option key={weight} value={weight}>
-                    {weight === '400' ? 'Regular' : weight === '700' ? 'Bold' : `Weight ${weight}`}
-                  </option>
-                ))}
-              </select>
-
-              {/* Alignment Controls */}
-              <div className="flex justify-start gap-1">
-                {(['left', 'center', 'right'] as const).map(align => (
-                  <Button
-                    key={align}
-                    onClick={() => setFontSettings(prev => ({ ...prev, alignment: align }))}
-                    className={`p-1.5 rounded-lg ${
-                      fontSettings.alignment === align 
-                        ? 'bg-black dark:bg-white text-white dark:text-black' 
-                        : 'hover:bg-stone-100 dark:hover:bg-stone-800'
-                    }`}
+            {/* Font Controls */}
+            {fonts.length > 0 && (
+              <div className="mb-6 space-y-3">
+                <div className="flex justify-between items-center gap-4">
+                  {/* Weight Selector */}
+                  <select
+                    value={fontSettings.weight}
+                    onChange={(e) => setFontSettings(prev => ({ ...prev, weight: e.target.value }))}
+                    className={`${
+                      darkMode 
+                        ? 'bg-white text-black' 
+                        : 'bg-black text-white'
+                    } border-stone-200 dark:border-stone-800 rounded-md px-3 py-2 text-sm w-48`}
                   >
-                    {align === 'left' && <AlignLeft className="w-3.5 h-3.5" />}
-                    {align === 'center' && <AlignCenter className="w-3.5 h-3.5" />}
-                    {align === 'right' && <AlignRight className="w-3.5 h-3.5" />}
-                  </Button>
-                ))}
+                    {fonts[currentFontIndex]?.weights.map(weight => (
+                      <option key={weight} value={weight}>
+                        {weight === '400' ? 'Regular' : weight === '700' ? 'Bold' : `Weight ${weight}`}
+                      </option>
+                    ))}
+                  </select>
+
+                  {/* Alignment Controls */}
+                  <div className="flex justify-start gap-1">
+                    {(['left', 'center', 'right'] as const).map(align => (
+                      <Button
+                        key={align}
+                        onClick={() => setFontSettings(prev => ({ ...prev, alignment: align }))}
+                        className={`p-1.5 rounded-lg ${
+                          fontSettings.alignment === align 
+                            ? 'bg-black dark:bg-white text-white dark:text-black' 
+                            : 'hover:bg-stone-100 dark:hover:bg-stone-800'
+                        }`}
+                      >
+                        {align === 'left' && <AlignLeft className="w-3.5 h-3.5" />}
+                        {align === 'center' && <AlignCenter className="w-3.5 h-3.5" />}
+                        {align === 'right' && <AlignRight className="w-3.5 h-3.5" />}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Size and Spacing Sliders */}
+                <div className="flex gap-4">
+                  <Slider
+                    label="Size"
+                    value={fontSettings.size}
+                    onChange={(value) => setFontSettings(prev => ({ ...prev, size: value }))}
+                    min={12}
+                    max={120}
+                    darkMode={darkMode}
+                  />
+                  <Slider
+                    label="Spacing"
+                    value={fontSettings.spacing}
+                    onChange={(value) => setFontSettings(prev => ({ ...prev, spacing: value }))}
+                    min={-10}
+                    max={50}
+                    step={1}
+                    darkMode={darkMode}
+                  />
+                </div>
               </div>
+            )}
+
+            <input
+              ref={textRef}
+              type="text"
+              value={texts[currentFontIndex] || ''}
+              onChange={handleTextChange}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center mb-8 w-full bg-transparent focus:outline-none"
+              style={{
+                wordBreak: 'break-word',
+                fontFamily: fonts[currentFontIndex]?.font.style.fontFamily,
+                fontSize: `${fontSettings.size}px`,
+                letterSpacing: `${fontSettings.spacing}px`,
+                fontWeight: fontSettings.weight,
+                textAlign: fontSettings.alignment,
+              }}
+            />
+
+            <div className="flex flex-row justify-center items-center gap-4 mb-8">
+              <Button
+                onClick={() => generateImage('png')}
+                className={`flex items-center ${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
+              >
+                Download PNG <Download className="inline-block ml-2 w-4 h-4" />
+              </Button>
+              <Button
+                onClick={() => generateImage('svg')}
+                className={`flex items-center ${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
+              >
+                Download SVG <Download className="inline-block ml-2 w-4 h-4" />
+              </Button>
             </div>
 
-            {/* Size and Spacing Sliders */}
-            <div className="flex gap-4">
-              <Slider
-                label="Size"
-                value={fontSettings.size}
-                onChange={(value) => setFontSettings(prev => ({ ...prev, size: value }))}
-                min={12}
-                max={120}
-                darkMode={darkMode}
-              />
-              <Slider
-                label="Spacing"
-                value={fontSettings.spacing}
-                onChange={(value) => setFontSettings(prev => ({ ...prev, spacing: value }))}
-                min={-10}
-                max={50}
-                step={1}
-                darkMode={darkMode}
-              />
-            </div>
-          </div>
-        )}
-
-        {fonts.length > 0 && (
-          <input
-            ref={textRef}
-            type="text"
-            value={texts[currentFontIndex] || ''}
-            onChange={handleTextChange}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center mb-8 w-full bg-transparent focus:outline-none"
-            style={{
-              wordBreak: 'break-word',
-              fontFamily: fonts[currentFontIndex]?.font.style.fontFamily,
-              fontSize: `${fontSettings.size}px`,
-              letterSpacing: `${fontSettings.spacing}px`,
-              fontWeight: fontSettings.weight,
-              textAlign: fontSettings.alignment,
-            }}
-          />
-        )}
-
-        <div className="flex flex-row justify-center items-center gap-4 mb-8">
-          <Button
-            onClick={() => generateImage('png')}
-            className={`flex items-center ${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
-          >
-            Download PNG <Download className="inline-block ml-2 w-4 h-4" />
-          </Button>
-          <Button
-            onClick={() => generateImage('svg')}
-            className={`flex items-center ${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-black/80'}`}
-          >
-            Download SVG <Download className="inline-block ml-2 w-4 h-4" />
-          </Button>
-        </div>
-
-        {fonts.length > 0 && (
-          <Pagination
-            currentPage={currentFontIndex}
-            totalPages={fonts.length}
-            onPageChange={setCurrentFontIndex}
-          />
+            <Pagination
+              currentPage={currentFontIndex}
+              totalPages={fonts.length}
+              onPageChange={setCurrentFontIndex}
+            />
+          </>
         )}
       </div>
 
@@ -463,12 +472,6 @@ export default function Component() {
       </form>
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
-
-      {isLoading && (
-        <div className="text-center">
-          <p>Loading fonts...</p>
-        </div>
-      )}
 
       {fonts.length > 0 && (
         <div className="mt-8 text-xs text-gray-500 w-full max-w-xl">
