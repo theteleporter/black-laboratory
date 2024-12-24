@@ -1,6 +1,6 @@
 # Black Labs
 
-![Black Labs](https://lab.theteleporter.me/logo.png)
+![Black Labs](https://lab.theteleporter.site/logo.png)
 
 Black Laboratory is reimagining the boundaries of web development by merging bold design aesthetics with cutting-edge technology. We're turning the web into a canvas for innovation.
 
