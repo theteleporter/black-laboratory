@@ -9,7 +9,9 @@ export default function AvatarComponent() {
 
   useEffect(() => {
     if (email) {
-      const url = `/api/avatar?email=${encodeURIComponent(email)}&format=png`;
+      // Add a timestamp to force a new request each time
+      const timestamp = Date.now();
+      const url = `/api/avatar?email=${encodeURIComponent(email)}&format=png&t=${timestamp}`;
       setAvatarUrl(url);
     } else {
       setAvatarUrl("");
@@ -17,7 +19,8 @@ export default function AvatarComponent() {
   }, [email]);
 
   const downloadAvatar = (format: "svg" | "png") => {
-    const url = `/api/avatar?email=${encodeURIComponent(email)}&format=${format}`;
+    const timestamp = Date.now();
+    const url = `/api/avatar?email=${encodeURIComponent(email)}&format=${format}&t=${timestamp}`;
     const link = document.createElement("a");
     link.href = url;
     link.download = `avatar-${email}.${format}`;
@@ -36,6 +39,7 @@ export default function AvatarComponent() {
               width={120}
               height={120}
               priority
+              unoptimized
             />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-[#232323] to-[#232323]" />
@@ -84,3 +88,4 @@ export default function AvatarComponent() {
     </div>
   );
 }
+
