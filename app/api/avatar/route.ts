@@ -19,30 +19,27 @@ export async function GET(request: NextRequest) {
     }, 0);
 
     const hue1 = Math.abs(hash % 360);
-    const hue2 = (hue1 + 137) % 360;
-    const hue3 = (hue2 + 137) % 360;
+    const hue2 = (hue1 + 180) % 360; // Complementary color
 
     return [
-      `hsl(${hue1}, ${85 + hash % 15}%, ${50 + (hash % 20)}%)`,
-      `hsl(${hue2}, ${90 + hash % 10}%, ${45 + (hash % 25)}%)`,
-      `hsl(${hue3}, ${80 + hash % 20}%, ${55 + (hash % 15)}%)`,
+      `hsl(${hue1}, 100%, 65%)`,
+      `hsl(${hue2}, 100%, 65%)`,
     ];
   };
 
-  const [color1, color2, color3] = generateColors(email);
+  const [color1, color2] = generateColors(email);
 
   const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
-      <defs>
-        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="${color1}" />
-          <stop offset="50%" stop-color="${color2}" />
-          <stop offset="100%" stop-color="${color3}" />
-        </linearGradient>
-      </defs>
-      <rect width="120" height="120" fill="url(#gradient)" />
-    </svg>
-  `;
+  <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+    <defs>
+      <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="${color1}" />
+        <stop offset="100%" stop-color="${color2}" />
+      </linearGradient>
+    </defs>
+    <rect width="120" height="120" fill="url(#gradient)" />
+  </svg>
+`;
 
   if (format === "svg") {
     return new NextResponse(svg, {
