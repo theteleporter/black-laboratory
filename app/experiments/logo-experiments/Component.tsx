@@ -6,7 +6,7 @@ import { Download, Moon, Sun, ChevronLeft, ChevronRight, AlignLeft, AlignCenter,
 import Link from 'next/link'
 import type { NextFont } from 'next/dist/compiled/@next/font'
 import Note from '../../../components/note'
-import SkeletonLoader from '../../../components/skeleton-loader'
+import SkeletonLoader from '../../../components/skeleton'
 import { getFontWeights } from '../../../utils/fontUtils'
 
 interface FontConfig {
