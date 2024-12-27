@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createCanvas, loadImage } from "canvas";
-import { v4 as uuidv4 } from "uuid";
+
+// Helper function to generate unique color for each letter
+const generateLetterColor = (letter: string, index: number) => {
+  // Use the index to create a hash and generate a unique color
+  const hash = letter.charCodeAt(0) + index * 10; // Create a simple hash
+  const hue = hash % 360; // Create a color hue from the hash value
+  return `hsl(${hue}, 90%, 60%)`; // Return the color as HSL
+};
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -11,36 +18,25 @@ export async function GET(request: NextRequest) {
     return new NextResponse("Email is required", { status: 400 });
   }
 
-  // Generate a unique color for each letter instance
-  const generateUniqueColors = (input: string) => {
-    const colors: { [key: string]: string } = {};
-    const generateColor = () => {
-      const hue = Math.floor(Math.random() * 360);
-      return `hsl(${hue}, 70%, 60%)`;
-    };
+  // Generate unique colors for each letter in the email
+  const letterColors = email.split('').map((letter, index) => generateLetterColor(letter, index));
 
-    input.split("").forEach(() => {
-      colors[uuidv4()] = generateColor();
-    });
-
-    return colors;
-  };
-
-  const letterColors = generateUniqueColors(email);
-
-  // Create an SVG with each letter in its unique color
-  const svgLetters = email.split("").map((char, index) => {
-    const color = letterColors[Object.keys(letterColors)[index]];
-    return `<text x="${10 + index * 12}" y="30" fill="${color}" font-size="20">${char}</text>`;
-  });
-
+  // Create SVG with unique colors for each letter
   const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="${email.length * 12 + 20}" height="50" viewBox="0 0 ${email.length * 12 + 20} 50">
-      ${svgLetters.join("\n")}
+    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+      <defs>
+        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          ${letterColors.map((color, index) => {
+            return `<stop offset="${(index / email.length) * 100}%" stop-color="${color}" />`;
+          }).join('')}
+        </linearGradient>
+      </defs>
+      <rect width="120" height="120" fill="url(#gradient)" />
+      <text x="50%" y="50%" font-size="30" text-anchor="middle" fill="white">${email}</text>
     </svg>
   `;
 
-  // Serve SVG directly
+  // Return SVG if requested
   if (format === "svg") {
     return new NextResponse(svg, {
       headers: {
@@ -52,14 +48,14 @@ export async function GET(request: NextRequest) {
 
   // Convert to PNG if requested
   if (format === "png") {
-    const canvas = createCanvas(email.length * 12 + 20, 50);
+    const canvas = createCanvas(120, 120);
     const ctx = canvas.getContext("2d");
 
-    // Load the SVG into the canvas
+    // Load the SVG into a canvas
     const svgBuffer = Buffer.from(svg);
     const image = await loadImage(`data:image/svg+xml;base64,${svgBuffer.toString("base64")}`);
 
-    ctx.drawImage(image, 0, 0, email.length * 12 + 20, 50);
+    ctx.drawImage(image, 0, 0, 120, 120);
 
     // Convert the canvas to PNG
     const pngBuffer = canvas.toBuffer("image/png");
@@ -71,6 +67,5 @@ export async function GET(request: NextRequest) {
     });
   }
 
-  // If format is unsupported
   return new NextResponse("Unsupported format", { status: 400 });
 }
