@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createCanvas, loadImage } from "canvas";
+import { v4 as uuidv4 } from "uuid";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -10,32 +11,32 @@ export async function GET(request: NextRequest) {
     return new NextResponse("Email is required", { status: 400 });
   }
 
-  // Generate colors using djb2 hash and triadic HSL
-  const generateColors = (input: string) => {
-    // djb2 hash algorithm
-    const hash = input.split("").reduce((acc, char) => acc * 33 + char.charCodeAt(0), 5381);
+  // Generate a unique color for each letter instance
+  const generateUniqueColors = (input: string) => {
+    const colors: { [key: string]: string } = {};
+    const generateColor = () => {
+      const hue = Math.floor(Math.random() * 360);
+      return `hsl(${hue}, 70%, 60%)`;
+    };
 
-    // Generate base hue and triadic hues
-    const baseHue = Math.abs(hash % 360); // Base hue
-    const hue1 = baseHue;                 // Primary color
-    const hue2 = (baseHue + 120) % 360;   // Triadic color
+    input.split("").forEach(() => {
+      colors[uuidv4()] = generateColor();
+    });
 
-    // Richer and brighter colors: increased saturation and lightness
-    return [`hsl(${hue1}, 90%, 60%)`, `hsl(${hue2}, 90%, 50%)`];
+    return colors;
   };
 
-  const [color1, color2] = generateColors(email);
+  const letterColors = generateUniqueColors(email);
 
-  // Base SVG string with the gradient
+  // Create an SVG with each letter in its unique color
+  const svgLetters = email.split("").map((char, index) => {
+    const color = letterColors[Object.keys(letterColors)[index]];
+    return `<text x="${10 + index * 12}" y="30" fill="${color}" font-size="20">${char}</text>`;
+  });
+
   const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
-      <defs>
-        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="${color1}" />
-          <stop offset="100%" stop-color="${color2}" />
-        </linearGradient>
-      </defs>
-      <rect width="120" height="120" fill="url(#gradient)" />
+    <svg xmlns="http://www.w3.org/2000/svg" width="${email.length * 12 + 20}" height="50" viewBox="0 0 ${email.length * 12 + 20} 50">
+      ${svgLetters.join("\n")}
     </svg>
   `;
 
@@ -51,14 +52,14 @@ export async function GET(request: NextRequest) {
 
   // Convert to PNG if requested
   if (format === "png") {
-    const canvas = createCanvas(120, 120);
+    const canvas = createCanvas(email.length * 12 + 20, 50);
     const ctx = canvas.getContext("2d");
 
-    // Load the SVG into a canvas
+    // Load the SVG into the canvas
     const svgBuffer = Buffer.from(svg);
     const image = await loadImage(`data:image/svg+xml;base64,${svgBuffer.toString("base64")}`);
 
-    ctx.drawImage(image, 0, 0, 120, 120);
+    ctx.drawImage(image, 0, 0, email.length * 12 + 20, 50);
 
     // Convert the canvas to PNG
     const pngBuffer = canvas.toBuffer("image/png");
