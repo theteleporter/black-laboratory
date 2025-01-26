@@ -4,7 +4,7 @@
 
 ## Demo
 
-[Click here to view the demo](https://lab.theteleporter.me/experiments/letter-graveyard)
+[Click here to view the demo](https://blacklabs.vercel.app/experiments/letter-graveyard)
 
 In the demo, type something into the text area, and when you delete the text, watch the letters fall down into a letter graveyard.
 
