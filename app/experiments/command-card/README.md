@@ -13,7 +13,7 @@ A beautiful, content-editable **command card** that can be downloaded as a PNG f
 
 To see the `Command Card` in action, check out the live demo here:
 
-**[Command Card Demo](https://lab.theteleporter.me/experiments/command-card)**
+**[Command Card Demo](https://blacklabs.vercel.app/experiments/command-card)**
 
 ## How to Use
 
