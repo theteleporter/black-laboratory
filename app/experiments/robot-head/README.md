@@ -26,7 +26,7 @@ This project showcases a **robot head with glasses** and several animated featur
 ## Demo  
 
 Check out the live demo of the Robot Head visualization:  
-[Robot Head Demo](https://lab.theteleporter.me/experiments/robot-head)
+[Robot Head Demo](https://blacklabs.vercel.app/experiments/robot-head)
 
 ---
 
