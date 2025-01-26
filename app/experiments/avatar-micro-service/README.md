@@ -58,7 +58,7 @@ Below are some sample avatars generated using the `/api/avatar` endpoint. These 
 
 | Example 1        | Example 2        | Example 3        | Example 4        | Example 5        |
 |-------------------|------------------|------------------|------------------|------------------|
-| ![Avatar 1](https://lab.theteleporter.me/api/avatar?email=user81@example.com&format=png) | ![Avatar 2](http://lab.theteleporter.me/api/avatar?email=user37@example.com&format=png) | ![Avatar 3](http://lab.theteleporter.me/api/avatar?email=user57@example.com&format=png) | ![Avatar 4](http://lab.theteleporter.me/api/avatar?email=user4@example.com&format=png) | ![Avatar 5](http://lab.theteleporter.me/api/avatar?email=user58@example.com&format=png) |
+| ![Avatar 1](https://blacklabs.vercel.app/api/avatar?email=user81@example.com&format=png) | ![Avatar 2](http://blacklabs.vercel.app/api/avatar?email=user37@example.com&format=png) | ![Avatar 3](http://blacklabs.vercel.app/api/avatar?email=user57@example.com&format=png) | ![Avatar 4](http://blacklabs.vercel.app/api/avatar?email=user4@example.com&format=png) | ![Avatar 5](http://blacklabs.vercel.app/api/avatar?email=user58@example.com&format=png) |
 
 ---
 
