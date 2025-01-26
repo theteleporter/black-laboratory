@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return fs.statSync(path.join(experimentsDir, file)).isDirectory();
   });
 
-  const baseUrl = 'https://lab.theteleporter.me';
+  const baseUrl = 'https://blacklabs.vercel.app';
 
   return [
     {
