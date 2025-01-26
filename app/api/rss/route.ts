@@ -8,16 +8,16 @@ export async function GET() {
   const feed = new Feed({
     title: "Black Labs by The Teleporter",
     description: "Experiments in design engineering that work.",
-    id: "https://lab.theteleporter.me/",
-    link: "https://lab.theteleporter.me/",
+    id: "https://blacklabs.vercel.app/",
+    link: "https://blacklabs.vercel.app/",
     language: "en",
-    image: "https://lab.theteleporter.me/theteleporter_logo.png",
-    favicon: "https://lab.theteleporter.me/favicon.ico",
+    image: "https://blacklabs.vercel.app/theteleporter_logo.png",
+    favicon: "https://blacklabs.vercel.app/favicon.ico",
     copyright: `All rights reserved ${new Date().getFullYear()}, The Teleporter`,
     author: {
       name: "The Teleporter",
       email: "theteleporter@duck.com",
-      link: "https://theteleporter.me"
+      link: "https://theteleporter.vercel.app"
     }
   });
 
@@ -27,7 +27,7 @@ export async function GET() {
   // Add experiments to the RSS feed
   experiments.forEach(experiment => {
     const title = experiment.name.replace(/-/g, ' ').toUpperCase();
-    const link = `https://lab.theteleporter.me/experiments/${experiment.name}`;
+    const link = `https://blacklabs.vercel.app/experiments/${experiment.name}`;
     const description = `Explore the ${experiment.name.replace(/-/g, ' ')} experiment`;
 
     feed.addItem({
@@ -36,7 +36,7 @@ export async function GET() {
       link,
       description,
       date: new Date(),
-      image: `https://lab.theteleporter.me/api/og?experiment=${experiment.name}`,
+      image: `https://blacklabs.vercel.app/api/og?experiment=${experiment.name}`,
       ...(experiment.sourceLink ? { source: experiment.sourceLink } : {}) // Add `sourceLink` if it exists
     });
   });
