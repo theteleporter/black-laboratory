@@ -35,11 +35,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Black Labs by The Teleporter',
     description: "Black Laboratory is reimagining the boundaries of web development by merging bold design aesthetics with cutting-edge technology. We're turning the web into a canvas for innovation.",
-    url: 'https://lab.theteleporter.me',
+    url: 'https://blacklabs.vercel.app',
     siteName: 'Black Labs by The Teleporter',
     images: [
       {
-        url: 'https://lab.theteleporter.me/api/og',
+        url: 'https://blacklabs.vercel.app/api/og',
         width: 800,
         height: 400,
       },
@@ -62,7 +62,7 @@ export default function RootLayout({
             "@context": "https://schema.org",
             "@type": "WebSite",
             "name": "Black Labs by The Teleporter",
-            "url": "https://lab.theteleporter.me",
+            "url": "https://blacklabs.vercel.app",
             "description": "Turning the web into a canvas.",
             "author": {
               "@type": "Person",
