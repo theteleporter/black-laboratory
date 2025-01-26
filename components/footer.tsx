@@ -56,7 +56,7 @@ export default function Footer() {
           >
             /
           </span>
-          <a href="https://theteleporter.me" className="text-stone-400 hover:cursor-pointer">THE TELEPORTER</a>
+          <a href="https://theteleporter.vercel.app" className="text-stone-400 hover:cursor-pointer">THE TELEPORTER</a>
         </p>
       </div>
     </footer>
