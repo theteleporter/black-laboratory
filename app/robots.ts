@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://lab.theteleporter.me/sitemap.xml',
+    sitemap: 'https://blacklabs.vercel.app/sitemap.xml',
   }
 }
