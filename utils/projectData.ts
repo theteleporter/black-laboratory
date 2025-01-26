@@ -16,9 +16,8 @@ export const experiments: Project[] = [
     { name: "AVATAR MICRO SERVICE", url: "/experiments/avatar-micro-service", type: "internal" },
     { name: "WORD ART", url: "/experiments/word-art", type: "internal", forkedFrom: "rauchg" },
     { name: "FILE TREE", url: "/experiments/file-tree", type: "internal" },
-    { name: "TELEBALL", url: "https://ball.theteleporter.me", type: "external" },
-    { name: "CREPT STUDIO", url: "https://crept.studio", type: "external" },
-    { name: "STRALUR", url: "https://ship.theteleporter.me/aff", type: "external" },
+    { name: "TELEBALL", url: "https://teleball.vercel.app", type: "external" },
+    { name: "CREPT STUDIO", url: "https://crept.vercel.app", type: "external" },
 ];
 
 export const resources: Project[] = [
